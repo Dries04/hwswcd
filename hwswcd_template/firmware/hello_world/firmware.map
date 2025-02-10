@@ -1,0 +1,103 @@
+
+Discarded input sections
+
+ .comment       0x00000000       0x1c build/print.o
+ .riscv.attributes
+                0x00000000       0x25 build/print.o
+ .comment       0x00000000       0x1c build/tcnt.o
+ .riscv.attributes
+                0x00000000       0x25 build/tcnt.o
+ .comment       0x00000000       0x1c build/firmware.o
+ .riscv.attributes
+                0x00000000       0x25 build/firmware.o
+ .riscv.attributes
+                0x00000000       0x27 build/start.o
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+ROM              0x00000000         0x00000800         xr
+RAM              0x00000800         0x00000800         xrw
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+
+.text           0x00000000      0x61c
+                0x00000000                        . = 0x0
+ *(.init)
+ .init          0x00000000      0x238 build/start.o
+                0x00000000                reset_vector
+                0x000001e4                start
+                0x000001fc                sw_mult
+ *(.text*)
+ .text          0x00000238      0x140 build/print.o
+                0x00000238                print_chr
+                0x00000244                print_str
+                0x00000260                _print_dec
+                0x000002c4                print_dec
+                0x00000330                print_hex
+ .text          0x00000378       0x98 build/tcnt.o
+                0x00000378                TCNT_start
+                0x0000038c                TCNT_clear
+                0x000003ac                TCNT_stop
+                0x000003c0                TCNT_start_div8
+                0x000003e8                TCNT_start_div16
+ .text          0x00000410      0x14c build/firmware.o
+                0x00000410                matrix_mult
+                0x000004e0                print_matrix
+ .text.startup  0x0000055c       0xc0 build/firmware.o
+                0x0000055c                main
+ .text          0x0000061c        0x0 build/start.o
+
+.data           0x00000800        0x0
+                0x00000000                        . = 0x0
+ *(.data)
+ .data          0x00000800        0x0 build/print.o
+ .data          0x00000800        0x0 build/tcnt.o
+ .data          0x00000800        0x0 build/firmware.o
+ .data          0x00000800        0x0 build/start.o
+
+.bss            0x00000800        0x0
+ .bss           0x00000800        0x0 build/print.o
+ .bss           0x00000800        0x0 build/tcnt.o
+ .bss           0x00000800        0x0 build/firmware.o
+ .bss           0x00000800        0x0 build/start.o
+
+.rodata         0x00000800      0x400
+                0x00000400                        . = 0x400
+ *fill*         0x00000800      0x400 
+ *(.rodata)
+                0x00000c00                        . = ALIGN (0x4)
+ FILL mask 0xff
+
+.rodata.str1.4  0x00000c00       0x3b
+ .rodata.str1.4
+                0x00000c00       0x3b build/print.o
+                                 0x15 (size before relaxing)
+ .rodata.str1.4
+                0x00000c3b       0x23 build/firmware.o
+
+.padding        0x00000c3c        0x4
+                0x00000c3c                        . = ALIGN (0x4)
+                0x00000c40                        . = (. + 0x4)
+ *fill*         0x00000c3c        0x4 
+
+/DISCARD/
+ *(.note*)
+ *(.iplt*)
+ *(.igot*)
+ *(.rel*)
+ *(.comment)
+ *(.riscv.attributes)
+LOAD build/print.o
+LOAD build/tcnt.o
+LOAD build/firmware.o
+LOAD build/start.o
+LOAD /opt/riscv/lib/gcc/riscv32-unknown-elf/13.2.0/libgcc.a
+START GROUP
+LOAD /opt/riscv/lib/gcc/riscv32-unknown-elf/13.2.0/../../../../riscv32-unknown-elf/lib/libc.a
+LOAD /opt/riscv/lib/gcc/riscv32-unknown-elf/13.2.0/../../../../riscv32-unknown-elf/lib/libgloss.a
+END GROUP
+LOAD /opt/riscv/lib/gcc/riscv32-unknown-elf/13.2.0/libgcc.a
+OUTPUT(firmware.elf elf32-littleriscv)
