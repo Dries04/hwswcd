@@ -10,11 +10,11 @@
 ################################################################################
 
 set pname "hwswcd_chapter_1_example"
-set path "/home/jvliegen/Documents/courses/KULeuven/sem8_HWSWCD/vivado/"
-set srcpath "/home/jvliegen/Desktop/temp/ch1"
+set path C:/Users/Dries/Documents/Uhasselt/ma_EA-ICT/HW_SW/Vivado
+set srcpath C:/Users/Dries/Documents/Uhasselt/ma_EA-ICT/HW_SW/gitrepo/ch1
 
 set part "xc7vx485tffg1761-2"
-set board "xilinx.com:vc707:part0:1.3"
+set board "xilinx.com:vc707:part0:1.4"
 
 # delete older versions
 cd $path
