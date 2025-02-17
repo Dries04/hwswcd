@@ -7,15 +7,17 @@
 
 #include "print.h"
 
-void print_chr(char ch)
-{
+void print_chr(char ch) {
 	*((volatile unsigned int*)OUTPORT) = ch;
 }
 
-void print_str(const char *p)
-{
+void print_str(const char *p) {
 	while (*p != 0)
 		*((volatile unsigned int*)OUTPORT) = *(p++);
+}
+
+void print_dec(unsigned int val) {
+
 }
 
 void print_hex(unsigned int val, int digits) {
