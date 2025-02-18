@@ -100,24 +100,14 @@ Disassembly of section .text:
  138:	f85ff0ef          	jal	ra,bc <print_dec>
  13c:	00500513          	addi	a0,zero,5
  140:	f7dff0ef          	jal	ra,bc <print_dec>
- 144:	00400513          	addi	a0,zero,4
- 148:	f75ff0ef          	jal	ra,bc <print_dec>
- 14c:	00300513          	addi	a0,zero,3
+ 144:	00a00513          	addi	a0,zero,10
+ 148:	f59ff0ef          	jal	ra,a0 <print_str>
+ 14c:	04500513          	addi	a0,zero,69
  150:	f6dff0ef          	jal	ra,bc <print_dec>
- 154:	00200513          	addi	a0,zero,2
- 158:	f65ff0ef          	jal	ra,bc <print_dec>
- 15c:	00100513          	addi	a0,zero,1
- 160:	f5dff0ef          	jal	ra,bc <print_dec>
- 164:	00000513          	addi	a0,zero,0
- 168:	f55ff0ef          	jal	ra,bc <print_dec>
- 16c:	00a00513          	addi	a0,zero,10
- 170:	f31ff0ef          	jal	ra,a0 <print_str>
- 174:	04500513          	addi	a0,zero,69
- 178:	f45ff0ef          	jal	ra,bc <print_dec>
- 17c:	00c12083          	lw	ra,12(sp)
- 180:	00000513          	addi	a0,zero,0
- 184:	01010113          	addi	sp,sp,16
- 188:	00008067          	jalr	zero,0(ra)
+ 154:	00c12083          	lw	ra,12(sp)
+ 158:	00000513          	addi	a0,zero,0
+ 15c:	01010113          	addi	sp,sp,16
+ 160:	00008067          	jalr	zero,0(ra)
 
 Disassembly of section .rodata.str1.4:
 
