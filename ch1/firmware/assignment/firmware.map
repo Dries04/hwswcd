@@ -1,0 +1,81 @@
+
+Discarded input sections
+
+ .comment       0x00000000       0x1c build/print.o
+ .riscv.attributes
+                0x00000000       0x1c build/print.o
+ .comment       0x00000000       0x1c build/firmware.o
+ .riscv.attributes
+                0x00000000       0x1c build/firmware.o
+ .riscv.attributes
+                0x00000000       0x1a build/start.o
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+ROM              0x00000000         0x00000800         xr
+RAM              0x00000800         0x00000800         xrw
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+
+.text           0x00000000      0x128
+                0x00000000                        . = 0x0
+ *(.init)
+ .init          0x00000000       0x90 build/start.o
+                0x00000000                start
+ *(.text*)
+ .text          0x00000090       0x74 build/print.o
+                0x00000090                print_chr
+                0x0000009c                print_str
+                0x000000b8                print_dec
+                0x000000bc                print_hex
+ .text          0x00000104        0x0 build/firmware.o
+ .text.startup  0x00000104       0x24 build/firmware.o
+                0x00000104                main
+ .text          0x00000128        0x0 build/start.o
+
+.data           0x00000800        0x0
+                0x00000000                        . = 0x0
+ *(.data)
+ .data          0x00000800        0x0 build/print.o
+ .data          0x00000800        0x0 build/firmware.o
+ .data          0x00000800        0x0 build/start.o
+
+.bss            0x00000800        0x0
+ .bss           0x00000800        0x0 build/print.o
+ .bss           0x00000800        0x0 build/firmware.o
+ .bss           0x00000800        0x0 build/start.o
+
+.rodata         0x00000800      0x400
+                0x00000400                        . = 0x400
+ *fill*         0x00000800      0x400 
+ *(.rodata)
+                0x00000c00                        . = ALIGN (0x4)
+ FILL mask 0xff
+
+.rodata.str1.4  0x00000c00       0x25
+ .rodata.str1.4
+                0x00000c00       0x25 build/print.o
+                                 0x15 (size before relaxing)
+ .rodata.str1.4
+                0x00000c25        0xd build/firmware.o
+
+/DISCARD/
+ *(.note*)
+ *(.iplt*)
+ *(.igot*)
+ *(.rel*)
+ *(.comment)
+ *(.riscv.attributes)
+LOAD build/print.o
+LOAD build/firmware.o
+LOAD build/start.o
+LOAD /opt/riscv/lib/gcc/riscv32-unknown-elf/13.2.0/libgcc.a
+START GROUP
+LOAD /opt/riscv/lib/gcc/riscv32-unknown-elf/13.2.0/../../../../riscv32-unknown-elf/lib/libc.a
+LOAD /opt/riscv/lib/gcc/riscv32-unknown-elf/13.2.0/../../../../riscv32-unknown-elf/lib/libgloss.a
+END GROUP
+LOAD /opt/riscv/lib/gcc/riscv32-unknown-elf/13.2.0/libgcc.a
+OUTPUT(firmware.elf elf32-littleriscv)
