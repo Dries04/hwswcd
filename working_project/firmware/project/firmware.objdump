@@ -111,7 +111,7 @@ Disassembly of section .text:
  164:	00000513          	addi	a0,zero,0
  168:	f55ff0ef          	jal	ra,bc <print_dec>
  16c:	00a00513          	addi	a0,zero,10
- 170:	f25ff0ef          	jal	ra,94 <print_chr>
+ 170:	f31ff0ef          	jal	ra,a0 <print_str>
  174:	04500513          	addi	a0,zero,69
  178:	f45ff0ef          	jal	ra,bc <print_dec>
  17c:	00c12083          	lw	ra,12(sp)
