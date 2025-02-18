@@ -110,10 +110,14 @@ Disassembly of section .text:
  160:	f5dff0ef          	jal	ra,bc <print_dec>
  164:	00000513          	addi	a0,zero,0
  168:	f55ff0ef          	jal	ra,bc <print_dec>
- 16c:	00c12083          	lw	ra,12(sp)
- 170:	00000513          	addi	a0,zero,0
- 174:	01010113          	addi	sp,sp,16
- 178:	00008067          	jalr	zero,0(ra)
+ 16c:	00a00513          	addi	a0,zero,10
+ 170:	f25ff0ef          	jal	ra,94 <print_chr>
+ 174:	04500513          	addi	a0,zero,69
+ 178:	f45ff0ef          	jal	ra,bc <print_dec>
+ 17c:	00c12083          	lw	ra,12(sp)
+ 180:	00000513          	addi	a0,zero,0
+ 184:	01010113          	addi	sp,sp,16
+ 188:	00008067          	jalr	zero,0(ra)
 
 Disassembly of section .rodata.str1.4:
 
