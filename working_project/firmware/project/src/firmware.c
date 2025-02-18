@@ -20,5 +20,8 @@ int main(void) {
 	print_dec(test7);
 	unsigned int test8 = 0;
 	print_dec(test8);
-	
+	print_chr('\n');
+	unsigned int test9 = 69;
+	print_dec(test9);
+	unsigned int test10 = 420;
 }
