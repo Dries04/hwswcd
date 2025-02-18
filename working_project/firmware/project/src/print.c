@@ -16,7 +16,7 @@ void print_str(const char *p) {
 		*((volatile unsigned int*)OUTPORT) = *(p++);
 }
 
-void print_dec(unsigned int val) { {
+void print_dec(unsigned int val) {
 		print_chr('0' + val);
 }
 
