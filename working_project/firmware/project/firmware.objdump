@@ -37,7 +37,7 @@ Disassembly of section .text:
   74:	00000f13          	addi	t5,zero,0
   78:	00000f93          	addi	t6,zero,0
   7c:	00001137          	lui	sp,0x1
-  80:	0e4000ef          	jal	ra,164 <main>
+  80:	098000ef          	jal	ra,118 <main>
   84:	0080006f          	jal	zero,8c <end>
   88:	00100073          	ebreak
 
@@ -49,7 +49,7 @@ Disassembly of section .text:
 
 00000094 <print_chr>:
   94:	800007b7          	lui	a5,0x80000
-  98:	00a7a023          	sw	a0,0(a5) # 80000000 <main+0x7ffffe9c>
+  98:	00a7a023          	sw	a0,0(a5) # 80000000 <main+0x7ffffee8>
   9c:	00008067          	jalr	zero,0(ra)
 
 000000a0 <print_str>:
@@ -58,67 +58,62 @@ Disassembly of section .text:
   a8:	00079463          	bne	a5,zero,b0 <print_str+0x10>
   ac:	00008067          	jalr	zero,0(ra)
   b0:	00150513          	addi	a0,a0,1
-  b4:	00f72023          	sw	a5,0(a4) # 80000000 <main+0x7ffffe9c>
+  b4:	00f72023          	sw	a5,0(a4) # 80000000 <main+0x7ffffee8>
   b8:	fedff06f          	jal	zero,a4 <print_str+0x4>
 
 000000bc <print_dec>:
-  bc:	04051463          	bne	a0,zero,104 <print_dec+0x48>
-  c0:	800007b7          	lui	a5,0x80000
-  c4:	03000713          	addi	a4,zero,48
-  c8:	00e7a023          	sw	a4,0(a5) # 80000000 <main+0x7ffffe9c>
+  bc:	03050513          	addi	a0,a0,48
+  c0:	0ff57513          	andi	a0,a0,255
+  c4:	800007b7          	lui	a5,0x80000
+  c8:	00a7a023          	sw	a0,0(a5) # 80000000 <main+0x7ffffee8>
   cc:	00008067          	jalr	zero,0(ra)
-  d0:	40f50533          	sub	a0,a0,a5
-  d4:	00170713          	addi	a4,a4,1
-  d8:	fef57ce3          	bgeu	a0,a5,d0 <print_dec+0x14>
-  dc:	00071463          	bne	a4,zero,e4 <print_dec+0x28>
-  e0:	00069a63          	bne	a3,zero,f4 <print_dec+0x38>
-  e4:	03070713          	addi	a4,a4,48
-  e8:	0ff77713          	andi	a4,a4,255
-  ec:	00e62023          	sw	a4,0(a2)
-  f0:	00000693          	addi	a3,zero,0
-  f4:	0017d713          	srli	a4,a5,0x1
-  f8:	40e787b3          	sub	a5,a5,a4
-  fc:	00079c63          	bne	a5,zero,114 <print_dec+0x58>
- 100:	00008067          	jalr	zero,0(ra)
- 104:	3b9ad7b7          	lui	a5,0x3b9ad
- 108:	00100693          	addi	a3,zero,1
- 10c:	a0078793          	addi	a5,a5,-1536 # 3b9aca00 <main+0x3b9ac89c>
- 110:	80000637          	lui	a2,0x80000
- 114:	00000713          	addi	a4,zero,0
- 118:	fc1ff06f          	jal	zero,d8 <print_dec+0x1c>
 
-0000011c <print_hex>:
- 11c:	04058263          	beq	a1,zero,160 <print_hex+0x44>
- 120:	00259593          	slli	a1,a1,0x2
- 124:	00001737          	lui	a4,0x1
- 128:	ffc58593          	addi	a1,a1,-4
- 12c:	c0470713          	addi	a4,a4,-1020 # c04 <main+0xaa0>
- 130:	800006b7          	lui	a3,0x80000
- 134:	0005d863          	bge	a1,zero,144 <print_hex+0x28>
- 138:	00001537          	lui	a0,0x1
- 13c:	c0050513          	addi	a0,a0,-1024 # c00 <main+0xa9c>
- 140:	f61ff06f          	jal	zero,a0 <print_str>
- 144:	00b557b3          	srl	a5,a0,a1
- 148:	00f7f793          	andi	a5,a5,15
- 14c:	00f707b3          	add	a5,a4,a5
- 150:	0007c783          	lbu	a5,0(a5)
- 154:	ffc58593          	addi	a1,a1,-4
- 158:	00f6a023          	sw	a5,0(a3) # 80000000 <main+0x7ffffe9c>
- 15c:	fd9ff06f          	jal	zero,134 <print_hex+0x18>
- 160:	00008067          	jalr	zero,0(ra)
+000000d0 <print_hex>:
+  d0:	04058263          	beq	a1,zero,114 <print_hex+0x44>
+  d4:	00259593          	slli	a1,a1,0x2
+  d8:	00001737          	lui	a4,0x1
+  dc:	ffc58593          	addi	a1,a1,-4
+  e0:	c0470713          	addi	a4,a4,-1020 # c04 <main+0xaec>
+  e4:	800006b7          	lui	a3,0x80000
+  e8:	0005d863          	bge	a1,zero,f8 <print_hex+0x28>
+  ec:	00001537          	lui	a0,0x1
+  f0:	c0050513          	addi	a0,a0,-1024 # c00 <main+0xae8>
+  f4:	fadff06f          	jal	zero,a0 <print_str>
+  f8:	00b557b3          	srl	a5,a0,a1
+  fc:	00f7f793          	andi	a5,a5,15
+ 100:	00f707b3          	add	a5,a4,a5
+ 104:	0007c783          	lbu	a5,0(a5)
+ 108:	ffc58593          	addi	a1,a1,-4
+ 10c:	00f6a023          	sw	a5,0(a3) # 80000000 <main+0x7ffffee8>
+ 110:	fd9ff06f          	jal	zero,e8 <print_hex+0x18>
+ 114:	00008067          	jalr	zero,0(ra)
 
-00000164 <main>:
- 164:	00001537          	lui	a0,0x1
- 168:	ff010113          	addi	sp,sp,-16 # ff0 <main+0xe8c>
- 16c:	c1850513          	addi	a0,a0,-1000 # c18 <main+0xab4>
- 170:	00112623          	sw	ra,12(sp)
- 174:	f2dff0ef          	jal	ra,a0 <print_str>
- 178:	00700513          	addi	a0,zero,7
- 17c:	f41ff0ef          	jal	ra,bc <print_dec>
- 180:	00c12083          	lw	ra,12(sp)
- 184:	00000513          	addi	a0,zero,0
- 188:	01010113          	addi	sp,sp,16
- 18c:	00008067          	jalr	zero,0(ra)
+00000118 <main>:
+ 118:	00001537          	lui	a0,0x1
+ 11c:	ff010113          	addi	sp,sp,-16 # ff0 <main+0xed8>
+ 120:	c1850513          	addi	a0,a0,-1000 # c18 <main+0xb00>
+ 124:	00112623          	sw	ra,12(sp)
+ 128:	f79ff0ef          	jal	ra,a0 <print_str>
+ 12c:	00700513          	addi	a0,zero,7
+ 130:	f8dff0ef          	jal	ra,bc <print_dec>
+ 134:	00600513          	addi	a0,zero,6
+ 138:	f85ff0ef          	jal	ra,bc <print_dec>
+ 13c:	00500513          	addi	a0,zero,5
+ 140:	f7dff0ef          	jal	ra,bc <print_dec>
+ 144:	00400513          	addi	a0,zero,4
+ 148:	f75ff0ef          	jal	ra,bc <print_dec>
+ 14c:	00300513          	addi	a0,zero,3
+ 150:	f6dff0ef          	jal	ra,bc <print_dec>
+ 154:	00200513          	addi	a0,zero,2
+ 158:	f65ff0ef          	jal	ra,bc <print_dec>
+ 15c:	00100513          	addi	a0,zero,1
+ 160:	f5dff0ef          	jal	ra,bc <print_dec>
+ 164:	00000513          	addi	a0,zero,0
+ 168:	f55ff0ef          	jal	ra,bc <print_dec>
+ 16c:	00c12083          	lw	ra,12(sp)
+ 170:	00000513          	addi	a0,zero,0
+ 174:	01010113          	addi	sp,sp,16
+ 178:	00008067          	jalr	zero,0(ra)
 
 Disassembly of section .rodata.str1.4:
 
@@ -136,7 +131,7 @@ Disassembly of section .rodata.str1.4:
  c16:	0000                	.insn	2, 0x
  c18:	6568                	.insn	2, 0x6568
  c1a:	6c6c                	.insn	2, 0x6c6c
- c1c:	6f77206f          	jal	zero,73b12 <main+0x739ae>
+ c1c:	6f77206f          	jal	zero,73b12 <main+0x739fa>
  c20:	6c72                	.insn	2, 0x6c72
  c22:	0a64                	.insn	2, 0x0a64
 	...
