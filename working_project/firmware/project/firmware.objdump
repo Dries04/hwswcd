@@ -113,14 +113,12 @@ Disassembly of section .text:
  16c:	c1850513          	addi	a0,a0,-1000 # c18 <main+0xab4>
  170:	00112623          	sw	ra,12(sp)
  174:	f2dff0ef          	jal	ra,a0 <print_str>
- 178:	00500513          	addi	a0,zero,5
+ 178:	00700513          	addi	a0,zero,7
  17c:	f41ff0ef          	jal	ra,bc <print_dec>
- 180:	01e00513          	addi	a0,zero,30
- 184:	f39ff0ef          	jal	ra,bc <print_dec>
- 188:	00c12083          	lw	ra,12(sp)
- 18c:	00000513          	addi	a0,zero,0
- 190:	01010113          	addi	sp,sp,16
- 194:	00008067          	jalr	zero,0(ra)
+ 180:	00c12083          	lw	ra,12(sp)
+ 184:	00000513          	addi	a0,zero,0
+ 188:	01010113          	addi	sp,sp,16
+ 18c:	00008067          	jalr	zero,0(ra)
 
 Disassembly of section .rodata.str1.4:
 
