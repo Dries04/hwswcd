@@ -20,22 +20,22 @@ void print_str(const char *p) {
 }
 
 void print_dec(unsigned int val) {
-	int val_lenght = 0;
-	int original_val = val;
-	unsigned int quotient = 0;
-	int length_int = 0;
-	int devisor = 1;
 
-	for (int i = 10; val >= multiply(i, 10); i = multiply(i, 10)){
-		length_int++;
-	}
-	// while (length_int >= 0){
-	// 	int temp = multiply(10, devisor);
-	// 	devisor = temp;
-	// 	length_int--;
-	// }
-	//int devisor = multiply(10, length_int);
 	if (val >= 10){
+		unsigned int quotient = 0;
+		int length_int = 0;
+		int devisor = 1;
+	
+		for (int i = 10; val >= multiply(i, 10); i = multiply(i, 10)){
+			length_int++;
+		}
+		// while (length_int >= 0){
+		// 	int temp = multiply(10, devisor);
+		// 	devisor = temp;
+		// 	length_int--;
+		// }
+		//int devisor = multiply(10, length_int);
+		
 		//new implementation for all values
 		print_dec(length_int);
 		while (val >= 10){
@@ -58,11 +58,8 @@ void print_dec(unsigned int val) {
 		// print_chr('0' + quotient);
 		// print_chr('0' + val);
 		// print_str("\n");
-	}
-
-	unsigned int print_val = original_val;
-	if (print_val < 10 ){
-		print_chr('0' + print_val);
+	}else if (val < 10 ){
+		print_chr('0' + val);
 		print_str("\n");
 	}else if(val == 10){
 		print_chr('1');
