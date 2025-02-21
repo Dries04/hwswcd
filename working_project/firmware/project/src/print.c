@@ -21,7 +21,7 @@ void print_dec(unsigned int val) {
 	int val_lenght = 0;
 	int original_val = val;
 	unsigned int quotient = 0;
-	
+
 	// while (val) {
     //     str[i++] = (num % 10) + '0';  // Convert digit to char
     //     num /= 10;
@@ -32,11 +32,12 @@ void print_dec(unsigned int val) {
 	// }
 
 	// devide without devision
-	if (val > 10){
+	if (val > 15){
 		while (val > 10){
 			val = val -= 10;
 			quotient++;
 		}
+		print_chr('0' + quotient + val);
 	}
 
 	unsigned int print_val = original_val;
