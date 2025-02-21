@@ -3,6 +3,6 @@
 
 #define OUTPORT 0x80000000
 
-void multiply(int a, int b);
+int multiply(int a, int b);
 
 #endif
