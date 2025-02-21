@@ -29,7 +29,6 @@ void print_dec(unsigned int val) {
 		length_int++;
 	}
 	int devisor = multiply(10, length_int);
-    print_dec(devisor);
 	if (val >= 10){
 		//new implementation for all values
 		while (val >= 10){
