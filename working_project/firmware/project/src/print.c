@@ -29,8 +29,8 @@ void print_dec(unsigned int val) {
 	// }
 
 	if (val > 100){
-		multiply(10, 3);
-		print_dec(val);
+		int z = multiply(10, 3);
+		print_dec(z);
 	}
 
 	if (val > 10 && val < 100){
