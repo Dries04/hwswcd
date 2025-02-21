@@ -1,5 +1,5 @@
 #include "print.h"
-#include "ex102.h"
+//#include "ex102.h"
 
 int multiply(int a, int b) {
     int a_new = a;
