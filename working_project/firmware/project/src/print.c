@@ -42,6 +42,7 @@ void print_dec(unsigned int val) {
 			int quotient1 = 0;
 			int val1 = val;
 			int devisor1 = devisor;
+			int val2 = val;
 			while (devisor1 <= val1) {
 				devisor1 <<= 1;
 				temp <<= 1;
@@ -62,10 +63,10 @@ void print_dec(unsigned int val) {
 			for (int i = 0; i < devisor - 1; i++) {
 				a_new = a_new + quotient;
 			}
-			val = val - a_new;
+			val2 = val2 - a_new;
 			print_chr('0' + quotient);
-			if (val < 10){
-				print_chr('0' + val);
+			if (val2 < 10){
+				print_chr('0' + val2);
 				print_str("\n");
 			}
 		}
