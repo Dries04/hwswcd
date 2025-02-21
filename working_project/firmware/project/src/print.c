@@ -28,7 +28,7 @@ void print_dec(unsigned int val) {
 	// 	print_dec(val_lenght);
 	// }
 
-	if (val > 10){
+	if (val >= 10){
 		
 		while (val >= 10){
 			val = val -= 10;
