@@ -32,7 +32,7 @@ void print_dec(unsigned int val) {
 	// }
 
 	// devide without devision
-	if (val > 15){
+	if (val > 10){
 		while (val > 10){
 			val = val -= 10;
 			quotient++;
