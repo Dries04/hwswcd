@@ -29,18 +29,17 @@ void print_dec(unsigned int val) {
 		for (int i = 10; val >= multiply(i, 10); i = multiply(i, 10)){
 			length_int++;
 		}
-		// while (length_int >= 0){
-		// 	int temp = multiply(10, devisor);
-		// 	devisor = temp;
-		// 	length_int--;
-		// }
+		while (length_int >= 0){
+			int temp = multiply(10, devisor);
+			devisor = temp;
+			length_int--;
+		}
 		//int devisor = multiply(10, length_int);
 		
 		//new implementation for all values
-		print_dec(length_int);
 		while (val >= 10){
-			quotient = devide(val, 10);
-			val = val - multiply(quotient, 10);
+			quotient = devide(val, devisor);
+			val = val - multiply(quotient, devisor);
 			print_chr('0' + quotient);
 			if (val < 10){
 				print_chr('0' + val);
