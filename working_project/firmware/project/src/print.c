@@ -58,6 +58,10 @@ void print_dec(unsigned int val) {
 	if (print_val < 10 ){
 		print_chr('0' + print_val);
 		print_str("\n");
+	}else if(val == 10){
+		print_chr('1');
+		print_chr('0');
+		print_str("\n");
 	}
 }
 
