@@ -34,24 +34,24 @@ RAM              0x00000800         0x00000800         xrw
 Linker script and memory map
 
 
-.text           0x00000000      0x1ea
+.text           0x00000000      0x236
                 0x00000000                        . = 0x0
  *(.init)
  .init          0x00000000       0x90 build/start.o
                 0x00000000                start
  *(.text*)
- .text          0x00000090       0xf4 build/print.o
+ .text          0x00000090      0x144 build/print.o
                 0x00000090                print_chr
                 0x0000009c                print_str
                 0x000000b8                print_dec
-                0x00000110                multiply
-                0x0000013c                print_hex
- .text          0x00000184        0x0 build/firmware.o
- .text.startup  0x00000184       0x50 build/firmware.o
-                0x00000184                main
- .text          0x000001d4        0x0 build/start.o
- .text          0x000001d4       0x16 /opt/riscv/lib/gcc/riscv32-unknown-elf/13.2.0/libgcc.a(muldi3.o)
-                0x000001d4                __mulsi3
+                0x00000160                multiply
+                0x0000018c                print_hex
+ .text          0x000001d4        0x0 build/firmware.o
+ .text.startup  0x000001d4       0x4c build/firmware.o
+                0x000001d4                main
+ .text          0x00000220        0x0 build/start.o
+ .text          0x00000220       0x16 /opt/riscv/lib/gcc/riscv32-unknown-elf/13.2.0/libgcc.a(muldi3.o)
+                0x00000220                __mulsi3
 
 .data           0x00000800        0x0
                 0x00000000                        . = 0x0
@@ -74,12 +74,12 @@ Linker script and memory map
                 0x00000c00                        . = ALIGN (0x4)
  FILL mask 0xff
 
-.rodata.str1.4  0x00000c00       0x25
+.rodata.str1.4  0x00000c00       0x2d
  .rodata.str1.4
-                0x00000c00       0x25 build/print.o
-                                 0x15 (size before relaxing)
+                0x00000c00       0x2d build/print.o
+                                 0x1d (size before relaxing)
  .rodata.str1.4
-                0x00000c25        0xd build/firmware.o
+                0x00000c2d        0xd build/firmware.o
 
 /DISCARD/
  *(.note*)
