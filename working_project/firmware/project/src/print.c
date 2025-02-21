@@ -44,7 +44,7 @@ void print_dec(unsigned int val) {
 	// }
 
 	char num = '0' + val;
-	print_str(num);
+	print_str(&num);
 }
 
 void print_hex(unsigned int val, int digits) {
