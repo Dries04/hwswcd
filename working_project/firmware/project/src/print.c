@@ -25,10 +25,10 @@ void print_dec(unsigned int val) {
 	int a = 3; 
 	int b = 100;
 
-	for (int i = 1; val > a + b; i++){
+	for (int i = 1; val > multiply(a,b); i++){
 		val_lenght++;
 		print_dec(val_lenght);
-		val = val - a;
+		val = val - 20;
 	}
 
 	if (val >= 10){
