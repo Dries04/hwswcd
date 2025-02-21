@@ -93,7 +93,7 @@ Disassembly of section .text:
  11c:	c1850513          	addi	a0,a0,-1000 # c18 <main+0xb04>
  120:	00112623          	sw	ra,12(sp)
  124:	f7dff0ef          	jal	ra,a0 <print_str>
- 128:	00700513          	addi	a0,zero,7
+ 128:	00000513          	addi	a0,zero,0
  12c:	f91ff0ef          	jal	ra,bc <print_dec>
  130:	00600513          	addi	a0,zero,6
  134:	f89ff0ef          	jal	ra,bc <print_dec>
