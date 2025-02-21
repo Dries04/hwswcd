@@ -21,7 +21,12 @@ void print_dec(unsigned int val) {
 	int original_val = val;
 	unsigned int quotient = 0;
 
+	// for (int i = 1; val > 10 * i; = 10){
+	// 	val_lenght++;
+	// }
+
 	if (val > 10){
+		
 		while (val > 10){
 			val = val -= 10;
 			quotient++;
