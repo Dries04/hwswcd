@@ -2,8 +2,8 @@
 
 int multiply(int a, int b) {
     int a_new = a;
-    for (int i = 0; i < a; i++) {
-        a_new = a_new + b;
+    for (int i = 0; i < b; i++) {
+        a_new = a_new + a;
     }
-    return a;
+    return a_new;
 }
