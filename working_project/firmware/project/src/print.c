@@ -20,14 +20,25 @@ void print_dec(unsigned int val) {
 	//check lenght of int
 	int val_lenght = 0;
 	int original_val = val;
-	while (val > 0) {
-		val_lenght++;
-		val = val >> 1;
+	unsigned int quotient = 0;
+	
+	// while (val) {
+    //     str[i++] = (num % 10) + '0';  // Convert digit to char
+    //     num /= 10;
+    // }
+
+    // for (int j = i - 1; j >= 0; j--) {
+    //     putchar(str[j]);  // Print each digit in reverse order
+	// }
+
+	// devide without devision
+	if (val > 10){
+		while (val > 10){
+			val = val -= 10;
+			quotient++;
+		}
 	}
-	if (val_lenght > 9) {
-		print_str("test\n");
-		return;
-	}
+
 	unsigned int print_val = original_val;
 	if (print_val < 10 ){
 		print_chr('0' + print_val);
