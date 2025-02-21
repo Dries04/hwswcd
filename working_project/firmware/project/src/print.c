@@ -17,8 +17,13 @@ void print_str(const char *p) {
 }
 
 void print_dec(unsigned int val) {
-		print_chr('0' + val);
-		print_str("\n");
+	int print_val = val;
+		if (print_val < 10 ){
+			print_chr('0' + print_val);
+			print_str("\n");
+		} else {
+			print_str("number bigger than 9\n");
+		}
 }
 
 void print_hex(unsigned int val, int digits) {
