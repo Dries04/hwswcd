@@ -8,16 +8,14 @@ int main(void) {
 	print_dec(test);
 	unsigned int test1 = 69;
 	print_dec(test1);
-	//print_dec(multiply(3, 4));
-	
-
-	// unsigned int test2 = 6;
-	// print_dec(test2);
-	// unsigned int test3 = 5;
-	// print_dec(test3);
-	// print_str("\n");
-	// unsigned int test9 = 69;
-	// print_dec(test9);
-	// unsigned int test10 = 420;
-	// print_dec(test10);
+	print_dec(multiply(3, 4));
+	unsigned int test2 = 6;
+	print_dec(test2);
+	unsigned int test3 = 5;
+	print_dec(test3);
+	print_str("\n");
+	unsigned int test9 = 69;
+	print_dec(test9);
+	unsigned int test10 = 420;
+	print_dec(test10);
 }

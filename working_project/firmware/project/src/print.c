@@ -17,34 +17,25 @@ void print_str(const char *p) {
 }
 
 void print_dec(unsigned int val) {
-	//check lenght of int
-	// int val_lenght = 0;
-	// int original_val = val;
-	// unsigned int quotient = 0;
+	int val_lenght = 0;
+	int original_val = val;
+	unsigned int quotient = 0;
 
-	// for (int i = 0; val > 10 * i; i++){
-	// 	val = val / 10;
-	// 	val_lenght++;
-	// }
+	if (val > 10){
+		while (val > 10){
+			val = val -= 10;
+			quotient++;
+		}
+		print_chr('0' + quotient);
+		print_chr('0' + val);
+		print_str("\n");
+	}
 
-	// if (val > 10){
-	// 	while (val > 10){
-	// 		val = val -= 10;
-	// 		quotient++;
-	// 	}
-	// 	print_chr('0' + quotient);
-	// 	print_chr('0' + val);
-	// 	print_str("\n");
-	// }
-
-	// unsigned int print_val = original_val;
-	// if (print_val < 10 ){
-	// 	print_chr('0' + print_val);
-	// 	print_str("\n");
-	// }
-
-	char num = '0' + val;
-	print_str(&num);
+	unsigned int print_val = original_val;
+	if (print_val < 10 ){
+		print_chr('0' + print_val);
+		print_str("\n");
+	}
 }
 
 void print_hex(unsigned int val, int digits) {
