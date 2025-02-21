@@ -22,10 +22,9 @@ void print_dec(unsigned int val) {
 	int val_lenght = 0;
 	int original_val = val;
 	unsigned int quotient = 0;
-	int a = 3; 
-	int b = 100;
+	int a = 3;
 
-	for (int i = 1; val > multiply(a,b); i = i + 10){
+	for (int i = 1; val > multiply(a, 10); i = i + 10){
 		val_lenght++;
 		print_dec(val_lenght);
 		val = val - 20;
