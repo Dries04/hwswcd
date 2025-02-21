@@ -11,6 +11,8 @@
 int main(void) {
 
 	print_str("hello world\n");
+	unsigned int test5 = 4;
+	print_dec(test5);
 	unsigned int test = 12;
 	print_dec(test);
 	unsigned int test1 = 10;

@@ -35,8 +35,7 @@ void print_dec(unsigned int val) {
 			length_int--;
 		}
 
-		int b = devisor;
-		int d = devisor;
+		int devisor_temp = devisor;
 		int val_temp = val;
 
 		while (val_temp >= 10){
@@ -47,6 +46,8 @@ void print_dec(unsigned int val) {
 			int temp = 1;
 			int quotient1 = 0;
 			int a = val_temp;
+			int b = devisor_temp;
+			int d = devisor_temp;
 
 			while (b <= a) {
 				b <<= 1;
@@ -71,6 +72,29 @@ void print_dec(unsigned int val) {
 				a_new = a_new + c;
 			}
 			val_temp = val_temp - a_new;
+			
+			//devisor_temp = devisor_temp / 10;
+
+			int temp2 = 1;
+			int quotient2 = 0;
+			int hihi = 10;
+		
+			while (hihi <= a) {
+				hihi <<= 1;
+				temp2 <<= 1;
+			}
+		
+			while (temp2 > 1) {
+				hihi >>= 1;
+				temp2 >>= 1;
+		
+				if (devisor_temp >= 10) {
+					devisor_temp -= 10;
+					quotient2 += temp2;
+				}
+			}
+
+			devisor_temp = quotient2;
 
 			print_chr('0' + quotient1);
 			if (val_temp < 10){
