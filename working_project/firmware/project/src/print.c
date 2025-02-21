@@ -23,7 +23,7 @@ void print_dec(unsigned int val) {
 
 	if (val >= 10){
 		unsigned int quotient = 0;
-		int length_int = 0;
+		int length_int = 1;
 		int devisor = 1;
 	
 		for (int i = 10; val >= multiply(i, 10); i = multiply(i, 10)){
@@ -47,7 +47,7 @@ void print_dec(unsigned int val) {
 			int temp = 1;
 			int quotient1 = 0;
 			int a = val_temp;
-			
+
 			while (b <= a) {
 				b <<= 1;
 				temp <<= 1;
