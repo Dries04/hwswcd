@@ -22,16 +22,22 @@ void print_dec(unsigned int val) {
 	int original_val = val;
 	unsigned int quotient = 0;
 
-	// while (val) {
-    //     str[i++] = (num % 10) + '0';  // Convert digit to char
-    //     num /= 10;
-    // }
-
-    // for (int j = i - 1; j >= 0; j--) {
-    //     putchar(str[j]);  // Print each digit in reverse order
+	// devide without devision
+	// if (val > 10){
+	// 	while (val > 10){
+	// 		val = val -= 10;
+	// 		quotient++;
+	// 	}
+	// 	print_chr('0' + quotient);
+	// 	print_chr('0' + val);
+	// 	print_str("\n");
 	// }
 
-	// devide without devision
+	for (int i = 0; val > 10 * i; i++){
+		val = val / 10;
+		val_lenght++;
+	}
+
 	if (val > 10){
 		while (val > 10){
 			val = val -= 10;
@@ -46,8 +52,6 @@ void print_dec(unsigned int val) {
 	if (print_val < 10 ){
 		print_chr('0' + print_val);
 		print_str("\n");
-	} else {
-		print_str("something went wrong :(\n");
 	}
 }
 

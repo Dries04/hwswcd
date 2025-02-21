@@ -3,6 +3,6 @@
 
 #define OUTPORT 0x80000000
 
-void convert(unsigned int val);
+void multiply(int a, int b);
 
 #endif
