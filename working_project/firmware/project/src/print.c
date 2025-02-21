@@ -31,8 +31,9 @@ void print_dec(unsigned int val) {
 	int devisor = multiply(10, length_int);
 	if (val >= 10){
 		//new implementation for all values
+		print_dec(length_int);
 		while (val >= 10){
-			quotient = devide(val, devisor);
+			quotient = devide(val, 10);
 			val = val - multiply(quotient, 10);
 			print_chr('0' + quotient);
 			if (val < 10){
