@@ -36,6 +36,10 @@ void print_dec(unsigned int val) {
 			quotient = devide(val, 10);
 			val = val - multiply(quotient, 10);
 			print_chr('0' + quotient);
+			if (val < 10){
+				print_chr('0' + val);
+				print_str("\n");
+			}
 		}
 
 
