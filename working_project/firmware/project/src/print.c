@@ -22,20 +22,29 @@ void print_dec(unsigned int val) {
 	int val_lenght = 0;
 	int original_val = val;
 	unsigned int quotient = 0;
+	int length_int = 0;
 
 	for (int i = 10; val >= multiply(i, 10); i = multiply(i, 10)){
-		// val/i;
-		// if (val >= 10 && val < 100){
-		// 	while (val >= 10){
-		// 		val = val -= 10;
-		// 		quotient++;
-		// 	}
-		// 	quotient = quotient * i;
-		// 	print_chr('0' + quotient);
-		// 	val = val - quotient;
-		// }
-		print_str("test\n");
+		length_int++;
+		print_dec(length_int);
 	}
+	// int devisor = multiply(10, length_int);
+	// for (int i = length_int; i >= 0; i--){
+	// 	while (){
+
+	// 	}
+	// 	// val/i;
+	// 	// if (val >= 10 && val < 100){
+	// 	// 	while (val >= 10){
+	// 	// 		val = val -= 10;
+	// 	// 		quotient++;
+	// 	// 	}
+	// 	// 	quotient = quotient * i;
+	// 	// 	print_chr('0' + quotient);
+	// 	// 	val = val - quotient;
+	// 	// }
+	// 	print_str("test\n");
+	// }
 
 	if (val >= 10){
 		
