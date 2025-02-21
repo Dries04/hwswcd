@@ -36,13 +36,16 @@ void print_dec(unsigned int val) {
 		}
 		//int devisor = multiply(10, length_int);
 		//new implementation for all values
+		int quotient2 = quotient;
+		int devisor2 = devisor;
+		int val2 = val;
 		while (val >= 10){
 			//quotient = devide(val, devisor);
 			int temp = 1;
 			int quotient1 = 0;
-			int val1 = val;
+			int val1 = val2;
 			int devisor1 = devisor;
-			int val2 = val;
+
 			while (devisor1 <= val1) {
 				devisor1 <<= 1;
 				temp <<= 1;
@@ -59,11 +62,12 @@ void print_dec(unsigned int val) {
 			}
 			
 			//val = val - multiply(quotient, devisor);
-			int a_new = quotient;
-			for (int i = 0; i < devisor - 1; i++) {
-				a_new = a_new + quotient;
+			int a_new = quotient1;
+			for (int i = 0; i < devisor2 - 1; i++) {
+				a_new = a_new + quotient1;
 			}
 			val2 = val2 - a_new;
+
 			print_chr('0' + quotient);
 			if (val2 < 10){
 				print_chr('0' + val2);
