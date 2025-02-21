@@ -6,8 +6,8 @@ int main(void) {
 	print_str("hello world\n");
 	unsigned int test = 12;
 	print_dec(test);
-	unsigned int test = 69;
-	print_dec(test);
+	unsigned int test1 = 69;
+	print_dec(test1);
 	//print_dec(multiply(3, 4));
 
 	// unsigned int test2 = 6;
