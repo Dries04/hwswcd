@@ -23,7 +23,7 @@ RAM              0x00000800         0x00000800         xrw
 Linker script and memory map
 
 
-.text           0x00000000      0x1b8
+.text           0x00000000      0x1e8
                 0x00000000                        . = 0x0
  *(.init)
  .init          0x00000000       0x90 build/start.o
@@ -31,15 +31,15 @@ Linker script and memory map
  *(.text*)
  .text          0x00000090        0x4 build/ex105.o
                 0x00000090                convert
- .text          0x00000094       0xcc build/print.o
+ .text          0x00000094       0xfc build/print.o
                 0x00000094                print_chr
                 0x000000a0                print_str
                 0x000000bc                print_dec
-                0x00000118                print_hex
- .text          0x00000160        0x0 build/firmware.o
- .text.startup  0x00000160       0x58 build/firmware.o
-                0x00000160                main
- .text          0x000001b8        0x0 build/start.o
+                0x00000148                print_hex
+ .text          0x00000190        0x0 build/firmware.o
+ .text.startup  0x00000190       0x58 build/firmware.o
+                0x00000190                main
+ .text          0x000001e8        0x0 build/start.o
 
 .data           0x00000800        0x0
                 0x00000000                        . = 0x0
