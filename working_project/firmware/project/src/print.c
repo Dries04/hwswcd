@@ -41,17 +41,18 @@ void print_dec(unsigned int val) {
 			int temp = 1;
 			int quotient1 = 0;
 			int val1 = val;
-			while (devisor <= val1) {
-				devisor <<= 1;
+			int devisor1 = devisor;
+			while (devisor1 <= val1) {
+				devisor1 <<= 1;
 				temp <<= 1;
 			}
 		
 			while (temp > 1) {
-				devisor >>= 1;
+				devisor1 >>= 1;
 				temp >>= 1;
 		
-				if (val1 >= devisor) {
-					val1 -= devisor;
+				if (val1 >= devisor1) {
+					val1 -= devisor1;
 					quotient1 += temp;
 				}
 			}
