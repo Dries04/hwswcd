@@ -24,14 +24,19 @@ void print_dec(unsigned int val) {
 	int original_val = val;
 	unsigned int quotient = 0;
 	int length_int = 0;
+	int devisor = 1;
 
 	for (int i = 10; val >= multiply(i, 10); i = multiply(i, 10)){
 		length_int++;
 	}
-	int devisor = multiply(10, length_int);
+	while (length_int >= 0){
+		int devisor = multiply(10, devisor);
+		length_int--;
+	}
+	//int devisor = multiply(10, length_int);
 	if (val >= 10){
 		//new implementation for all values
-		print_dec(length_int);
+		print_dec(devisor);
 		while (val >= 10){
 			quotient = devide(val, 10);
 			val = val - multiply(quotient, 10);
