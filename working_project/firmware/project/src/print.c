@@ -17,13 +17,24 @@ void print_str(const char *p) {
 }
 
 void print_dec(unsigned int val) {
-	int print_val = val;
-		if (print_val < 10 ){
-			print_chr('0' + print_val);
-			print_str("\n");
-		} else {
-			print_str("number bigger than 9\n");
-		}
+	//check lenght of int
+	int val_lenght = 0;
+	int original_val = val;
+	while (val > 0) {
+		val_lenght++;
+		val = val >> 1;
+	}
+	if (val_lenght > 9) {
+		print_str("test\n");
+		return;
+	}
+	unsigned int print_val = original_val;
+	if (print_val < 10 ){
+		print_chr('0' + print_val);
+		print_str("\n");
+	} else {
+		print_str("something went wrong :(\n");
+	}
 }
 
 void print_hex(unsigned int val, int digits) {
