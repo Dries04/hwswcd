@@ -9,5 +9,5 @@ int main(void) {
 	unsigned int test1 = 69;
 	print_dec(test1);
 	int twaalf = multiply(3, 4);
-	print_dec(twaalf);
+	//print_dec(twaalf);
 }
