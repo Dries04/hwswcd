@@ -35,13 +35,12 @@ void print_dec(unsigned int val) {
 			length_int--;
 		}
 		//int devisor = multiply(10, length_int);
-		int val1 = val;
 		//new implementation for all values
-		while (val1 >= 10){
+		while (val >= 10){
 			//quotient = devide(val, devisor);
 			int temp = 1;
-			int quotient = 0;
-		
+			int quotient1 = 0;
+			int val1 = val;
 			while (devisor <= val1) {
 				devisor <<= 1;
 				temp <<= 1;
@@ -53,7 +52,7 @@ void print_dec(unsigned int val) {
 		
 				if (val1 >= devisor) {
 					val1 -= devisor;
-					quotient += temp;
+					quotient1 += temp;
 				}
 			}
 			
