@@ -29,15 +29,15 @@ void print_dec(unsigned int val) {
 	for (int i = 10; val >= multiply(i, 10); i = multiply(i, 10)){
 		length_int++;
 	}
-	while (length_int >= 0){
-		int temp = multiply(10, devisor);
-		devisor = temp;
-		length_int--;
-	}
+	// while (length_int >= 0){
+	// 	int temp = multiply(10, devisor);
+	// 	devisor = temp;
+	// 	length_int--;
+	// }
 	//int devisor = multiply(10, length_int);
 	if (val >= 10){
 		//new implementation for all values
-		print_dec(devisor);
+		print_dec(length_int);
 		while (val >= 10){
 			quotient = devide(val, 10);
 			val = val - multiply(quotient, 10);
