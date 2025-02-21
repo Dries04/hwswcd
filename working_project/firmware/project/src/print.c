@@ -34,43 +34,47 @@ void print_dec(unsigned int val) {
 			devisor = temp;
 			length_int--;
 		}
-		//int devisor = multiply(10, length_int);
-		//new implementation for all values
-		int quotient2 = quotient;
-		int devisor2 = devisor;
-		int val2 = val;
+
+		int a = val;
+		int b = devisor;
+		int d = devisor;
+		int val_temp = val;
+
 		while (val >= 10){
+			
+			
 			//quotient = devide(val, devisor);
+			
 			int temp = 1;
 			int quotient1 = 0;
-			int val1 = val2;
-			int devisor1 = devisor;
-
-			while (devisor1 <= val1) {
-				devisor1 <<= 1;
+		
+			while (b <= a) {
+				b <<= 1;
 				temp <<= 1;
 			}
 		
 			while (temp > 1) {
-				devisor1 >>= 1;
+				b >>= 1;
 				temp >>= 1;
 		
-				if (val1 >= devisor1) {
-					val1 -= devisor1;
+				if (a >= b) {
+					a -= b;
 					quotient1 += temp;
 				}
 			}
-			
-			//val = val - multiply(quotient, devisor);
-			int a_new = quotient1;
-			for (int i = 0; i < devisor2 - 1; i++) {
-				a_new = a_new + quotient1;
-			}
-			val2 = val2 - a_new;
 
-			print_chr('0' + quotient);
-			if (val2 < 10){
-				print_chr('0' + val2);
+			int c = quotient1;
+			//val = val - multiply(quotient, devisor);
+
+			int a_new = c;
+			for (int i = 0; i < d - 1; i++) {
+				a_new = a_new + c;
+			}
+			val_temp = val_temp - a_new;
+
+			print_chr('0' + quotient1);
+			if (val_temp < 10){
+				print_chr('0' + val_temp);
 				print_str("\n");
 			}
 		}
