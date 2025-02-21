@@ -19,6 +19,6 @@ int main(void) {
 	print_dec(test3);
 	unsigned int test4 = 20;
 	print_dec(test4);
-	unsigned int test2 = 101;
+	unsigned int test2 = 120;
 	print_dec(test2);
 }

@@ -22,10 +22,13 @@ void print_dec(unsigned int val) {
 	int val_lenght = 0;
 	int original_val = val;
 	unsigned int quotient = 0;
+	int a = 3; 
+	int b = 100;
 
-	for (int i = 1; val > 10; i++){
+	for (int i = 1; val > a + b; i++){
 		val_lenght++;
 		print_dec(val_lenght);
+		val = val - a;
 	}
 
 	if (val >= 10){
