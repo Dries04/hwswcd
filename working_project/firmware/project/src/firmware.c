@@ -1,5 +1,5 @@
 #include "print.h"
-#include "ex102.h"
+//#include "ex102.h"
 
 int main(void) {
 
