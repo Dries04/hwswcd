@@ -162,7 +162,7 @@ Disassembly of section .text:
  230:	e89ff0ef          	jal	ra,b8 <print_dec>
  234:	01400513          	addi	a0,zero,20
  238:	e81ff0ef          	jal	ra,b8 <print_dec>
- 23c:	1f400513          	addi	a0,zero,500
+ 23c:	19000513          	addi	a0,zero,400
  240:	e79ff0ef          	jal	ra,b8 <print_dec>
  244:	00c12083          	lw	ra,12(sp)
  248:	00000513          	addi	a0,zero,0
