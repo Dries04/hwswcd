@@ -148,8 +148,8 @@ Disassembly of section .text:
  1f8:	ec1ff0ef          	jal	ra,b8 <print_dec>
  1fc:	01400513          	addi	a0,zero,20
  200:	eb9ff0ef          	jal	ra,b8 <print_dec>
- 204:	00062537          	lui	a0,0x62
- 208:	a8050513          	addi	a0,a0,-1408 # 61a80 <__mulsi3+0x61860>
+ 204:	00001537          	lui	a0,0x1
+ 208:	fa050513          	addi	a0,a0,-96 # fa0 <__mulsi3+0xd80>
  20c:	eadff0ef          	jal	ra,b8 <print_dec>
  210:	00c12083          	lw	ra,12(sp)
  214:	00000513          	addi	a0,zero,0
