@@ -18,13 +18,30 @@ void print_str(const char *p) {
 
 void print_dec(unsigned int val) {
 		//check lenght of the number
-		unsigned int temp = val;
-		if(temp >= 10){
-			temp = temp >> 4;
-			print_chr('0' + temp);
-		}
+		// unsigned int temp = val;
+		// if(temp >= 10){
+		// 	temp = temp >> 4;
+		// 	print_chr('0' + temp);
+		// }
 
-		print_chr('0' + val);
+		if (val == 0) {
+			print_chr('0');
+		} else {
+			char buffer[10];
+			int i = 0;
+			while (val > 0) {
+				while (val > 10){
+					val -= 10;
+					++i;
+				}
+				
+				buffer[i++] = '0' + i;
+			}
+			while (i > 0) {
+				print_chr(buffer[--i]);
+			}
+		}
+		print_str("\n");
 }
 
 void print_hex(unsigned int val, int digits) {
