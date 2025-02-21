@@ -30,7 +30,7 @@ void print_dec(unsigned int val) {
 		length_int++;
 	}
 	while (length_int >= 0){
-		int devisor = multiply(10, devisor);
+		devisor = multiply(10, devisor);
 		length_int--;
 	}
 	//int devisor = multiply(10, length_int);
