@@ -79,7 +79,7 @@ Disassembly of section .text:
   f4:	01212023          	sw	s2,0(sp)
   f8:	00900793          	addi	a5,zero,9
   fc:	00050413          	addi	s0,a0,0
- 100:	06a7ec63          	bltu	a5,a0,178 <print_dec+0x94>
+ 100:	06a7ee63          	bltu	a5,a0,17c <print_dec+0x98>
  104:	03050413          	addi	s0,a0,48
  108:	0ff47413          	andi	s0,s0,255
  10c:	800007b7          	lui	a5,0x80000
@@ -104,23 +104,23 @@ Disassembly of section .text:
  158:	fff48493          	addi	s1,s1,-1
  15c:	00050593          	addi	a1,a0,0
  160:	ff2498e3          	bne	s1,s2,150 <print_dec+0x6c>
- 164:	00100713          	addi	a4,zero,1
- 168:	800006b7          	lui	a3,0x80000
- 16c:	03000613          	addi	a2,zero,48
- 170:	00100793          	addi	a5,zero,1
- 174:	0180006f          	jal	zero,18c <print_dec+0xa8>
- 178:	00a00793          	addi	a5,zero,10
- 17c:	00000493          	addi	s1,zero,0
- 180:	fb9ff06f          	jal	zero,138 <print_dec+0x54>
- 184:	00159593          	slli	a1,a1,0x1
- 188:	00179793          	slli	a5,a5,0x1
- 18c:	feb45ce3          	bge	s0,a1,184 <print_dec+0xa0>
- 190:	00f74663          	blt	a4,a5,19c <print_dec+0xb8>
- 194:	00c6a023          	sw	a2,0(a3) # 80000000 <__mulsi3+0x7ffffd7c>
- 198:	fd9ff06f          	jal	zero,170 <print_dec+0x8c>
- 19c:	4015d593          	srai	a1,a1,0x1
+ 164:	00100693          	addi	a3,zero,1
+ 168:	80000637          	lui	a2,0x80000
+ 16c:	03000513          	addi	a0,zero,48
+ 170:	00058713          	addi	a4,a1,0
+ 174:	00100793          	addi	a5,zero,1
+ 178:	0180006f          	jal	zero,190 <print_dec+0xac>
+ 17c:	00a00793          	addi	a5,zero,10
+ 180:	00000493          	addi	s1,zero,0
+ 184:	fb5ff06f          	jal	zero,138 <print_dec+0x54>
+ 188:	00171713          	slli	a4,a4,0x1
+ 18c:	00179793          	slli	a5,a5,0x1
+ 190:	fee45ce3          	bge	s0,a4,188 <print_dec+0xa4>
+ 194:	00f6c663          	blt	a3,a5,1a0 <print_dec+0xbc>
+ 198:	00a62023          	sw	a0,0(a2) # 80000000 <__mulsi3+0x7ffffd7c>
+ 19c:	fd5ff06f          	jal	zero,170 <print_dec+0x8c>
  1a0:	4017d793          	srai	a5,a5,0x1
- 1a4:	fedff06f          	jal	zero,190 <print_dec+0xac>
+ 1a4:	ff1ff06f          	jal	zero,194 <print_dec+0xb0>
 
 000001a8 <devide>:
  1a8:	00050713          	addi	a4,a0,0
