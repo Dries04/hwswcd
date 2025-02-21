@@ -23,19 +23,12 @@ void print_dec(unsigned int val) {
 	int original_val = val;
 	unsigned int quotient = 0;
 
-	// for (int i = 1; val > 10 * i; = 10){
-	// 	val_lenght++;
-	// }
-
-	if (val > 100){
-		print_str("bigger than 100\n");
-		int x = 3;
-		int y = 6;
-		int z = multiply(x, y);
-		print_dec(z);
+	for (int i = 1; val > multiply(10, i); i = multiply (i, 10)){
+		val_lenght++;
+		print_dec(val_lenght);
 	}
 
-	if (val > 10){
+	if (val > 10 && val < 100){
 		
 		while (val > 10){
 			val = val -= 10;
