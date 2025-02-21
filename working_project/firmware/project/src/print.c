@@ -33,10 +33,10 @@ void print_dec(unsigned int val) {
 	// 	print_str("\n");
 	// }
 
-	for (int i = 0; val > 10 * i; i++){
-		val = val / 10;
-		val_lenght++;
-	}
+	// for (int i = 0; val > 10 * i; i++){
+	// 	val = val / 10;
+	// 	val_lenght++;
+	// }
 
 	if (val > 10){
 		while (val > 10){
