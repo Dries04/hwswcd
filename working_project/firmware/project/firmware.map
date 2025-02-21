@@ -49,7 +49,7 @@ RAM              0x00000800         0x00000800         xrw
 Linker script and memory map
 
 
-.text           0x00000000      0x2da
+.text           0x00000000      0x2a6
                 0x00000000                        . = 0x0
  *(.init)
  .init          0x00000000       0x90 build/start.o
@@ -63,18 +63,18 @@ Linker script and memory map
  .text          0x000001b8       0x34 build/ex102.o
                 0x000001b8                multiply
  .text          0x000001ec        0x0 build/firmware.o
- .text.startup  0x000001ec       0x58 build/firmware.o
+ .text.startup  0x000001ec       0x24 build/firmware.o
                 0x000001ec                main
- .text          0x00000244        0x0 build/start.o
- .text          0x00000244       0x16 /opt/riscv/lib/gcc/riscv32-unknown-elf/13.2.0/libgcc.a(muldi3.o)
-                0x00000244                __mulsi3
- *fill*         0x0000025a        0x2 
- .text          0x0000025c       0x7e /opt/riscv/lib/gcc/riscv32-unknown-elf/13.2.0/libgcc.a(div.o)
-                0x0000025c                __divsi3
-                0x00000264                __hidden___udivsi3
-                0x00000264                __udivsi3
-                0x00000290                __umodsi3
-                0x000002b4                __modsi3
+ .text          0x00000210        0x0 build/start.o
+ .text          0x00000210       0x16 /opt/riscv/lib/gcc/riscv32-unknown-elf/13.2.0/libgcc.a(muldi3.o)
+                0x00000210                __mulsi3
+ *fill*         0x00000226        0x2 
+ .text          0x00000228       0x7e /opt/riscv/lib/gcc/riscv32-unknown-elf/13.2.0/libgcc.a(div.o)
+                0x00000228                __divsi3
+                0x00000230                __hidden___udivsi3
+                0x00000230                __udivsi3
+                0x0000025c                __umodsi3
+                0x00000280                __modsi3
 
 .data           0x00000800        0x0
                 0x00000000                        . = 0x0
@@ -106,7 +106,7 @@ Linker script and memory map
                 0x00000c00       0x25 build/print.o
                                  0x15 (size before relaxing)
  .rodata.str1.4
-                0x00000c25       0x12 build/firmware.o
+                0x00000c25        0xd build/firmware.o
 
 /DISCARD/
  *(.note*)
