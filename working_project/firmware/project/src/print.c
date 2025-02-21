@@ -37,7 +37,9 @@ void print_dec(unsigned int val) {
 			val = val -= 10;
 			quotient++;
 		}
-		print_chr('0' + quotient + val);
+		print_chr('0' + quotient);
+		print_chr('0' + val);
+		print_str("\n");
 	}
 
 	unsigned int print_val = original_val;
