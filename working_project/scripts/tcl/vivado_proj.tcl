@@ -13,8 +13,9 @@ set pname "hwswcd_chapter_1_example"
 set path C:/Users/Dries/Documents/Uhasselt/ma_EA-ICT/HW_SW/Vivado
 set srcpath C:/Users/Dries/Documents/Uhasselt/ma_EA-ICT/HW_SW/gitrepo/working_project
 
-set part "xc7vx485tffg1761-2"
-set board "xilinx.com:vc707:part0:1.4"
+set part "xc7z020clg400-1"
+set board "tul.com.tw:pynq-z2:part0:1.0"
+
 
 # delete older versions
 cd $path

@@ -17,6 +17,15 @@ void print_str(const char *p) {
 }
 
 void print_dec(unsigned int val) {
+		//split the number into digits
+		unsigned int digits[10];
+		unsigned int i = 0;
+		while(val > 0) {
+			digits[i] = val % 10;
+			val = val / 10;
+			i++;
+		}
+		
 		print_chr('0' + val);
 }
 
