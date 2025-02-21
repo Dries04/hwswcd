@@ -35,7 +35,7 @@ void print_dec(unsigned int val) {
 
 	if (val > 10 && val < 100){
 		
-		while (val > 10){
+		while (val >= 10){
 			val = val -= 10;
 			quotient++;
 		}
