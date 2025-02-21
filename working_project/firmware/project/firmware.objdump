@@ -67,7 +67,7 @@ Disassembly of section .text:
   cc:	00112e23          	sw	ra,28(sp)
   d0:	00050493          	addi	s1,a0,0
   d4:	00050413          	addi	s0,a0,0
-  d8:	00a00913          	addi	s2,zero,10
+  d8:	06400913          	addi	s2,zero,100
   dc:	00000993          	addi	s3,zero,0
   e0:	08896263          	bltu	s2,s0,164 <print_dec+0xac>
   e4:	00900793          	addi	a5,zero,9
@@ -106,7 +106,7 @@ Disassembly of section .text:
  168:	00098513          	addi	a0,s3,0
  16c:	f4dff0ef          	jal	ra,b8 <print_dec>
  170:	fec40413          	addi	s0,s0,-20
- 174:	06490913          	addi	s2,s2,100
+ 174:	3e890913          	addi	s2,s2,1000
  178:	f69ff06f          	jal	zero,e0 <print_dec+0x28>
  17c:	01c12083          	lw	ra,28(sp)
  180:	01812403          	lw	s0,24(sp)
