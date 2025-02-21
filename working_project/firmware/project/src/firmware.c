@@ -15,6 +15,8 @@ int main(void) {
 	print_dec(test);
 	unsigned int test1 = 69;
 	print_dec(test1);
+	unsigned int test3 = 10;
+	print_dec(test3);
 	unsigned int test2 = 101;
 	print_dec(test2);
 }
