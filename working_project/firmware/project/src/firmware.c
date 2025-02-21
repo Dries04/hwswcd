@@ -16,6 +16,6 @@ int main(void) {
 	print_dec(test);
 	unsigned int test1 = 69;
 	print_dec(test1);
-	int ok = multiply(5, 5);
+	int ok = multiply(multiply(5,5), 5);
 	print_dec(ok);
 }
