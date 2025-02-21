@@ -37,7 +37,7 @@ RAM              0x00000800         0x00000800         xrw
 Linker script and memory map
 
 
-.text           0x00000000      0x21e
+.text           0x00000000      0x1e6
                 0x00000000                        . = 0x0
  *(.init)
  .init          0x00000000       0x90 build/start.o
@@ -48,14 +48,14 @@ Linker script and memory map
                 0x0000009c                print_str
                 0x000000b8                print_dec
                 0x00000118                print_hex
- .text          0x00000160       0x38 build/ex102.o
+ .text          0x00000160       0x2c build/ex102.o
                 0x00000160                multiply
- .text          0x00000198        0x0 build/firmware.o
- .text.startup  0x00000198       0x70 build/firmware.o
-                0x00000198                main
- .text          0x00000208        0x0 build/start.o
- .text          0x00000208       0x16 /opt/riscv/lib/gcc/riscv32-unknown-elf/13.2.0/libgcc.a(muldi3.o)
-                0x00000208                __mulsi3
+ .text          0x0000018c        0x0 build/firmware.o
+ .text.startup  0x0000018c       0x44 build/firmware.o
+                0x0000018c                main
+ .text          0x000001d0        0x0 build/start.o
+ .text          0x000001d0       0x16 /opt/riscv/lib/gcc/riscv32-unknown-elf/13.2.0/libgcc.a(muldi3.o)
+                0x000001d0                __mulsi3
 
 .data           0x00000800        0x0
                 0x00000000                        . = 0x0
@@ -85,7 +85,7 @@ Linker script and memory map
                 0x00000c00       0x25 build/print.o
                                  0x15 (size before relaxing)
  .rodata.str1.4
-                0x00000c25       0x12 build/firmware.o
+                0x00000c25        0xd build/firmware.o
 
 /DISCARD/
  *(.note*)
