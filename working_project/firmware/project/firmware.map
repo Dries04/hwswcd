@@ -1,17 +1,43 @@
+Archive member included to satisfy reference by file (symbol)
+
+/opt/riscv/lib/gcc/riscv32-unknown-elf/13.2.0/libgcc.a(muldi3.o)
+                              build/ex102.o (__mulsi3)
+/opt/riscv/lib/gcc/riscv32-unknown-elf/13.2.0/libgcc.a(div.o)
+                              build/print.o (__udivsi3)
 
 Discarded input sections
 
- .comment       0x00000000       0x1c build/ex105.o
- .riscv.attributes
-                0x00000000       0x1c build/ex105.o
  .comment       0x00000000       0x1c build/print.o
  .riscv.attributes
                 0x00000000       0x1c build/print.o
+ .comment       0x00000000       0x1c build/ex102.o
+ .riscv.attributes
+                0x00000000       0x1c build/ex102.o
  .comment       0x00000000       0x1c build/firmware.o
  .riscv.attributes
                 0x00000000       0x1c build/firmware.o
  .riscv.attributes
                 0x00000000       0x1a build/start.o
+ .debug_line    0x00000000       0x7a /opt/riscv/lib/gcc/riscv32-unknown-elf/13.2.0/libgcc.a(muldi3.o)
+ .debug_line_str
+                0x00000000       0x8c /opt/riscv/lib/gcc/riscv32-unknown-elf/13.2.0/libgcc.a(muldi3.o)
+ .debug_info    0x00000000       0x31 /opt/riscv/lib/gcc/riscv32-unknown-elf/13.2.0/libgcc.a(muldi3.o)
+ .debug_abbrev  0x00000000       0x28 /opt/riscv/lib/gcc/riscv32-unknown-elf/13.2.0/libgcc.a(muldi3.o)
+ .debug_aranges
+                0x00000000       0x20 /opt/riscv/lib/gcc/riscv32-unknown-elf/13.2.0/libgcc.a(muldi3.o)
+ .debug_str     0x00000000       0xa1 /opt/riscv/lib/gcc/riscv32-unknown-elf/13.2.0/libgcc.a(muldi3.o)
+ .riscv.attributes
+                0x00000000       0x51 /opt/riscv/lib/gcc/riscv32-unknown-elf/13.2.0/libgcc.a(muldi3.o)
+ .debug_line    0x00000000      0x153 /opt/riscv/lib/gcc/riscv32-unknown-elf/13.2.0/libgcc.a(div.o)
+ .debug_line_str
+                0x00000000       0x89 /opt/riscv/lib/gcc/riscv32-unknown-elf/13.2.0/libgcc.a(div.o)
+ .debug_info    0x00000000       0x5d /opt/riscv/lib/gcc/riscv32-unknown-elf/13.2.0/libgcc.a(div.o)
+ .debug_abbrev  0x00000000       0x28 /opt/riscv/lib/gcc/riscv32-unknown-elf/13.2.0/libgcc.a(div.o)
+ .debug_aranges
+                0x00000000       0x20 /opt/riscv/lib/gcc/riscv32-unknown-elf/13.2.0/libgcc.a(div.o)
+ .debug_str     0x00000000       0xce /opt/riscv/lib/gcc/riscv32-unknown-elf/13.2.0/libgcc.a(div.o)
+ .riscv.attributes
+                0x00000000       0x51 /opt/riscv/lib/gcc/riscv32-unknown-elf/13.2.0/libgcc.a(div.o)
 
 Memory Configuration
 
@@ -23,37 +49,50 @@ RAM              0x00000800         0x00000800         xrw
 Linker script and memory map
 
 
-.text           0x00000000      0x1e8
+.text           0x00000000      0x2da
                 0x00000000                        . = 0x0
  *(.init)
  .init          0x00000000       0x90 build/start.o
                 0x00000000                start
  *(.text*)
- .text          0x00000090        0x4 build/ex105.o
-                0x00000090                convert
- .text          0x00000094       0xfc build/print.o
-                0x00000094                print_chr
-                0x000000a0                print_str
-                0x000000bc                print_dec
-                0x00000148                print_hex
- .text          0x00000190        0x0 build/firmware.o
- .text.startup  0x00000190       0x58 build/firmware.o
-                0x00000190                main
- .text          0x000001e8        0x0 build/start.o
+ .text          0x00000090      0x128 build/print.o
+                0x00000090                print_chr
+                0x0000009c                print_str
+                0x000000b8                print_dec
+                0x00000170                print_hex
+ .text          0x000001b8       0x34 build/ex102.o
+                0x000001b8                multiply
+ .text          0x000001ec        0x0 build/firmware.o
+ .text.startup  0x000001ec       0x58 build/firmware.o
+                0x000001ec                main
+ .text          0x00000244        0x0 build/start.o
+ .text          0x00000244       0x16 /opt/riscv/lib/gcc/riscv32-unknown-elf/13.2.0/libgcc.a(muldi3.o)
+                0x00000244                __mulsi3
+ *fill*         0x0000025a        0x2 
+ .text          0x0000025c       0x7e /opt/riscv/lib/gcc/riscv32-unknown-elf/13.2.0/libgcc.a(div.o)
+                0x0000025c                __divsi3
+                0x00000264                __hidden___udivsi3
+                0x00000264                __udivsi3
+                0x00000290                __umodsi3
+                0x000002b4                __modsi3
 
 .data           0x00000800        0x0
                 0x00000000                        . = 0x0
  *(.data)
- .data          0x00000800        0x0 build/ex105.o
  .data          0x00000800        0x0 build/print.o
+ .data          0x00000800        0x0 build/ex102.o
  .data          0x00000800        0x0 build/firmware.o
  .data          0x00000800        0x0 build/start.o
+ .data          0x00000800        0x0 /opt/riscv/lib/gcc/riscv32-unknown-elf/13.2.0/libgcc.a(muldi3.o)
+ .data          0x00000800        0x0 /opt/riscv/lib/gcc/riscv32-unknown-elf/13.2.0/libgcc.a(div.o)
 
 .bss            0x00000800        0x0
- .bss           0x00000800        0x0 build/ex105.o
  .bss           0x00000800        0x0 build/print.o
+ .bss           0x00000800        0x0 build/ex102.o
  .bss           0x00000800        0x0 build/firmware.o
  .bss           0x00000800        0x0 build/start.o
+ .bss           0x00000800        0x0 /opt/riscv/lib/gcc/riscv32-unknown-elf/13.2.0/libgcc.a(muldi3.o)
+ .bss           0x00000800        0x0 /opt/riscv/lib/gcc/riscv32-unknown-elf/13.2.0/libgcc.a(div.o)
 
 .rodata         0x00000800      0x400
                 0x00000400                        . = 0x400
@@ -62,12 +101,12 @@ Linker script and memory map
                 0x00000c00                        . = ALIGN (0x4)
  FILL mask 0xff
 
-.rodata.str1.4  0x00000c00       0x41
+.rodata.str1.4  0x00000c00       0x25
  .rodata.str1.4
-                0x00000c00       0x41 build/print.o
-                                 0x31 (size before relaxing)
+                0x00000c00       0x25 build/print.o
+                                 0x15 (size before relaxing)
  .rodata.str1.4
-                0x00000c41       0x12 build/firmware.o
+                0x00000c25       0x12 build/firmware.o
 
 /DISCARD/
  *(.note*)
@@ -76,8 +115,8 @@ Linker script and memory map
  *(.rel*)
  *(.comment)
  *(.riscv.attributes)
-LOAD build/ex105.o
 LOAD build/print.o
+LOAD build/ex102.o
 LOAD build/firmware.o
 LOAD build/start.o
 LOAD /opt/riscv/lib/gcc/riscv32-unknown-elf/13.2.0/libgcc.a
