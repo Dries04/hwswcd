@@ -65,7 +65,7 @@ Disassembly of section .text:
   c4:	05800713          	addi	a4,zero,88
   c8:	04f76463          	bltu	a4,a5,110 <print_dec+0x58>
   cc:	00000793          	addi	a5,zero,0
-  d0:	00a00713          	addi	a4,zero,10
+  d0:	00900713          	addi	a4,zero,9
   d4:	ff650513          	addi	a0,a0,-10
   d8:	00178793          	addi	a5,a5,1
   dc:	fea76ce3          	bltu	a4,a0,d4 <print_dec+0x1c>
