@@ -27,21 +27,27 @@ void print_dec(unsigned int val) {
 
 	for (int i = 10; val >= multiply(i, 10); i = multiply(i, 10)){
 		length_int++;
-		print_dec(length_int);
 	}
 	int devisor = multiply(10, length_int);
 
 	if (val >= 10){
-		
+		//new implementation for all values
+		while (val >= 10){
+			quotient = devide(val, 10);
+			val = val - multiply(quotient, 10);
+			print_chr('0' + quotient);
+		}
+
+
+		// code die werkt van 0-99
 		// while (val >= 10){
 		// 	val = val -= 10;
 		// 	quotient++;
 		// }
-		quotient = devide(val, 10);
 		
-		print_chr('0' + quotient);
+		// print_chr('0' + quotient);
 		// print_chr('0' + val);
-		print_str("\n");
+		// print_str("\n");
 	}
 
 	unsigned int print_val = original_val;
@@ -67,7 +73,7 @@ int devide(int a, int b) {
         b <<= 1;
         temp <<= 1;
     }
-	
+
     while (temp > 1) {
         b >>= 1;
         temp >>= 1;
