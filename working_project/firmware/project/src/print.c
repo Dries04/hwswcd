@@ -17,8 +17,8 @@ void print_str(const char *p) {
 }
 
 void print_dec(unsigned int val) {
-	print_chr("0" + val);
-	print_str("\n");
+		print_chr('0' + val);
+		print_str("\n");
 }
 
 void print_hex(unsigned int val, int digits) {
