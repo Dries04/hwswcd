@@ -23,7 +23,7 @@ void print_dec(unsigned int val) {
 	int original_val = val;
 	unsigned int quotient = 0;
 
-	for (int i = 1; val > multiply(10, i); i = multiply (i, 10)){
+	for (int i = 1; val > 10; i++){
 		val_lenght++;
 		print_dec(val_lenght);
 	}
