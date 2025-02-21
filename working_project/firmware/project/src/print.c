@@ -43,12 +43,12 @@ void print_dec(unsigned int val) {
 	}
 }
 
-int multiply(int a, int b) {
+void multiply(int a, int b, int *result) {
     int a_new = a;
     for (int i = 0; i < b - 1; i++) {
         a_new = a_new + a;
     }
-    return a_new;
+    *result = a_new;
 }
 
 void print_hex(unsigned int val, int digits) {
