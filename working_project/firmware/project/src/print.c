@@ -8,6 +8,7 @@
 #include "print.h"
 
 int multiply(int a, int b);
+int devide(int a, int b);
 
 void print_chr(char ch) {
 	*((volatile unsigned int*)OUTPORT) = ch;
@@ -28,32 +29,18 @@ void print_dec(unsigned int val) {
 		length_int++;
 		print_dec(length_int);
 	}
-	// int devisor = multiply(10, length_int);
-	// for (int i = length_int; i >= 0; i--){
-	// 	while (){
-
-	// 	}
-	// 	// val/i;
-	// 	// if (val >= 10 && val < 100){
-	// 	// 	while (val >= 10){
-	// 	// 		val = val -= 10;
-	// 	// 		quotient++;
-	// 	// 	}
-	// 	// 	quotient = quotient * i;
-	// 	// 	print_chr('0' + quotient);
-	// 	// 	val = val - quotient;
-	// 	// }
-	// 	print_str("test\n");
-	// }
+	int devisor = multiply(10, length_int);
 
 	if (val >= 10){
 		
-		while (val >= 10){
-			val = val -= 10;
-			quotient++;
-		}
+		// while (val >= 10){
+		// 	val = val -= 10;
+		// 	quotient++;
+		// }
+		quotient = devide(val, 10);
+		
 		print_chr('0' + quotient);
-		print_chr('0' + val);
+		// print_chr('0' + val);
 		print_str("\n");
 	}
 
@@ -70,6 +57,14 @@ int multiply(int a, int b) {
         a_new = a_new + a;
     }
     return a_new;
+}
+
+int devide(int a, int b) {
+	int a_new = a;
+	for (int i = 0; i < b - 1; i++) {
+		a_new = a_new - a;
+	}
+	return a_new;
 }
 
 void print_hex(unsigned int val, int digits) {
