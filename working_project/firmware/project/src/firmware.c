@@ -13,12 +13,14 @@ int main(void) {
 	print_str("hello world\n");
 	unsigned int test = 12;
 	print_dec(test);
-	unsigned int test1 = 69;
+	unsigned int test1 = 10;
 	print_dec(test1);
-	unsigned int test3 = 10;
+	unsigned int test7 = 69;
+	print_dec(test7);
+	unsigned int test3 = 245;
 	print_dec(test3);
-	unsigned int test4 = 20;
+	unsigned int test4 = 920;
 	print_dec(test4);
-	unsigned int test2 = 40000;
+	unsigned int test2 = 459;
 	print_dec(test2);
 }
