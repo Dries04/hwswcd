@@ -37,7 +37,7 @@ Disassembly of section .text:
   74:	00000f13          	addi	t5,zero,0
   78:	00000f93          	addi	t6,zero,0
   7c:	00001137          	lui	sp,0x1
-  80:	0a4000ef          	jal	ra,124 <main>
+  80:	09c000ef          	jal	ra,11c <main>
   84:	0080006f          	jal	zero,8c <end>
   88:	00100073          	ebreak
 
@@ -49,7 +49,7 @@ Disassembly of section .text:
 
 00000094 <print_chr>:
   94:	800007b7          	lui	a5,0x80000
-  98:	00a7a023          	sw	a0,0(a5) # 80000000 <main+0x7ffffedc>
+  98:	00a7a023          	sw	a0,0(a5) # 80000000 <main+0x7ffffee4>
   9c:	00008067          	jalr	zero,0(ra)
 
 000000a0 <print_str>:
@@ -58,60 +58,58 @@ Disassembly of section .text:
   a8:	00079463          	bne	a5,zero,b0 <print_str+0x10>
   ac:	00008067          	jalr	zero,0(ra)
   b0:	00150513          	addi	a0,a0,1
-  b4:	00f72023          	sw	a5,0(a4) # 80000000 <main+0x7ffffedc>
+  b4:	00f72023          	sw	a5,0(a4) # 80000000 <main+0x7ffffee4>
   b8:	fedff06f          	jal	zero,a4 <print_str+0x4>
 
 000000bc <print_dec>:
-  bc:	00051e63          	bne	a0,zero,d8 <print_dec+0x1c>
+  bc:	0ff57513          	andi	a0,a0,255
   c0:	800007b7          	lui	a5,0x80000
-  c4:	03000713          	addi	a4,zero,48
+  c4:	00a7a023          	sw	a0,0(a5) # 80000000 <main+0x7ffffee4>
   c8:	00001537          	lui	a0,0x1
-  cc:	00e7a023          	sw	a4,0(a5) # 80000000 <main+0x7ffffedc>
-  d0:	c0050513          	addi	a0,a0,-1024 # c00 <main+0xadc>
-  d4:	fcdff06f          	jal	zero,a0 <print_str>
-  d8:	0000006f          	jal	zero,d8 <print_dec+0x1c>
+  cc:	c0050513          	addi	a0,a0,-1024 # c00 <main+0xae4>
+  d0:	fd1ff06f          	jal	zero,a0 <print_str>
 
-000000dc <print_hex>:
-  dc:	04058263          	beq	a1,zero,120 <print_hex+0x44>
-  e0:	00259593          	slli	a1,a1,0x2
-  e4:	00001737          	lui	a4,0x1
-  e8:	ffc58593          	addi	a1,a1,-4
-  ec:	c0470713          	addi	a4,a4,-1020 # c04 <main+0xae0>
-  f0:	800006b7          	lui	a3,0x80000
-  f4:	0005d863          	bge	a1,zero,104 <print_hex+0x28>
-  f8:	00001537          	lui	a0,0x1
-  fc:	c0050513          	addi	a0,a0,-1024 # c00 <main+0xadc>
- 100:	fa1ff06f          	jal	zero,a0 <print_str>
- 104:	00b557b3          	srl	a5,a0,a1
- 108:	00f7f793          	andi	a5,a5,15
- 10c:	00f707b3          	add	a5,a4,a5
- 110:	0007c783          	lbu	a5,0(a5)
- 114:	ffc58593          	addi	a1,a1,-4
- 118:	00f6a023          	sw	a5,0(a3) # 80000000 <main+0x7ffffedc>
- 11c:	fd9ff06f          	jal	zero,f4 <print_hex+0x18>
- 120:	00008067          	jalr	zero,0(ra)
+000000d4 <print_hex>:
+  d4:	04058263          	beq	a1,zero,118 <print_hex+0x44>
+  d8:	00259593          	slli	a1,a1,0x2
+  dc:	00001737          	lui	a4,0x1
+  e0:	ffc58593          	addi	a1,a1,-4
+  e4:	c0470713          	addi	a4,a4,-1020 # c04 <main+0xae8>
+  e8:	800006b7          	lui	a3,0x80000
+  ec:	0005d863          	bge	a1,zero,fc <print_hex+0x28>
+  f0:	00001537          	lui	a0,0x1
+  f4:	c0050513          	addi	a0,a0,-1024 # c00 <main+0xae4>
+  f8:	fa9ff06f          	jal	zero,a0 <print_str>
+  fc:	00b557b3          	srl	a5,a0,a1
+ 100:	00f7f793          	andi	a5,a5,15
+ 104:	00f707b3          	add	a5,a4,a5
+ 108:	0007c783          	lbu	a5,0(a5)
+ 10c:	ffc58593          	addi	a1,a1,-4
+ 110:	00f6a023          	sw	a5,0(a3) # 80000000 <main+0x7ffffee4>
+ 114:	fd9ff06f          	jal	zero,ec <print_hex+0x18>
+ 118:	00008067          	jalr	zero,0(ra)
 
-00000124 <main>:
- 124:	00001537          	lui	a0,0x1
- 128:	ff010113          	addi	sp,sp,-16 # ff0 <main+0xecc>
- 12c:	c1850513          	addi	a0,a0,-1000 # c18 <main+0xaf4>
- 130:	00112623          	sw	ra,12(sp)
- 134:	f6dff0ef          	jal	ra,a0 <print_str>
- 138:	00000513          	addi	a0,zero,0
+0000011c <main>:
+ 11c:	00001537          	lui	a0,0x1
+ 120:	ff010113          	addi	sp,sp,-16 # ff0 <main+0xed4>
+ 124:	c1850513          	addi	a0,a0,-1000 # c18 <main+0xafc>
+ 128:	00112623          	sw	ra,12(sp)
+ 12c:	f75ff0ef          	jal	ra,a0 <print_str>
+ 130:	00c00513          	addi	a0,zero,12
+ 134:	f89ff0ef          	jal	ra,bc <print_dec>
+ 138:	00600513          	addi	a0,zero,6
  13c:	f81ff0ef          	jal	ra,bc <print_dec>
- 140:	00600513          	addi	a0,zero,6
+ 140:	00500513          	addi	a0,zero,5
  144:	f79ff0ef          	jal	ra,bc <print_dec>
- 148:	00500513          	addi	a0,zero,5
- 14c:	f71ff0ef          	jal	ra,bc <print_dec>
- 150:	00001537          	lui	a0,0x1
- 154:	c0050513          	addi	a0,a0,-1024 # c00 <main+0xadc>
- 158:	f49ff0ef          	jal	ra,a0 <print_str>
- 15c:	04500513          	addi	a0,zero,69
- 160:	f5dff0ef          	jal	ra,bc <print_dec>
- 164:	00c12083          	lw	ra,12(sp)
- 168:	00000513          	addi	a0,zero,0
- 16c:	01010113          	addi	sp,sp,16
- 170:	00008067          	jalr	zero,0(ra)
+ 148:	00001537          	lui	a0,0x1
+ 14c:	c0050513          	addi	a0,a0,-1024 # c00 <main+0xae4>
+ 150:	f51ff0ef          	jal	ra,a0 <print_str>
+ 154:	04500513          	addi	a0,zero,69
+ 158:	f65ff0ef          	jal	ra,bc <print_dec>
+ 15c:	00c12083          	lw	ra,12(sp)
+ 160:	00000513          	addi	a0,zero,0
+ 164:	01010113          	addi	sp,sp,16
+ 168:	00008067          	jalr	zero,0(ra)
 
 Disassembly of section .rodata.str1.4:
 
@@ -129,7 +127,7 @@ Disassembly of section .rodata.str1.4:
  c16:	0000                	.insn	2, 0x
  c18:	6568                	.insn	2, 0x6568
  c1a:	6c6c                	.insn	2, 0x6c6c
- c1c:	6f77206f          	jal	zero,73b12 <main+0x739ee>
+ c1c:	6f77206f          	jal	zero,73b12 <main+0x739f6>
  c20:	6c72                	.insn	2, 0x6c72
  c22:	0a64                	.insn	2, 0x0a64
 	...
