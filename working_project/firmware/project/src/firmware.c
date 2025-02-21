@@ -8,6 +8,6 @@ int main(void) {
 	print_dec(test);
 	unsigned int test1 = 69;
 	print_dec(test1);
-	int twaalf = multiply(3, 4);
+	//int twaalf = multiply(3, 4);
 	//print_dec(twaalf);
 }
