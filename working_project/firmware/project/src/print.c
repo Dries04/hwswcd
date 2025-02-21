@@ -40,7 +40,7 @@ void print_dec(unsigned int val) {
 		int d = devisor;
 		int val_temp = val;
 
-		while (val >= 10){
+		while (val_temp >= 10){
 			
 			
 			//quotient = devide(val, devisor);
