@@ -111,7 +111,7 @@ Disassembly of section .text:
  174:	00100793          	addi	a5,zero,1
  178:	0180006f          	jal	zero,190 <print_dec+0xac>
  17c:	00a00793          	addi	a5,zero,10
- 180:	00000493          	addi	s1,zero,0
+ 180:	00100493          	addi	s1,zero,1
  184:	fa9ff06f          	jal	zero,12c <print_dec+0x48>
  188:	00191913          	slli	s2,s2,0x1
  18c:	00179793          	slli	a5,a5,0x1
