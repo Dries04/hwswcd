@@ -35,17 +35,50 @@ void print_dec(unsigned int val) {
 			length_int--;
 		}
 		//int devisor = multiply(10, length_int);
-		
+		int val1 = val;
 		//new implementation for all values
-		while (val >= 10){
-			quotient = devide(val, 10);
-			val = val - multiply(quotient, 10);
+		while (val1 >= 10){
+			//quotient = devide(val, devisor);
+			int temp = 1;
+			int quotient = 0;
+		
+			while (devisor <= val1) {
+				devisor <<= 1;
+				temp <<= 1;
+			}
+		
+			while (temp > 1) {
+				devisor >>= 1;
+				temp >>= 1;
+		
+				if (val1 >= devisor) {
+					val1 -= devisor;
+					quotient += temp;
+				}
+			}
+			
+			//val = val - multiply(quotient, devisor);
+			int a_new = quotient;
+			for (int i = 0; i < devisor - 1; i++) {
+				a_new = a_new + quotient;
+			}
+			val = val - a_new;
 			print_chr('0' + quotient);
 			if (val < 10){
 				print_chr('0' + val);
 				print_str("\n");
 			}
 		}
+
+		// while (val >= 10){
+		// 	quotient = devide(val, 10);
+		// 	val = val - multiply(quotient, 10);
+		// 	print_chr('0' + quotient);
+		// 	if (val < 10){
+		// 		print_chr('0' + val);
+		// 		print_str("\n");
+		// 	}
+		// }
 
 
 		// code die werkt van 0-99
