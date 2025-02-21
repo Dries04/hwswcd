@@ -4,7 +4,7 @@
 int main(void) {
 
 	print_str("hello world\n");
-	unsigned int test = 7;
+	unsigned int test = 0;
 	print_dec(test);
 	unsigned int test2 = 6;
 	print_dec(test2);
