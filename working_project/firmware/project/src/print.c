@@ -26,7 +26,6 @@ void print_dec(unsigned int val) {
 	for (int i = 1; val > multiply(i, 100); i = i + 10){
 		val_lenght++;
 		print_dec(val_lenght);
-		val = val - 20;
 	}
 
 	if (val >= 10){
