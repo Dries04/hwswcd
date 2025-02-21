@@ -35,7 +35,6 @@ void print_dec(unsigned int val) {
 			length_int--;
 		}
 
-		int a = val;
 		int b = devisor;
 		int d = devisor;
 		int val_temp = val;
@@ -47,7 +46,8 @@ void print_dec(unsigned int val) {
 			
 			int temp = 1;
 			int quotient1 = 0;
-		
+			int a = val_temp;
+			
 			while (b <= a) {
 				b <<= 1;
 				temp <<= 1;
