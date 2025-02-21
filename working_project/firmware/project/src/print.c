@@ -7,6 +7,8 @@
 
 #include "print.h"
 
+int multiply(int a, int b);
+
 void print_chr(char ch) {
 	*((volatile unsigned int*)OUTPORT) = ch;
 }
@@ -24,6 +26,14 @@ void print_dec(unsigned int val) {
 	// for (int i = 1; val > 10 * i; = 10){
 	// 	val_lenght++;
 	// }
+
+	if (val > 100){
+		print_str("bigger than 100\n");
+		int x = 3;
+		int y = 6;
+		int z = multiply(x, y);
+		print_dec(z);
+	}
 
 	if (val > 10){
 		
@@ -43,12 +53,12 @@ void print_dec(unsigned int val) {
 	}
 }
 
-void multiply(int a, int b, int *result) {
+int multiply(int a, int b) {
     int a_new = a;
     for (int i = 0; i < b - 1; i++) {
         a_new = a_new + a;
     }
-    *result = a_new;
+    return a_new;
 }
 
 void print_hex(unsigned int val, int digits) {
