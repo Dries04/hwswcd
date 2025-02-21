@@ -43,7 +43,7 @@ void print_dec(unsigned int val) {
 	// 	print_str("\n");
 	// }
 
-	char *num = '0' + val;
+	char num = '0' + val;
 	print_str(num);
 }
 
