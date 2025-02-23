@@ -133,40 +133,47 @@ void print_dec(unsigned int val) {
 	// }
 
 	int num = val;
-    // Handle negative numbers
+	
     if (num < 0) {
         print_char('-');
         num = -num;
     }
 
-	// Buffer to store digits (max 10 for 32-bit int, plus null terminator)
-	char buffer[12]; 
-	int i = 1;
+    // Precomputed powers of ten to avoid multiplication
+    int powers_of_ten[] = {1, 10, 100, 1000, 10000, 100000, 1000000, 10000000, 100000000, 1000000000};
+    
+    // Buffer to store digits, starting from index 1
+    char buffer[12];  
+    int i = 1;  // Start from index 1 to skip buffer[0]
 
-	// Extract digits using subtraction (since division is unavailable)
-	do {
-		int digit = 0;
-		int power = 1;
+    // Find the largest power of ten that fits into num
+    int power_index = 9; // Start from largest power (1000000000)
+    while (num < powers_of_ten[power_index]) {
+        power_index--;
+    }
 
-		// Find the highest power of ten that fits into num
-		while (num >= power * 10 && power <= 1000000000) {
-			power = (power << 3) + (power << 1); // Equivalent to power *= 10
-		}
+    // Extract digits without division
+    while (power_index >= 0) {
+        int power = powers_of_ten[power_index];
+        int digit = 0;
 
-		// Extract the most significant digit
-		while (num >= power) {
-			num -= power;
-			digit++;
-		}
+        // Subtract power of ten until num is smaller than the power
+        while (num >= power) {
+            num -= power;
+            digit++;
+        }
 
-		// Store digit as character
-		buffer[i++] = '0' + digit;
-	} while (num > 0);
+        // Store digit in buffer
+        buffer[i++] = '0' + digit;
 
-	// Print the collected digits
-	for (int j = 1; j < i; j++) {
-		print_char(buffer[j]);
-	}
+        // Move to next smaller power of ten
+        power_index--;
+    }
+
+    // Print digits from buffer starting at index 1
+    for (int j = 1; j < i; j++) {
+        print_char(buffer[j]);
+    }
 }
 
 int multiply(int a, int b) {
