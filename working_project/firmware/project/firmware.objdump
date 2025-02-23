@@ -110,7 +110,7 @@ Disassembly of section .text:
  168:	00b05463          	bge	zero,a1,170 <multiply+0x18>
  16c:	00058513          	addi	a0,a1,0
  170:	00078593          	addi	a1,a5,0
- 174:	0f4000ef          	jal	ra,268 <__mulsi3>
+ 174:	108000ef          	jal	ra,27c <__mulsi3>
  178:	00c12083          	lw	ra,12(sp)
  17c:	01010113          	addi	sp,sp,16
  180:	00008067          	jalr	zero,0(ra)
@@ -173,21 +173,26 @@ Disassembly of section .text:
  24c:	e6dff0ef          	jal	ra,b8 <print_dec>
  250:	1cb00513          	addi	a0,zero,459
  254:	e65ff0ef          	jal	ra,b8 <print_dec>
- 258:	00c12083          	lw	ra,12(sp)
- 25c:	00000513          	addi	a0,zero,0
- 260:	01010113          	addi	sp,sp,16
- 264:	00008067          	jalr	zero,0(ra)
+ 258:	3e800513          	addi	a0,zero,1000
+ 25c:	e5dff0ef          	jal	ra,b8 <print_dec>
+ 260:	ffffe537          	lui	a0,0xffffe
+ 264:	8f050513          	addi	a0,a0,-1808 # ffffd8f0 <base_lookup+0xffffd0f0>
+ 268:	e51ff0ef          	jal	ra,b8 <print_dec>
+ 26c:	00c12083          	lw	ra,12(sp)
+ 270:	00000513          	addi	a0,zero,0
+ 274:	01010113          	addi	sp,sp,16
+ 278:	00008067          	jalr	zero,0(ra)
 
-00000268 <__mulsi3>:
- 268:	862a                	c.mv	a2,a0
- 26a:	4501                	c.li	a0,0
- 26c:	0015f693          	andi	a3,a1,1
- 270:	c291                	c.beqz	a3,274 <__mulsi3+0xc>
- 272:	9532                	c.add	a0,a2
- 274:	8185                	c.srli	a1,0x1
- 276:	0606                	c.slli	a2,0x1
- 278:	f9f5                	c.bnez	a1,26c <__mulsi3+0x4>
- 27a:	8082                	c.jr	ra
+0000027c <__mulsi3>:
+ 27c:	862a                	c.mv	a2,a0
+ 27e:	4501                	c.li	a0,0
+ 280:	0015f693          	andi	a3,a1,1
+ 284:	c291                	c.beqz	a3,288 <__mulsi3+0xc>
+ 286:	9532                	c.add	a0,a2
+ 288:	8185                	c.srli	a1,0x1
+ 28a:	0606                	c.slli	a2,0x1
+ 28c:	f9f5                	c.bnez	a1,280 <__mulsi3+0x4>
+ 28e:	8082                	c.jr	ra
 	...
 
 Disassembly of section .data:

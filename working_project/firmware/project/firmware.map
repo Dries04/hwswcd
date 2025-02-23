@@ -34,7 +34,7 @@ RAM              0x00000800         0x00000800         xrw
 Linker script and memory map
 
 
-.text           0x00000000      0x27e
+.text           0x00000000      0x292
                 0x00000000                        . = 0x0
  *(.init)
  .init          0x00000000       0x90 build/start.o
@@ -49,11 +49,11 @@ Linker script and memory map
                 0x00000184                devide
                 0x000001c4                print_hex
  .text          0x0000020c        0x0 build/firmware.o
- .text.startup  0x0000020c       0x5c build/firmware.o
+ .text.startup  0x0000020c       0x70 build/firmware.o
                 0x0000020c                main
- .text          0x00000268        0x0 build/start.o
- .text          0x00000268       0x16 /opt/riscv/lib/gcc/riscv32-unknown-elf/13.2.0/libgcc.a(muldi3.o)
-                0x00000268                __mulsi3
+ .text          0x0000027c        0x0 build/start.o
+ .text          0x0000027c       0x16 /opt/riscv/lib/gcc/riscv32-unknown-elf/13.2.0/libgcc.a(muldi3.o)
+                0x0000027c                __mulsi3
 
 .data           0x00000800       0x2c
                 0x00000000                        . = 0x0
