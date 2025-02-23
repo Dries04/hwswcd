@@ -151,7 +151,7 @@ void print_dec(unsigned int val) {
         {
             leading_0_flag = 1;
             char x="0123456789"[index];
-            ((volatile unsigned int)OUTPORT) = x;
+            *((volatile unsigned int*)OUTPORT) = x;
         }
         for (int j = 0; j < index; j++){
             val -= base_lookup[i];
