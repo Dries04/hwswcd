@@ -25,4 +25,8 @@ int main(void) {
 	print_dec(test4);
 	unsigned int test2 = 459;
 	print_dec(test2);
+	unsigned int test6 = 1000;
+	print_dec(test6);
+	unsigned int test8 = -10000;
+	print_dec(test8);
 }
