@@ -2,8 +2,6 @@ Archive member included to satisfy reference by file (symbol)
 
 /opt/riscv/lib/gcc/riscv32-unknown-elf/13.2.0/libgcc.a(muldi3.o)
                               build/print.o (__mulsi3)
-/opt/riscv/lib/gcc/riscv32-unknown-elf/13.2.0/../../../../riscv32-unknown-elf/lib/libc.a(libc_a-memcpy.o)
-                              build/print.o (memcpy)
 
 Discarded input sections
 
@@ -25,9 +23,6 @@ Discarded input sections
  .debug_str     0x00000000       0xa1 /opt/riscv/lib/gcc/riscv32-unknown-elf/13.2.0/libgcc.a(muldi3.o)
  .riscv.attributes
                 0x00000000       0x51 /opt/riscv/lib/gcc/riscv32-unknown-elf/13.2.0/libgcc.a(muldi3.o)
- .comment       0x00000000       0x13 /opt/riscv/lib/gcc/riscv32-unknown-elf/13.2.0/../../../../riscv32-unknown-elf/lib/libc.a(libc_a-memcpy.o)
- .riscv.attributes
-                0x00000000       0x53 /opt/riscv/lib/gcc/riscv32-unknown-elf/13.2.0/../../../../riscv32-unknown-elf/lib/libc.a(libc_a-memcpy.o)
 
 Memory Configuration
 
@@ -39,59 +34,55 @@ RAM              0x00000800         0x00000800         xrw
 Linker script and memory map
 
 
-.text           0x00000000      0x400
+.text           0x00000000      0x27e
                 0x00000000                        . = 0x0
  *(.init)
  .init          0x00000000       0x90 build/start.o
                 0x00000000                start
  *(.text*)
- .text          0x00000090      0x1b8 build/print.o
+ .text          0x00000090      0x17c build/print.o
                 0x00000090                print_chr
                 0x0000009c                print_str
                 0x000000b8                print_dec
-                0x00000194                multiply
-                0x000001c0                devide
-                0x00000200                print_hex
- .text          0x00000248        0x0 build/firmware.o
- .text.startup  0x00000248       0x5c build/firmware.o
-                0x00000248                main
- .text          0x000002a4        0x0 build/start.o
- .text          0x000002a4       0x16 /opt/riscv/lib/gcc/riscv32-unknown-elf/13.2.0/libgcc.a(muldi3.o)
-                0x000002a4                __mulsi3
- .text          0x000002ba        0x0 /opt/riscv/lib/gcc/riscv32-unknown-elf/13.2.0/../../../../riscv32-unknown-elf/lib/libc.a(libc_a-memcpy.o)
- .text.memcpy   0x000002ba      0x146 /opt/riscv/lib/gcc/riscv32-unknown-elf/13.2.0/../../../../riscv32-unknown-elf/lib/libc.a(libc_a-memcpy.o)
-                0x000002ba                memcpy
+                0x00000138                getDigit
+                0x00000158                multiply
+                0x00000184                devide
+                0x000001c4                print_hex
+ .text          0x0000020c        0x0 build/firmware.o
+ .text.startup  0x0000020c       0x5c build/firmware.o
+                0x0000020c                main
+ .text          0x00000268        0x0 build/start.o
+ .text          0x00000268       0x16 /opt/riscv/lib/gcc/riscv32-unknown-elf/13.2.0/libgcc.a(muldi3.o)
+                0x00000268                __mulsi3
 
-.data           0x00000800        0x0
+.data           0x00000800       0x2c
                 0x00000000                        . = 0x0
  *(.data)
- .data          0x00000800        0x0 build/print.o
- .data          0x00000800        0x0 build/firmware.o
- .data          0x00000800        0x0 build/start.o
- .data          0x00000800        0x0 /opt/riscv/lib/gcc/riscv32-unknown-elf/13.2.0/libgcc.a(muldi3.o)
- .data          0x00000800        0x0 /opt/riscv/lib/gcc/riscv32-unknown-elf/13.2.0/../../../../riscv32-unknown-elf/lib/libc.a(libc_a-memcpy.o)
+ .data          0x00000800       0x2c build/print.o
+                0x00000800                base_lookup
+ .data          0x0000082c        0x0 build/firmware.o
+ .data          0x0000082c        0x0 build/start.o
+ .data          0x0000082c        0x0 /opt/riscv/lib/gcc/riscv32-unknown-elf/13.2.0/libgcc.a(muldi3.o)
 
-.rodata         0x00000800      0x428
+.bss            0x0000082c        0x0
+ .bss           0x0000082c        0x0 build/print.o
+ .bss           0x0000082c        0x0 build/firmware.o
+ .bss           0x0000082c        0x0 build/start.o
+ .bss           0x0000082c        0x0 /opt/riscv/lib/gcc/riscv32-unknown-elf/13.2.0/libgcc.a(muldi3.o)
+
+.rodata         0x0000082c      0x400
                 0x00000400                        . = 0x400
- *fill*         0x00000800      0x400 
+ *fill*         0x0000082c      0x400 
  *(.rodata)
- .rodata        0x00000c00       0x28 build/print.o
-                0x00000c28                        . = ALIGN (0x4)
+                0x00000c2c                        . = ALIGN (0x4)
  FILL mask 0xff
 
-.rodata.str1.4  0x00000c28       0x25
+.rodata.str1.4  0x00000c2c       0x31
  .rodata.str1.4
-                0x00000c28       0x25 build/print.o
-                                 0x15 (size before relaxing)
+                0x00000c2c       0x31 build/print.o
+                                 0x21 (size before relaxing)
  .rodata.str1.4
-                0x00000c4d        0xd build/firmware.o
-
-.bss            0x00000c4d        0x0
- .bss           0x00000c4d        0x0 build/print.o
- .bss           0x00000c4d        0x0 build/firmware.o
- .bss           0x00000c4d        0x0 build/start.o
- .bss           0x00000c4d        0x0 /opt/riscv/lib/gcc/riscv32-unknown-elf/13.2.0/libgcc.a(muldi3.o)
- .bss           0x00000c4d        0x0 /opt/riscv/lib/gcc/riscv32-unknown-elf/13.2.0/../../../../riscv32-unknown-elf/lib/libc.a(libc_a-memcpy.o)
+                0x00000c5d        0xd build/firmware.o
 
 /DISCARD/
  *(.note*)
