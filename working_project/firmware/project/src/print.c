@@ -131,49 +131,43 @@ void print_dec(unsigned int val) {
 	// 	print_chr('0');
 	// 	print_str("\n");
 	// }
-
-	int num = val;
-	
-    if (num < 0) {
-        print_char('-');
-        num = -num;
-    }
-
-    // Precomputed powers of ten to avoid multiplication
-    int powers_of_ten[] = {1, 10, 100, 1000, 10000, 100000, 1000000, 10000000, 100000000, 1000000000};
-    
-    // Buffer to store digits, starting from index 1
-    char buffer[12];  
-    int i = 1;  // Start from index 1 to skip buffer[0]
-
-    // Find the largest power of ten that fits into num
-    int power_index = 9; // Start from largest power (1000000000)
-    while (num < powers_of_ten[power_index]) {
-        power_index--;
-    }
-
-    // Extract digits without division
-    while (power_index >= 0) {
-        int power = powers_of_ten[power_index];
-        int digit = 0;
-
-        // Subtract power of ten until num is smaller than the power
-        while (num >= power) {
-            num -= power;
-            digit++;
+    char leading_0_flag = 0;
+    for (int i = 10; i > 0; i--)
+    {
+        //print_str("i: ");
+        //print_hex(i,8);
+        //print_str("\n");
+        int index = getDigit(base_lookup[i],val);
+        if (index != 0 || leading_0_flag != 0)
+        {
+            leading_0_flag = 1;
+            char x="0123456789"[index];
+            ((volatile unsigned int)OUTPORT) = x;
         }
-
-        // Store digit in buffer
-        buffer[i++] = '0' + digit;
-
-        // Move to next smaller power of ten
-        power_index--;
+        for (int j = 0; j < index; j++){
+            val -= base_lookup[i];
+        }
     }
+    print_str("\n");
+    return;
 
-    // Print digits from buffer starting at index 1
-    for (int j = 1; j < i; j++) {
-        print_char(buffer[j]);
-    }
+}
+
+unsigned int base_lookup[] = {0,1,10,100,1000,10000,100000,1000000,10000000,100000000,1000000000};
+
+int getDigit(int base, int number) {
+    //print_str("number: ");
+    //print_hex(number,8);
+    //print_str("\n");
+    //print_str("base: ");
+    //print_hex(base,8);
+    //print_str("\n");
+    int digit = 0;
+    for (int i = base;i <= number;i += base) ++digit;
+    //print_str("digit: ");
+    //print_hex(digit,1);
+    //print_str("\n");
+    return digit;
 }
 
 int multiply(int a, int b) {
