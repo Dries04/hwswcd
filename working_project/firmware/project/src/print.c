@@ -19,7 +19,7 @@ void print_str(const char *p) {
 		*((volatile unsigned int*)OUTPORT) = *(p++);
 }
 
-void print_dec(unsigned int val) {
+//  void print_dec(unsigned int val) {
 
 	// if (val >= 10){
 	// 	unsigned int quotient = 0;
@@ -131,6 +131,15 @@ void print_dec(unsigned int val) {
 	// 	print_chr('0');
 	// 	print_str("\n");
 	// }
+
+
+
+//}
+
+
+unsigned int base_lookup[] = {0,1,10,100,1000,10000,100000,1000000,10000000,100000000,1000000000};
+
+void print_dec(unsigned int val) {
     char leading_0_flag = 0;
     for (int i = 10; i > 0; i--)
     {
@@ -150,11 +159,7 @@ void print_dec(unsigned int val) {
     }
     print_str("\n");
     return;
-
 }
-
-unsigned int base_lookup[] = {0,1,10,100,1000,10000,100000,1000000,10000000,100000000,1000000000};
-
 int getDigit(int base, int number) {
     //print_str("number: ");
     //print_hex(number,8);
