@@ -9,11 +9,11 @@ unsigned int convert(unsigned int x) {
 
     // Multiply by 5 (using addition)
     int b = 5;
-    // int a = temp;
-    // while (b > 0) {
-    //     temp += a;
-    //     b--;
-    // }
+    int a = temp;
+    while (b > 0) {
+        temp += a;
+        b--;
+    }
 
     // Divide by 9 (using subtraction)
     // temp = divide(temp, 9);
