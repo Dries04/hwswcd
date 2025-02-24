@@ -9,14 +9,14 @@ int multiply(int a, int b) {
     return result;
 }
 
-int divide(int a, int b) {
-    int quotient = 0;
-    while (a >= b) {
-        a -= b;
-        quotient++;
-    }
-    return quotient;
-}
+// int divide(int a, int b) {
+//     int quotient = 0;
+//     while (a >= b) {
+//         a -= b;
+//         quotient++;
+//     }
+//     return quotient;
+// }
 
 unsigned int convert(unsigned int x) {
     int temp = x;
