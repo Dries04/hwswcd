@@ -20,125 +20,11 @@ void print_str(const char *p) {
 		*((volatile unsigned int*)OUTPORT) = *(p++);
 }
 
-//  void print_dec(unsigned int val) {
-
-	// if (val >= 10){
-	// 	unsigned int quotient = 0;
-	// 	int length_int = 1;
-	// 	int devisor = 1;
-	
-	// 	for (int i = 10; val >= multiply(i, 10); i = multiply(i, 10)){
-	// 		length_int++;
-	// 	}
-	// 	while (length_int >= 0){
-	// 		int temp = multiply(10, devisor);
-	// 		devisor = temp;
-	// 		length_int--;
-	// 	}
-
-	// 	int devisor_temp = devisor;
-	// 	int val_temp = val;
-
-	// 	while (val_temp >= 10){
-			
-			
-	// 		//quotient = devide(val, devisor);
-			
-	// 		int temp = 1;
-	// 		int quotient1 = 0;
-	// 		int a = val_temp;
-	// 		int b = devisor_temp;
-	// 		int d = devisor_temp;
-
-	// 		while (b <= a) {
-	// 			b <<= 1;
-	// 			temp <<= 1;
-	// 		}
-		
-	// 		while (temp > 1) {
-	// 			b >>= 1;
-	// 			temp >>= 1;
-		
-	// 			if (a >= b) {
-	// 				a -= b;
-	// 				quotient1 += temp;
-	// 			}
-	// 		}
-
-	// 		int c = quotient1;
-	// 		//val = val - multiply(quotient, devisor);
-
-	// 		int a_new = c;
-	// 		for (int i = 0; i < d - 1; i++) {
-	// 			a_new = a_new + c;
-	// 		}
-	// 		val_temp = val_temp - a_new;
-			
-	// 		//devisor_temp = devisor_temp / 10;
-
-	// 		int temp2 = 1;
-	// 		int quotient2 = 0;
-	// 		int hihi = 10;
-		
-	// 		while (hihi <= a) {
-	// 			hihi <<= 1;
-	// 			temp2 <<= 1;
-	// 		}
-		
-	// 		while (temp2 > 1) {
-	// 			hihi >>= 1;
-	// 			temp2 >>= 1;
-		
-	// 			if (devisor_temp >= 10) {
-	// 				devisor_temp -= 10;
-	// 				quotient2 += temp2;
-	// 			}
-	// 		}
-
-	// 		devisor_temp = quotient2;
-
-	// 		print_chr('0' + quotient1);
-	// 		if (val_temp < 10){
-	// 			print_chr('0' + val_temp);
-	// 			print_str("\n");
-	// 		}
-	// 	}
-
-		// while (val >= 10){
-		// 	quotient = devide(val, 10);
-		// 	val = val - multiply(quotient, 10);
-		// 	print_chr('0' + quotient);
-		// 	if (val < 10){
-		// 		print_chr('0' + val);
-		// 		print_str("\n");
-		// 	}
-		// }
-
-
-		// code die werkt van 0-99
-		// while (val >= 10){
-		// 	val = val -= 10;
-		// 	quotient++;
-		// }
-		
-		// print_chr('0' + quotient);
-		// print_chr('0' + val);
-		// print_str("\n");
-	// }else if (val < 10 ){
-	// 	print_chr('0' + val);
-	// 	print_str("\n");
-	// }else if(val == 10){
-	// 	print_chr('1');
-	// 	print_chr('0');
-	// 	print_str("\n");
-	// }
-
-
-
-//}
-
-
 unsigned int number_length[] = {0,1,10,100,1000,10000,100000,1000000,10000000};
+
+int getNumber(int length, int val) {
+	return devide(val, length);
+}
 
 void print_dec(unsigned int val) {
 	if (val == 0){
@@ -146,11 +32,6 @@ void print_dec(unsigned int val) {
 		print_str("\n");
 		return;
 	}
-	if (val < 0){
-		*((volatile unsigned int*)OUTPORT) = '-';
-		val = -val;
-	}
-
     char first_1 = 0;
     for (int i = 8; i > 0; i--)
     {
@@ -167,10 +48,6 @@ void print_dec(unsigned int val) {
     }
     print_str("\n");
     return;
-}
-
-int getNumber(int length, int val) {
-	return devide(val, length);
 }
 
 void print_hex(unsigned int val, int digits) {
