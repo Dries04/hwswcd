@@ -2,7 +2,7 @@
 #define MATHLIB_H
 
 int multiply(int a, int b);
-int devide(int a, int b);
+int divide(int a, int b);
 
 #endif
 
