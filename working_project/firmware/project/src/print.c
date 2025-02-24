@@ -137,16 +137,16 @@ void print_str(const char *p) {
 //}
 
 
-unsigned int base_lookup[] = {0,1,10,100,1000,10000,100000,1000000,10000000,100000000,1000000000};
+unsigned int base_lookup[] = {0,1,10,100,1000,10000,100000,1000000,10000000};
 
 void print_dec(unsigned int val) {
-    char leading_0_flag = 0;
-    for (int i = 10; i > 0; i--)
+    char first_1 = 0;
+    for (int i = 0; i < 10; i++)
     {
-        int index = getDigit(base_lookup[i],val);
-        if (index != 0 || leading_0_flag != 0)
+        int index = getNumberlength(base_lookup[i],val);
+        if (index != 0 || first_1 != 0)
         {
-            leading_0_flag = 1;
+            first_1 = 1;
             char x="0123456789"[index];
             *((volatile unsigned int*)OUTPORT) = x;
         }
@@ -157,10 +157,12 @@ void print_dec(unsigned int val) {
     print_str("\n");
     return;
 }
-int getDigit(int base, int number) {
-    int digit = 0;
-    for (int i = base;i <= number;i += base) ++digit;
-    return digit;
+
+int getNumberlength(int base, int number) {
+    int numberlength = 0;
+    for (int i = base;i <= number;i += base) 
+		numberlength = numberlength + 1;
+    return numberlength;
 }
 
 int multiply(int a, int b) {
