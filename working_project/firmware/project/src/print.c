@@ -141,8 +141,10 @@ void print_str(const char *p) {
 unsigned int number_length[] = {0,1,10,100,1000,10000,100000,1000000,10000000};
 
 void print_dec(unsigned int val) {
-	if  (val < 0){
-		print_chr('0' + '-');
+	if (val == 0){
+		print_chr('0');
+		print_str("\n");
+		return;
 	}
     char first_1 = 0;
     for (int i = 8; i > 0; i--)
@@ -162,12 +164,8 @@ void print_dec(unsigned int val) {
     return;
 }
 
-int getNumberlength(int base, int number) {
-    // int numberlength = 0;
-    // for (int i = base;i <= number;i += base) 
-	// 	numberlength = numberlength + 1;
-    // return numberlength;
-	return devide(number, base);
+int getNumberlength(int length, int val) {
+	return devide(val, length);
 }
 
 void print_hex(unsigned int val, int digits) {
