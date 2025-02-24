@@ -153,10 +153,9 @@ void print_dec(unsigned int val) {
             char x="0123456789"[index];
             *((volatile unsigned int*)OUTPORT) = x;
         }
-        // for (int j = 0; j < index; j++){
-        //     val -= number_length[i];
-        // }
-		val -= multiply(index, number_length[i]);
+        for (int j = 0; j < index; j++){
+            val -= number_length[i];
+        }
     }
     print_str("\n");
     return;
