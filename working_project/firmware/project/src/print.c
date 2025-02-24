@@ -137,13 +137,13 @@ void print_str(const char *p) {
 //}
 
 
-unsigned int base_lookup[] = {0,1,10,100,1000,10000,100000,1000000,10000000};
+unsigned int number_length[] = {0,1,10,100,1000,10000,100000,1000000,10000000};
 
 void print_dec(unsigned int val) {
     char first_1 = 0;
-    for (int i = 0; i < 10; i++)
+    for (int i = 8; i > 0; i--)
     {
-        int index = getNumberlength(base_lookup[i],val);
+        int index = getNumberlength(number_length[i],val);
         if (index != 0 || first_1 != 0)
         {
             first_1 = 1;
@@ -151,7 +151,7 @@ void print_dec(unsigned int val) {
             *((volatile unsigned int*)OUTPORT) = x;
         }
         for (int j = 0; j < index; j++){
-            val -= base_lookup[i];
+            val -= number_length[i];
         }
     }
     print_str("\n");
