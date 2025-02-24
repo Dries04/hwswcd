@@ -3,7 +3,7 @@
 
 unsigned int convert(unsigned int x) {
     //convert farhenheit to celsius
-    int multiplication = multiply(x, 5);
-    int division = devide(multiplication, 9);
-    return division - 32;
+    int z = x - 32;
+    int w = devide(5, 9);
+    return multiply(z, w);
 }
