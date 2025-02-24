@@ -6,6 +6,7 @@
 // means.
 
 #include "print.h"
+#include "mathlib.h"
 
 int multiply(int a, int b);
 int devide(int a, int b);
@@ -141,7 +142,7 @@ unsigned int number_length[] = {0,1,10,100,1000,10000,100000,1000000,10000000};
 
 void print_dec(unsigned int val) {
 	if  (val < 0){
-		print_chr('-');
+		print_chr('0' + '-');
 	}
     char first_1 = 0;
     for (int i = 8; i > 0; i--)
@@ -167,36 +168,6 @@ int getNumberlength(int base, int number) {
 	// 	numberlength = numberlength + 1;
     // return numberlength;
 	return devide(number, base);
-}
-
-int multiply(int a, int b) {
-    int a_new = a;
-    for (int i = 0; i < b - 1; i++) {
-        a_new = a_new + a;
-    }
-    return a_new;
-}
-
-int devide(int a, int b) {
-    int temp = 1;
-    int quotient = 0;
-
-    while (b <= a) {
-        b <<= 1;
-        temp <<= 1;
-    }
-
-    while (temp > 1) {
-        b >>= 1;
-        temp >>= 1;
-
-        if (a >= b) {
-            a -= b;
-            quotient += temp;
-        }
-    }
-
-    return quotient;
 }
 
 void print_hex(unsigned int val, int digits) {
