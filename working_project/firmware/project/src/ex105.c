@@ -1,4 +1,5 @@
 #include "ex105.h"
+#include "mathlib.h"
 
 unsigned int convert(unsigned int x) {
     int temp = x;
@@ -16,7 +17,7 @@ unsigned int convert(unsigned int x) {
     }
 
     // Divide by 9 (using subtraction)
-    // temp = divide(temp, 9);
+    temp = divide(temp, 9);
 
     return temp;
 }
