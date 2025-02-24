@@ -143,9 +143,6 @@ void print_dec(unsigned int val) {
     char leading_0_flag = 0;
     for (int i = 10; i > 0; i--)
     {
-        //print_str("i: ");
-        //print_hex(i,8);
-        //print_str("\n");
         int index = getDigit(base_lookup[i],val);
         if (index != 0 || leading_0_flag != 0)
         {
@@ -161,17 +158,8 @@ void print_dec(unsigned int val) {
     return;
 }
 int getDigit(int base, int number) {
-    //print_str("number: ");
-    //print_hex(number,8);
-    //print_str("\n");
-    //print_str("base: ");
-    //print_hex(base,8);
-    //print_str("\n");
     int digit = 0;
     for (int i = base;i <= number;i += base) ++digit;
-    //print_str("digit: ");
-    //print_hex(digit,1);
-    //print_str("\n");
     return digit;
 }
 
