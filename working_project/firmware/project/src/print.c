@@ -9,7 +9,7 @@
 #include "mathlib.h"
 
 int multiply(int a, int b);
-int devide(int a, int b);
+int divide(int a, int b);
 
 void print_chr(char ch) {
 	*((volatile unsigned int*)OUTPORT) = ch;
