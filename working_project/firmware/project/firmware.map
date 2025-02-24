@@ -40,7 +40,7 @@ RAM              0x00000800         0x00000800         xrw
 Linker script and memory map
 
 
-.text           0x00000000      0x2b6
+.text           0x00000000      0x2ae
                 0x00000000                        . = 0x0
  *(.init)
  .init          0x00000000       0x90 build/start.o
@@ -48,21 +48,21 @@ Linker script and memory map
  *(.text*)
  .text          0x00000090       0x14 build/ex105.o
                 0x00000090                convert
- .text          0x000000a4      0x158 build/print.o
+ .text          0x000000a4      0x150 build/print.o
                 0x000000a4                print_chr
                 0x000000b0                print_str
                 0x000000cc                getNumber
-                0x000000e0                print_dec
-                0x000001b4                print_hex
- .text          0x000001fc       0x6c build/mathlib.o
-                0x000001fc                multiply
-                0x00000228                divide
- .text          0x00000268        0x0 build/firmware.o
- .text.startup  0x00000268       0x38 build/firmware.o
-                0x00000268                main
- .text          0x000002a0        0x0 build/start.o
- .text          0x000002a0       0x16 /opt/riscv/lib/gcc/riscv32-unknown-elf/13.2.0/libgcc.a(muldi3.o)
-                0x000002a0                __mulsi3
+                0x000000dc                print_dec
+                0x000001ac                print_hex
+ .text          0x000001f4       0x6c build/mathlib.o
+                0x000001f4                multiply
+                0x00000220                divide
+ .text          0x00000260        0x0 build/firmware.o
+ .text.startup  0x00000260       0x38 build/firmware.o
+                0x00000260                main
+ .text          0x00000298        0x0 build/start.o
+ .text          0x00000298       0x16 /opt/riscv/lib/gcc/riscv32-unknown-elf/13.2.0/libgcc.a(muldi3.o)
+                0x00000298                __mulsi3
 
 .data           0x00000800       0x24
                 0x00000000                        . = 0x0
