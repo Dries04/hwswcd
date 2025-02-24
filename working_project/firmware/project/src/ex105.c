@@ -1,4 +1,5 @@
 #include "ex105.h"
+#include "mathlib.h"
 
 unsigned int convert(unsigned int x) {
     //convert farhenheit to celsius
