@@ -23,7 +23,7 @@ void print_str(const char *p) {
 unsigned int number_length[] = {0,1,10,100,1000,10000,100000,1000000,10000000};
 
 int getNumber(int length, int val) {
-	return devide(val, length);
+	return divide(val, length);
 }
 
 void print_dec(unsigned int val) {
