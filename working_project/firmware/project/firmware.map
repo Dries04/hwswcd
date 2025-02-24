@@ -1,7 +1,7 @@
 Archive member included to satisfy reference by file (symbol)
 
 /opt/riscv/lib/gcc/riscv32-unknown-elf/13.2.0/libgcc.a(muldi3.o)
-                              build/ex105.o (__mulsi3)
+                              build/mathlib.o (__mulsi3)
 
 Discarded input sections
 
@@ -40,29 +40,29 @@ RAM              0x00000800         0x00000800         xrw
 Linker script and memory map
 
 
-.text           0x00000000      0x2e2
+.text           0x00000000      0x2be
                 0x00000000                        . = 0x0
  *(.init)
  .init          0x00000000       0x90 build/start.o
                 0x00000000                start
  *(.text*)
- .text          0x00000090       0x48 build/ex105.o
+ .text          0x00000090       0x24 build/ex105.o
                 0x00000090                convert
- .text          0x000000d8      0x150 build/print.o
-                0x000000d8                print_chr
-                0x000000e4                print_str
-                0x00000100                getNumber
-                0x00000110                print_dec
-                0x000001e0                print_hex
- .text          0x00000228       0x6c build/mathlib.o
-                0x00000228                multiply
-                0x00000254                devide
- .text          0x00000294        0x0 build/firmware.o
- .text.startup  0x00000294       0x38 build/firmware.o
-                0x00000294                main
- .text          0x000002cc        0x0 build/start.o
- .text          0x000002cc       0x16 /opt/riscv/lib/gcc/riscv32-unknown-elf/13.2.0/libgcc.a(muldi3.o)
-                0x000002cc                __mulsi3
+ .text          0x000000b4      0x150 build/print.o
+                0x000000b4                print_chr
+                0x000000c0                print_str
+                0x000000dc                getNumber
+                0x000000ec                print_dec
+                0x000001bc                print_hex
+ .text          0x00000204       0x6c build/mathlib.o
+                0x00000204                multiply
+                0x00000230                devide
+ .text          0x00000270        0x0 build/firmware.o
+ .text.startup  0x00000270       0x38 build/firmware.o
+                0x00000270                main
+ .text          0x000002a8        0x0 build/start.o
+ .text          0x000002a8       0x16 /opt/riscv/lib/gcc/riscv32-unknown-elf/13.2.0/libgcc.a(muldi3.o)
+                0x000002a8                __mulsi3
 
 .data           0x00000800       0x24
                 0x00000000                        . = 0x0
