@@ -1,5 +1,5 @@
-#ifndef MATHLIB_H
-#define MATHLIB_H
+#ifndef EX105_H
+#define EX105_H
 
 unsigned int convert(unsigned int x);
 
