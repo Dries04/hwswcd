@@ -34,55 +34,55 @@ RAM              0x00000800         0x00000800         xrw
 Linker script and memory map
 
 
-.text           0x00000000      0x292
+.text           0x00000000      0x28e
                 0x00000000                        . = 0x0
  *(.init)
  .init          0x00000000       0x90 build/start.o
                 0x00000000                start
  *(.text*)
- .text          0x00000090      0x17c build/print.o
+ .text          0x00000090      0x178 build/print.o
                 0x00000090                print_chr
                 0x0000009c                print_str
                 0x000000b8                print_dec
-                0x00000138                getDigit
-                0x00000158                multiply
-                0x00000184                devide
-                0x000001c4                print_hex
- .text          0x0000020c        0x0 build/firmware.o
- .text.startup  0x0000020c       0x70 build/firmware.o
-                0x0000020c                main
- .text          0x0000027c        0x0 build/start.o
- .text          0x0000027c       0x16 /opt/riscv/lib/gcc/riscv32-unknown-elf/13.2.0/libgcc.a(muldi3.o)
-                0x0000027c                __mulsi3
+                0x00000134                getNumberlength
+                0x00000154                multiply
+                0x00000180                devide
+                0x000001c0                print_hex
+ .text          0x00000208        0x0 build/firmware.o
+ .text.startup  0x00000208       0x70 build/firmware.o
+                0x00000208                main
+ .text          0x00000278        0x0 build/start.o
+ .text          0x00000278       0x16 /opt/riscv/lib/gcc/riscv32-unknown-elf/13.2.0/libgcc.a(muldi3.o)
+                0x00000278                __mulsi3
 
-.data           0x00000800       0x2c
+.data           0x00000800       0x24
                 0x00000000                        . = 0x0
  *(.data)
- .data          0x00000800       0x2c build/print.o
+ .data          0x00000800       0x24 build/print.o
                 0x00000800                base_lookup
- .data          0x0000082c        0x0 build/firmware.o
- .data          0x0000082c        0x0 build/start.o
- .data          0x0000082c        0x0 /opt/riscv/lib/gcc/riscv32-unknown-elf/13.2.0/libgcc.a(muldi3.o)
+ .data          0x00000824        0x0 build/firmware.o
+ .data          0x00000824        0x0 build/start.o
+ .data          0x00000824        0x0 /opt/riscv/lib/gcc/riscv32-unknown-elf/13.2.0/libgcc.a(muldi3.o)
 
-.bss            0x0000082c        0x0
- .bss           0x0000082c        0x0 build/print.o
- .bss           0x0000082c        0x0 build/firmware.o
- .bss           0x0000082c        0x0 build/start.o
- .bss           0x0000082c        0x0 /opt/riscv/lib/gcc/riscv32-unknown-elf/13.2.0/libgcc.a(muldi3.o)
+.bss            0x00000824        0x0
+ .bss           0x00000824        0x0 build/print.o
+ .bss           0x00000824        0x0 build/firmware.o
+ .bss           0x00000824        0x0 build/start.o
+ .bss           0x00000824        0x0 /opt/riscv/lib/gcc/riscv32-unknown-elf/13.2.0/libgcc.a(muldi3.o)
 
-.rodata         0x0000082c      0x400
+.rodata         0x00000824      0x400
                 0x00000400                        . = 0x400
- *fill*         0x0000082c      0x400 
+ *fill*         0x00000824      0x400 
  *(.rodata)
-                0x00000c2c                        . = ALIGN (0x4)
+                0x00000c24                        . = ALIGN (0x4)
  FILL mask 0xff
 
-.rodata.str1.4  0x00000c2c       0x31
+.rodata.str1.4  0x00000c24       0x31
  .rodata.str1.4
-                0x00000c2c       0x31 build/print.o
+                0x00000c24       0x31 build/print.o
                                  0x21 (size before relaxing)
  .rodata.str1.4
-                0x00000c5d        0xd build/firmware.o
+                0x00000c55        0xd build/firmware.o
 
 /DISCARD/
  *(.note*)
