@@ -169,14 +169,14 @@ Disassembly of section .text:
  23c:	e7dff0ef          	jal	ra,b8 <print_dec>
  240:	0f500513          	addi	a0,zero,245
  244:	e75ff0ef          	jal	ra,b8 <print_dec>
- 248:	39800513          	addi	a0,zero,920
+ 248:	00000513          	addi	a0,zero,0
  24c:	e6dff0ef          	jal	ra,b8 <print_dec>
- 250:	1cb00513          	addi	a0,zero,459
+ 250:	e8600513          	addi	a0,zero,-378
  254:	e65ff0ef          	jal	ra,b8 <print_dec>
  258:	3e800513          	addi	a0,zero,1000
  25c:	e5dff0ef          	jal	ra,b8 <print_dec>
- 260:	ffffe537          	lui	a0,0xffffe
- 264:	8f050513          	addi	a0,a0,-1808 # ffffd8f0 <number_length+0xffffd0f0>
+ 260:	c4653537          	lui	a0,0xc4653
+ 264:	60050513          	addi	a0,a0,1536 # c4653600 <number_length+0xc4652e00>
  268:	e51ff0ef          	jal	ra,b8 <print_dec>
  26c:	00c12083          	lw	ra,12(sp)
  270:	00000513          	addi	a0,zero,0
