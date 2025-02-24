@@ -8,7 +8,7 @@ int multiply(int a, int b) {
     return a_new;
 }
 
-int devide(int a, int b) {
+int divide(int a, int b) {
     int temp = 1;
     int quotient = 0;
 
