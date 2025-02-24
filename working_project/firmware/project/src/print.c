@@ -140,6 +140,10 @@ void print_str(const char *p) {
 unsigned int number_length[] = {0,1,10,100,1000,10000,100000,1000000,10000000};
 
 void print_dec(unsigned int val) {
+	if  (val < 0){
+		print_chr('-');
+		val = -val;
+	}
     char first_1 = 0;
     for (int i = 8; i > 0; i--)
     {

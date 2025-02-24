@@ -21,12 +21,12 @@ int main(void) {
 	print_dec(test7);
 	unsigned int test3 = 245;
 	print_dec(test3);
-	unsigned int test4 = 920;
+	unsigned int test4 = 0;
 	print_dec(test4);
-	unsigned int test2 = 459;
+	unsigned int test2 = -378;
 	print_dec(test2);
 	unsigned int test6 = 1000;
 	print_dec(test6);
-	unsigned int test8 = -10000;
+	unsigned int test8 = -1000000000;
 	print_dec(test8);
 }
