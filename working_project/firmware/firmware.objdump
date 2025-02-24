@@ -172,10 +172,13 @@ Disassembly of section .text:
  248:	25100513          	addi	a0,zero,593
  24c:	e45ff0ef          	jal	ra,90 <convert>
  250:	e8dff0ef          	jal	ra,dc <print_dec>
- 254:	00c12083          	lw	ra,12(sp)
- 258:	00000513          	addi	a0,zero,0
- 25c:	01010113          	addi	sp,sp,16
- 260:	00008067          	jalr	zero,0(ra)
+ 254:	25100513          	addi	a0,zero,593
+ 258:	e39ff0ef          	jal	ra,90 <convert>
+ 25c:	e81ff0ef          	jal	ra,dc <print_dec>
+ 260:	00c12083          	lw	ra,12(sp)
+ 264:	00000513          	addi	a0,zero,0
+ 268:	01010113          	addi	sp,sp,16
+ 26c:	00008067          	jalr	zero,0(ra)
 
 Disassembly of section .data:
 
