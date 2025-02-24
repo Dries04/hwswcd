@@ -15,7 +15,7 @@
 void print_chr(char ch);
 void print_str(const char *p);
 void print_dec(unsigned int val);
-int getnumber(int length, int val);
+int getNumber(int length, int val);
 void print_hex(unsigned int val, int digits);
 
 #endif

@@ -146,6 +146,11 @@ void print_dec(unsigned int val) {
 		print_str("\n");
 		return;
 	}
+	if (val < 0){
+		*((volatile unsigned int*)OUTPORT) = '-';
+		val = -val;
+	}
+
     char first_1 = 0;
     for (int i = 8; i > 0; i--)
     {
@@ -164,7 +169,7 @@ void print_dec(unsigned int val) {
     return;
 }
 
-int getNumberlength(int length, int val) {
+int getNumber(int length, int val) {
 	return devide(val, length);
 }
 
