@@ -189,8 +189,8 @@ Disassembly of section .text:
  28c:	e3dff0ef          	jal	ra,c8 <print_dec>
  290:	3e800513          	addi	a0,zero,1000
  294:	e35ff0ef          	jal	ra,c8 <print_dec>
- 298:	3b9ad537          	lui	a0,0x3b9ad
- 29c:	a0050513          	addi	a0,a0,-1536 # 3b9aca00 <number_length+0x3b9ac200>
+ 298:	00989537          	lui	a0,0x989
+ 29c:	67f50513          	addi	a0,a0,1663 # 98967f <number_length+0x988e7f>
  2a0:	e29ff0ef          	jal	ra,c8 <print_dec>
  2a4:	00c12083          	lw	ra,12(sp)
  2a8:	00000513          	addi	a0,zero,0
