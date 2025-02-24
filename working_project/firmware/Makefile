@@ -5,7 +5,7 @@ RISCV_GNU_TOOLCHAIN_GIT_REVISION = 20f6153
 RISCV_GNU_TOOLCHAIN_INSTALL_PREFIX = /opt/riscv
 TOOLCHAIN_PREFIX = $(RISCV_GNU_TOOLCHAIN_INSTALL_PREFIX)/bin/riscv32-unknown-elf-
 
-PYTHON = python
+PYTHON = /usr/bin/python3
 CC=$(TOOLCHAIN_PREFIX)gcc
 RM = rm -rf
 MKDIR = mkdir
@@ -23,7 +23,7 @@ LIBS =
 BUILDDIR = build
 SOURCEDIR = src
 HEADERDIR = src
-TOOLS = ../../scripts/python
+TOOLS = ../scripts/python
 
 SOURCES = $(wildcard $(SOURCEDIR)/*.c)
 SOURCES_A = $(wildcard $(SOURCEDIR)/*.S)
