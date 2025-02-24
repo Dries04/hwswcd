@@ -3,7 +3,7 @@
 
 int main(void) {
 	
-	// aantal clockcycles = ...
+	// aantal clockcycles = 758
 	unsigned int celcius = convert(593);
 	print_dec(celcius);
 
