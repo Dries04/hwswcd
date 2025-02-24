@@ -46,7 +46,7 @@ Disassembly of section .text:
 
 00000090 <convert>:
   90:	00500593          	addi	a1,zero,5
-  94:	fe050513          	addi	a0,a0,-32
+  94:	00700513          	addi	a0,zero,7
   98:	1540006f          	jal	zero,1ec <multiply>
 
 0000009c <print_chr>:
