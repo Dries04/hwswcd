@@ -1,30 +1,12 @@
 #include "print.h"
-
-// int multiply(int a, int b) {
-//     int a_new = a;
-//     for (int i = 0; i < b - 1; i++) {
-//         a_new = a_new + a;
-//     }
-//     return a_new;
-// }
+#include "ex105.h"
 
 int main(void) {
 
 	print_str("hello world\n");
-	unsigned int test5 = 4;
+	unsigned int test5 = 495;
 	print_dec(test5);
-	unsigned int test = 12;
-	print_dec(test);
-	unsigned int test1 = 10;
-	print_dec(test1);
-	unsigned int test7 = 69;
-	print_dec(test7);
-	unsigned int test3 = 245;
-	print_dec(test3);
-	unsigned int test4 = 0;
-	print_dec(test4);
-	unsigned int test6 = 1000;
+	unsigned int test6 = convert(test5);
 	print_dec(test6);
-	unsigned int test8 = 9999999;
-	print_dec(test8);
+
 }
