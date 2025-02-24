@@ -47,7 +47,7 @@ Linker script and memory map
                 0x00000090                print_chr
                 0x0000009c                print_str
                 0x000000b8                print_dec
-                0x00000188                getNumberlength
+                0x00000188                getNumber
                 0x00000198                print_hex
  .text          0x000001e0       0x6c build/mathlib.o
                 0x000001e0                multiply

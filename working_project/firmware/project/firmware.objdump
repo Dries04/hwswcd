@@ -112,7 +112,7 @@ Disassembly of section .text:
  180:	40e484b3          	sub	s1,s1,a4
  184:	fb9ff06f          	jal	zero,13c <print_dec+0x84>
 
-00000188 <getNumberlength>:
+00000188 <getNumber>:
  188:	00058793          	addi	a5,a1,0
  18c:	00050593          	addi	a1,a0,0
  190:	00078513          	addi	a0,a5,0
