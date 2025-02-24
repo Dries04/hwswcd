@@ -5,5 +5,6 @@ int main(void) {
 	
 	unsigned int celcius = convert(593);
 	print_dec(celcius);
-
+	unsigned int okbeter = convert(593);
+	print_dec(okbeter);
 }
