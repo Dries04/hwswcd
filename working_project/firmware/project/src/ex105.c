@@ -10,7 +10,7 @@ unsigned int convert(unsigned int x) {
     // Multiply by 5 (using addition)
     int b = 5;
     int a = temp;
-    while (b > 0) {
+    while (b > 1) {
         temp += a;
         b--;
     }
