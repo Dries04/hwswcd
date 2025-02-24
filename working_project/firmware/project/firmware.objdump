@@ -153,7 +153,7 @@ Disassembly of section .text:
  204:	00b05463          	bge	zero,a1,20c <multiply+0x18>
  208:	00058513          	addi	a0,a1,0
  20c:	00078593          	addi	a1,a5,0
- 210:	074000ef          	jal	ra,284 <__mulsi3>
+ 210:	08c000ef          	jal	ra,29c <__mulsi3>
  214:	00c12083          	lw	ra,12(sp)
  218:	01010113          	addi	sp,sp,16
  21c:	00008067          	jalr	zero,0(ra)
@@ -182,21 +182,27 @@ Disassembly of section .text:
  268:	00112623          	sw	ra,12(sp)
  26c:	e25ff0ef          	jal	ra,90 <convert>
  270:	e6dff0ef          	jal	ra,dc <print_dec>
- 274:	00c12083          	lw	ra,12(sp)
- 278:	00000513          	addi	a0,zero,0
- 27c:	01010113          	addi	sp,sp,16
- 280:	00008067          	jalr	zero,0(ra)
+ 274:	15600513          	addi	a0,zero,342
+ 278:	e19ff0ef          	jal	ra,90 <convert>
+ 27c:	e61ff0ef          	jal	ra,dc <print_dec>
+ 280:	3bf00513          	addi	a0,zero,959
+ 284:	e0dff0ef          	jal	ra,90 <convert>
+ 288:	e55ff0ef          	jal	ra,dc <print_dec>
+ 28c:	00c12083          	lw	ra,12(sp)
+ 290:	00000513          	addi	a0,zero,0
+ 294:	01010113          	addi	sp,sp,16
+ 298:	00008067          	jalr	zero,0(ra)
 
-00000284 <__mulsi3>:
- 284:	862a                	c.mv	a2,a0
- 286:	4501                	c.li	a0,0
- 288:	0015f693          	andi	a3,a1,1
- 28c:	c291                	c.beqz	a3,290 <__mulsi3+0xc>
- 28e:	9532                	c.add	a0,a2
- 290:	8185                	c.srli	a1,0x1
- 292:	0606                	c.slli	a2,0x1
- 294:	f9f5                	c.bnez	a1,288 <__mulsi3+0x4>
- 296:	8082                	c.jr	ra
+0000029c <__mulsi3>:
+ 29c:	862a                	c.mv	a2,a0
+ 29e:	4501                	c.li	a0,0
+ 2a0:	0015f693          	andi	a3,a1,1
+ 2a4:	c291                	c.beqz	a3,2a8 <__mulsi3+0xc>
+ 2a6:	9532                	c.add	a0,a2
+ 2a8:	8185                	c.srli	a1,0x1
+ 2aa:	0606                	c.slli	a2,0x1
+ 2ac:	f9f5                	c.bnez	a1,2a0 <__mulsi3+0x4>
+ 2ae:	8082                	c.jr	ra
 	...
 
 Disassembly of section .data:
