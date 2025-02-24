@@ -142,7 +142,6 @@ unsigned int number_length[] = {0,1,10,100,1000,10000,100000,1000000,10000000};
 void print_dec(unsigned int val) {
 	if  (val < 0){
 		print_chr('-');
-		val = -val;
 	}
     char first_1 = 0;
     for (int i = 8; i > 0; i--)
@@ -163,10 +162,11 @@ void print_dec(unsigned int val) {
 }
 
 int getNumberlength(int base, int number) {
-    int numberlength = 0;
-    for (int i = base;i <= number;i += base) 
-		numberlength = numberlength + 1;
-    return numberlength;
+    // int numberlength = 0;
+    // for (int i = base;i <= number;i += base) 
+	// 	numberlength = numberlength + 1;
+    // return numberlength;
+	return devide(number, base);
 }
 
 int multiply(int a, int b) {
