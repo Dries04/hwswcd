@@ -154,7 +154,7 @@ void print_dec(unsigned int val) {
     char first_1 = 0;
     for (int i = 8; i > 0; i--)
     {
-        int index = getNumberlength(number_length[i],val);
+        int index = getNumber(number_length[i],val);
         if (index != 0 || first_1 != 0)
         {
             first_1 = 1;
