@@ -23,7 +23,7 @@ LIBS =
 BUILDDIR = build
 SOURCEDIR = src
 HEADERDIR = src
-TOOLS = ../scripts/python
+TOOLS = ../../scripts/python
 
 SOURCES = $(wildcard $(SOURCEDIR)/*.c)
 SOURCES_A = $(wildcard $(SOURCEDIR)/*.S)
@@ -37,7 +37,7 @@ BINARY = firmware.elf
 
 ################################################################################
 
-all: firmware.hex firmware.objdump
+all: firmware.hex firmware.objdump vhd
 
 ################################################################################
 %.objdump: %.elf
@@ -48,6 +48,11 @@ all: firmware.hex firmware.objdump
 
 %.hex: %.bin
 	$(PYTHON) $(TOOLS)/makehex.py $^ 4096
+
+vhd: firmware_imem.hex
+	$(PYTHON) $(TOOLS)/makevhd.py firmware_imem.hex ../../hdl/two_k_bram_imem.vhd $(TOOLS)/template/two_k_bram_imem.vhd_template 
+	$(PYTHON) $(TOOLS)/makevhd.py firmware_dmem.hex ../../hdl/two_k_bram_dmem.vhd $(TOOLS)/template/two_k_bram_dmem.vhd_template 
+
 
 # LINKING ######################################################################
 $(BINARY): $(OBJECTS) $(OBJECTS_A)
