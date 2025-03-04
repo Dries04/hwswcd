@@ -18,18 +18,9 @@ library work;
 
 entity riscv_microcontroller is
     port(
-        clock : in STD_LOGIC;
-        reset : in STD_LOGIC;
-
-        -- dmem
-        dmem_do : in STD_LOGIC_VECTOR(31 downto 0);
-        dmem_we : out STD_LOGIC;
-        dmem_a : out STD_LOGIC_VECTOR(31 downto 0);
-        dmem_di : out STD_LOGIC_VECTOR(31 downto 0);
-
-        -- imem
-        instruction : in STD_LOGIC_VECTOR(31 downto 0);
-        PC : out STD_LOGIC_VECTOR(31 downto 0)
+        sys_clock : in STD_LOGIC;
+        sys_reset : in STD_LOGIC;
+        gpio_leds : out STD_LOGIC_VECTOR(3 downto 0)
     );
 end entity riscv_microcontroller;
 
@@ -60,97 +51,132 @@ architecture Behavioural of riscv_microcontroller is
             data_out : out STD_LOGIC_VECTOR(31 downto 0)
         );
     end component two_k_bram_imem;
+   
+    component clock_and_reset_pynq is
+        port(
+            sysclock : IN STD_LOGIC;
+            sysreset : IN STD_LOGIC;
+            sreset : out STD_LOGIC;
+            clock : out STD_LOGIC;
+            heartbeat : out STD_LOGIC
+        );
+    end component clock_and_reset_pynq;
+
 
     -- (DE-)LOCALISING IN/OUTPUTS
-    signal clock_i : STD_LOGIC;
-    signal reset_i : STD_LOGIC;
-    signal dmem_do_i : STD_LOGIC_VECTOR(31 downto 0);
-    signal dmem_we_o : STD_LOGIC;
-    signal dmem_a_o : STD_LOGIC_VECTOR(31 downto 0);
-    signal dmem_di_o : STD_LOGIC_VECTOR(31 downto 0);
-    signal instruction_i : STD_LOGIC_VECTOR(31 downto 0);
-    signal PC_o : STD_LOGIC_VECTOR(31 downto 0);
+    signal sys_clock_i : STD_LOGIC;
+    signal sys_reset_i : STD_LOGIC;
+    signal gpio_leds_o : STD_LOGIC_VECTOR(3 downto 0);
+
+    -- dmem
+    signal dmem_do : STD_LOGIC_VECTOR(31 downto 0);
+    signal dmem_we : STD_LOGIC;
+    signal dmem_a : STD_LOGIC_VECTOR(31 downto 0);
+    signal dmem_di : STD_LOGIC_VECTOR(31 downto 0);
     
-    -- clock and reset 
-    signal reset_ii: std_logic;
-    signal clock_ii: std_logic;
-    signal heartbeat_i: std_logic;
+    --imem
+    signal instruction : STD_LOGIC_VECTOR(31 downto 0);
+    signal PC : STD_LOGIC_VECTOR(31 downto 0);
+
+    -- CLOCK AND RESET
+    signal clock : STD_LOGIC;
+    signal reset : STD_LOGIC;
+
     signal ce, ce_d : STD_LOGIC;
-    
-    --two_k_bram
-    signal dmem_a_o_1: std_logic_vector (10 downto 0);
-    signal pc_ii: std_logic_vector(12 downto 2);
+    signal toid, toid_d : STD_LOGIC;
+
+    signal leds : STD_LOGIC_VECTOR(6 downto 0);
 
 begin
 
     -------------------------------------------------------------------------------
     -- (DE-)LOCALISING IN/OUTPUTS
     -------------------------------------------------------------------------------
-    clock_i <= clock;
-    reset_i <= reset;
-    dmem_do_i <= dmem_do;
-    dmem_we <= dmem_we_o;
-    dmem_a <= dmem_a_o;
-    dmem_di <= dmem_di_o;
-    instruction_i <= instruction;
-    PC <= PC_o;
-    
-    dmem_a_o_1 <= dmem_a_o (10 downto 0);
-    pc <= pc_ii;
-    
-    -------------------------------------------------------------------------------
-    -- CLOCK AND RESET
-    -------------------------------------------------------------------------------
-    
-    clock_and_reset_pynq_1: component clock_and_reset_pynq port map(
-        sysclock => clock_i,
-        sysreset => reset_i,
-        sreset => reset_ii,
-        clock => clock_ii,
-        heartbeat => heartbeat_i
-    );
-    
-    -------------------------------------------------------------------------------
-    -- MEMORIES
-    -------------------------------------------------------------------------------
-    
-    two_k_bram_imem_inst00: component two_k_bram_imem port map (
-        clock => clock_ii,
+    sys_clock_i <= sys_clock;
+    sys_reset_i <= sys_reset;
+    gpio_leds <= gpio_leds_o;
 
-        init_data_in => C_GND,
-        init_write_enable => C_GND(0),
-        init_address => C_GND(10 downto 0),
 
-        data_in => C_GND,
-        write_enable => C_GND(0),
-        address => PC_o(12 downto 2),
-        data_out => instruction_i
-    );
 
-        two_k_bram_dmem_inst00: component two_k_bram_dmem port map(
-        clock => clock,
-        init_data_in => C_GND,
-        init_write_enable => C_GND(0),
-        init_address => C_GND(10 downto 0),
+    gpio_leds_o <= leds(3 downto 0);
 
-        data_in => dmem_di_o,
-        write_enable => dmem_we_o,
-        address => dmem_a_o_1,
-        data_out => dmem_do_i
-    );
-    
     -------------------------------------------------------------------------------
     -- MICROPROCESSOR
     -------------------------------------------------------------------------------
     riscv_inst00: component riscv port map(
-        clock => clock_ii,
-        reset => reset_ii,
-        dmem_do => dmem_do_i,
-        dmem_we => dmem_we_o,
-        dmem_a => dmem_a_o,
-        dmem_di => dmem_di_o,
-        instruction => instruction_i,
-        PC => PC_o
+        clock => clock,
+        reset => reset,
+        ce => ce,
+        dmem_do => dmem_do,
+        dmem_we => dmem_we,
+        dmem_a => dmem_a,
+        dmem_di => dmem_di,
+        instruction => instruction,
+        PC => PC
     );
-  
+
+    PREG_CPU_CTRL: process(clock)
+    begin
+        if rising_edge(clock) then
+            if reset = '1' then 
+                ce <= '0';
+            else
+                ce <= not(ce);
+            end if;
+        end if;
+    end process;
+
+
+    -------------------------------------------------------------------------------
+    -- MEMORIES
+    -------------------------------------------------------------------------------
+    two_k_bram_dmem_inst00: component two_k_bram_dmem port map(
+        clock => clock,
+        init_data_in => C_GND,
+        init_write_enable => C_GND(0),
+        init_address => C_GND(10 downto 0),
+        data_in => dmem_di,
+        write_enable => dmem_we,
+        address => dmem_a(10 downto 0),
+        data_out  => dmem_do
+    );
+
+    two_k_bram_imem_inst00: component two_k_bram_imem port map(
+        clock => clock,
+        init_data_in => C_GND,
+        init_write_enable => C_GND(0),
+        init_address => C_GND(10 downto 0),
+        data_in => C_GND,
+        write_enable => C_GND(0),
+        address => PC(12 downto 2),
+        data_out => instruction
+    );
+
+    -------------------------------------------------------------------------------
+    -- PERIPHERALS
+    -------------------------------------------------------------------------------
+    PREG_LEDS: process(clock)
+    begin
+        if rising_edge(clock) then 
+            if reset = '1' then 
+                leds <= "0000000";
+            else
+                if dmem_we = '1' and dmem_a = x"80000000" then 
+                    leds <= dmem_di(6 downto 0);
+                end if;
+            end if;
+        end if;
+    end process;
+
+    -------------------------------------------------------------------------------
+    -- CLOCK AND RESET
+    -------------------------------------------------------------------------------
+    clock_and_reset_pynq_inst00: component clock_and_reset_pynq port map(
+        sysclock => sys_clock_i,
+        sysreset => sys_reset_i,
+        sreset => reset,
+        clock => clock,
+        heartbeat => open
+    );
+
 end Behavioural;

@@ -33,7 +33,7 @@ architecture Behavioural of clock_and_reset_pynq is
     constant C_D_MASTER : integer := 1;
     constant C_M_MASTER : real := 8.0;
     
-    constant C_D_CLK0 : real := 25.0; -- this sets CLKOUT0 to 1000MHz / 25 = 40 MHZ
+    constant C_D_CLK0 : real := 20.0; -- this sets CLKOUT0 to 1000MHz / 20 = 50 MHz
 
     -- (DE-)LOCALISING IN/OUTPUTS
     signal sysclock_i : STD_LOGIC;

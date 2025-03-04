@@ -20,6 +20,7 @@ entity riscv is
     port(
         clock : IN STD_LOGIC;
         reset : IN STD_LOGIC;
+        ce : IN STD_LOGIC;
 
         -- dmem
         dmem_do : in STD_LOGIC_VECTOR(31 downto 0);
@@ -38,6 +39,7 @@ architecture Behavioural of riscv is
     -- (DE-)LOCALISING IN/OUTPUTS
     signal clock_i : STD_LOGIC;
     signal reset_i : STD_LOGIC;
+    signal ce_i : STD_LOGIC;
     signal dmem_di_o : STD_LOGIC_VECTOR(31 downto 0);
     signal dmem_we_o : STD_LOGIC;
     signal dmem_a_o : STD_LOGIC_VECTOR(31 downto 0);
@@ -90,7 +92,7 @@ architecture Behavioural of riscv is
     signal alu_x_lt_y_s : std_logic;
 
     -- PC
-    signal program_counter : STD_LOGIC_VECTOR(C_WIDTH-1 downto 0);
+    signal program_counter, program_counter_next : STD_LOGIC_VECTOR(C_WIDTH-1 downto 0);
     signal pc_adder_x, pc_adder_y, pc_sum, pc_inc4 : STD_LOGIC_VECTOR(C_WIDTH-1 downto 0);
     signal pc_sum_c, pc_inc4_c : STD_LOGIC_VECTOR(C_WIDTH downto 0);
     signal pc_adder_x_sel, pc_adder_y_sel : STD_LOGIC;
@@ -113,12 +115,14 @@ begin
     -------------------------------------------------------------------------------
     clock_i <= clock;
     reset_i <= reset;
+    ce_i <= ce;
     dmem_di <= dmem_di_o;
     dmem_we <= dmem_we_o;
     dmem_a <= dmem_a_o;
     dmem_do_i <= dmem_do;
     instruction_i <= instruction;
     PC <= PC_o;
+
 
     -------------------------------------------------------------------------------
     -- MAPPINGS
@@ -134,6 +138,7 @@ begin
     reg_file_inst00: component reg_file port map(
         clock => clock_i,
         reset => reset_i,
+        ce => ce_i,
         we => ctrl_regfile_we,
         src1 => inst_rs1,
         src2 => inst_rs2,
@@ -201,7 +206,7 @@ begin
         end case;
     end process;
 
-    PMUX_REGFILE: process(ctrl_ToRegister, ctrl_result_filter, dmem_do_i, dmem_do_i_signpadding, PC_o, pc_inc4, immediate, alu_result, pc_inc_imm_sh12)
+    PMUX_REGFILE: process(ctrl_ToRegister, ctrl_result_filter, dmem_do_i, dmem_do_i_signpadding, program_counter, pc_inc4, immediate, alu_result, pc_inc_imm_sh12)
     begin
 
         case ctrl_ToRegister is
@@ -218,7 +223,7 @@ begin
                     regfile_data <= C_GND(31 downto 16) & dmem_do_i(15 downto 0);                   -- LHU
                 end if;
 
-            when "011" => regfile_data <= PC_o;                                                     -- for JALR
+            when "011" => regfile_data <= program_counter;                                                     -- for JALR
             when "100" => regfile_data <= immediate(19 downto 0) & C_GND(11 downto 0);              -- for LUI
             when "101" => regfile_data <= pc_inc4;                                                  -- for JAL
             when "111" => regfile_data <= pc_inc_imm_sh12;                                          -- for auipc
@@ -230,13 +235,18 @@ begin
     -------------------------------------------------------------------------------
     -- PC
     -------------------------------------------------------------------------------
+    program_counter_next <= pc_sum when reset = '0' else C_GND;
+    
+
     PREG_PC: process(clock_i)
     begin
         if rising_edge(clock_i) then
             if reset_i = '1' then 
                 program_counter <= C_GND;
             else
-                program_counter <= pc_sum;
+                if ce_i = '1' then 
+                    program_counter <= program_counter_next;
+                end if;
             end if;
         end if;
     end process;
