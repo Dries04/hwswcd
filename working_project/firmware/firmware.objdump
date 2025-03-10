@@ -37,7 +37,7 @@ Disassembly of section .text:
   74:	00000f13          	addi	t5,zero,0
   78:	00000f93          	addi	t6,zero,0
   7c:	00001137          	lui	sp,0x1
-  80:	1b4000ef          	jal	ra,234 <main>
+  80:	1e4000ef          	jal	ra,264 <main>
   84:	0080006f          	jal	zero,8c <end>
   88:	00100073          	ebreak
 
@@ -163,24 +163,31 @@ Disassembly of section .text:
  22c:	00f50533          	add	a0,a0,a5
  230:	fd9ff06f          	jal	zero,208 <divide+0x14>
 
-00000234 <main>:
- 234:	06400713          	addi	a4,zero,100
- 238:	00000693          	addi	a3,zero,0
- 23c:	80000637          	lui	a2,0x80000
- 240:	00100593          	addi	a1,zero,1
- 244:	026267b7          	lui	a5,0x2626
- 248:	a0078793          	addi	a5,a5,-1536 # 2625a00 <number_length+0x2625200>
- 24c:	02069263          	bne	a3,zero,270 <main+0x3c>
- 250:	00062023          	sw	zero,0(a2) # 80000000 <number_length+0x7ffff800>
- 254:	fff78793          	addi	a5,a5,-1
- 258:	fe079ae3          	bne	a5,zero,24c <main+0x18>
- 25c:	fff70713          	addi	a4,a4,-1
- 260:	0016c693          	xori	a3,a3,1
- 264:	fe0710e3          	bne	a4,zero,244 <main+0x10>
- 268:	00000513          	addi	a0,zero,0
- 26c:	00008067          	jalr	zero,0(ra)
- 270:	00b62023          	sw	a1,0(a2)
- 274:	fe1ff06f          	jal	zero,254 <main+0x20>
+00000234 <delay>:
+ 234:	ff010113          	addi	sp,sp,-16
+ 238:	05f5e7b7          	lui	a5,0x5f5e
+ 23c:	00012623          	sw	zero,12(sp)
+ 240:	0ff78793          	addi	a5,a5,255 # 5f5e0ff <number_length+0x5f5d8ff>
+ 244:	00c12703          	lw	a4,12(sp)
+ 248:	00e7f663          	bgeu	a5,a4,254 <delay+0x20>
+ 24c:	01010113          	addi	sp,sp,16
+ 250:	00008067          	jalr	zero,0(ra)
+ 254:	00c12703          	lw	a4,12(sp)
+ 258:	00170713          	addi	a4,a4,1
+ 25c:	00e12623          	sw	a4,12(sp)
+ 260:	fe5ff06f          	jal	zero,244 <delay+0x10>
+
+00000264 <main>:
+ 264:	ff010113          	addi	sp,sp,-16
+ 268:	00812423          	sw	s0,8(sp)
+ 26c:	00912223          	sw	s1,4(sp)
+ 270:	00112623          	sw	ra,12(sp)
+ 274:	00100413          	addi	s0,zero,1
+ 278:	800004b7          	lui	s1,0x80000
+ 27c:	0084a023          	sw	s0,0(s1) # 80000000 <number_length+0x7ffff800>
+ 280:	00144413          	xori	s0,s0,1
+ 284:	fb1ff0ef          	jal	ra,234 <delay>
+ 288:	ff5ff06f          	jal	zero,27c <main+0x18>
 
 Disassembly of section .data:
 
