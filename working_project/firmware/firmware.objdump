@@ -164,15 +164,24 @@ Disassembly of section .text:
  230:	fd9ff06f          	jal	zero,208 <divide+0x14>
 
 00000234 <main>:
- 234:	ff010113          	addi	sp,sp,-16
- 238:	25100513          	addi	a0,zero,593
- 23c:	00112623          	sw	ra,12(sp)
- 240:	e51ff0ef          	jal	ra,90 <convert>
- 244:	e99ff0ef          	jal	ra,dc <print_dec>
- 248:	00c12083          	lw	ra,12(sp)
- 24c:	00000513          	addi	a0,zero,0
- 250:	01010113          	addi	sp,sp,16
- 254:	00008067          	jalr	zero,0(ra)
+ 234:	06400693          	addi	a3,zero,100
+ 238:	00000713          	addi	a4,zero,0
+ 23c:	80000637          	lui	a2,0x80000
+ 240:	00100593          	addi	a1,zero,1
+ 244:	000f47b7          	lui	a5,0xf4
+ 248:	24078793          	addi	a5,a5,576 # f4240 <number_length+0xf3a40>
+ 24c:	02071263          	bne	a4,zero,270 <main+0x3c>
+ 250:	00b62023          	sw	a1,0(a2) # 80000000 <number_length+0x7ffff800>
+ 254:	00100713          	addi	a4,zero,1
+ 258:	fff78793          	addi	a5,a5,-1
+ 25c:	fe0798e3          	bne	a5,zero,24c <main+0x18>
+ 260:	fff68693          	addi	a3,a3,-1
+ 264:	fe0690e3          	bne	a3,zero,244 <main+0x10>
+ 268:	00000513          	addi	a0,zero,0
+ 26c:	00008067          	jalr	zero,0(ra)
+ 270:	00062023          	sw	zero,0(a2)
+ 274:	00000713          	addi	a4,zero,0
+ 278:	fe1ff06f          	jal	zero,258 <main+0x24>
 
 Disassembly of section .data:
 
