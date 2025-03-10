@@ -1,5 +1,6 @@
 {
     "files.associations": {
-        "ex105.h": "c"
+        "ex105.h": "c",
+        "print.h": "c"
     }
 }
