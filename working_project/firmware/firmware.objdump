@@ -164,24 +164,23 @@ Disassembly of section .text:
  230:	fd9ff06f          	jal	zero,208 <divide+0x14>
 
 00000234 <main>:
- 234:	06400693          	addi	a3,zero,100
- 238:	00000713          	addi	a4,zero,0
+ 234:	06400713          	addi	a4,zero,100
+ 238:	00000693          	addi	a3,zero,0
  23c:	80000637          	lui	a2,0x80000
  240:	00100593          	addi	a1,zero,1
- 244:	17d787b7          	lui	a5,0x17d78
- 248:	40078793          	addi	a5,a5,1024 # 17d78400 <number_length+0x17d77c00>
- 24c:	02071263          	bne	a4,zero,270 <main+0x3c>
- 250:	00b62023          	sw	a1,0(a2) # 80000000 <number_length+0x7ffff800>
- 254:	00100713          	addi	a4,zero,1
- 258:	fff78793          	addi	a5,a5,-1
- 25c:	fe0798e3          	bne	a5,zero,24c <main+0x18>
- 260:	fff68693          	addi	a3,a3,-1
- 264:	fe0690e3          	bne	a3,zero,244 <main+0x10>
+ 244:	026267b7          	lui	a5,0x2626
+ 248:	a0078793          	addi	a5,a5,-1536 # 2625a00 <number_length+0x2625200>
+ 24c:	02069263          	bne	a3,zero,270 <main+0x3c>
+ 250:	00062023          	sw	zero,0(a2) # 80000000 <number_length+0x7ffff800>
+ 254:	fff78793          	addi	a5,a5,-1
+ 258:	fe079ae3          	bne	a5,zero,24c <main+0x18>
+ 25c:	fff70713          	addi	a4,a4,-1
+ 260:	0016c693          	xori	a3,a3,1
+ 264:	fe0710e3          	bne	a4,zero,244 <main+0x10>
  268:	00000513          	addi	a0,zero,0
  26c:	00008067          	jalr	zero,0(ra)
- 270:	00062023          	sw	zero,0(a2)
- 274:	00000713          	addi	a4,zero,0
- 278:	fe1ff06f          	jal	zero,258 <main+0x24>
+ 270:	00b62023          	sw	a1,0(a2)
+ 274:	fe1ff06f          	jal	zero,254 <main+0x20>
 
 Disassembly of section .data:
 
