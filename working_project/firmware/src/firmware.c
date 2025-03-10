@@ -8,11 +8,17 @@ void delay() {
 
 int main() {
     unsigned int value = 0x01;
-    
+    value = 0x01;
+	
     while (1) {
         *ADDR = value;
         
-        value ^= 0x01; // Toggle between 0x01 and 0x00
+		if (value == 0x01) {
+	        value = 0x00; // Toggle between 0x01 and 0x00
+		} else {
+			value = 0x01;
+		}
+
         delay(); // Wait for a while
     }
     

@@ -141,6 +141,7 @@ begin
         data_out  => dmem_do
     );
 
+
     two_k_bram_imem_inst00: component two_k_bram_imem port map(
         clock => clock,
         init_data_in => C_GND,
@@ -167,6 +168,7 @@ begin
             end if;
         end if;
     end process;
+
 
     -------------------------------------------------------------------------------
     -- CLOCK AND RESET
