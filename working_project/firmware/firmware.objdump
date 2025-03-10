@@ -168,8 +168,8 @@ Disassembly of section .text:
  238:	00000713          	addi	a4,zero,0
  23c:	80000637          	lui	a2,0x80000
  240:	00100593          	addi	a1,zero,1
- 244:	000f47b7          	lui	a5,0xf4
- 248:	24078793          	addi	a5,a5,576 # f4240 <number_length+0xf3a40>
+ 244:	000027b7          	lui	a5,0x2
+ 248:	71078793          	addi	a5,a5,1808 # 2710 <number_length+0x1f10>
  24c:	02071263          	bne	a4,zero,270 <main+0x3c>
  250:	00b62023          	sw	a1,0(a2) # 80000000 <number_length+0x7ffff800>
  254:	00100713          	addi	a4,zero,1
