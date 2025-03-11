@@ -14,21 +14,22 @@ int main() {
          
         value = 1; // Toggle between 0x01 and 0x00
         *((volatile unsigned int*)0x80000000) = value; // Output the value to the LED 
-        delay();
-        value = 2
+        delay(); // Delay for a while
+        value = 2;
         *((volatile unsigned int*)0x80000000) = value; // Output the value to the LED
-        delay();
-        value = 4
+        delay(); // Delay for a while
+        value = 4;
         *((volatile unsigned int*)0x80000000) = value; // Output the value to the LED
-        delay();
-        value = 8
+        delay(); // Delay for a while
+        value = 8;
         *((volatile unsigned int*)0x80000000) = value; // Output the value to the LED
-        delay();
-        value = 16
+        delay(); // Delay for a while
+        value = 16;
         *((volatile unsigned int*)0x80000000) = value; // Output the value to the LED
-        delay();
+        delay(); // Delay for a while
 
     }
+
     
     return 0;
 }
