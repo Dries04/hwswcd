@@ -4,6 +4,8 @@
 
 ### Hardware 
 
+![alt text](image-1.png)
 
 ### Software
+
 
