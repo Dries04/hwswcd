@@ -178,30 +178,15 @@ Disassembly of section .text:
  260:	fe5ff06f          	jal	zero,244 <delay+0x10>
 
 00000264 <main>:
- 264:	fe010113          	addi	sp,sp,-32
- 268:	00812c23          	sw	s0,24(sp)
- 26c:	00912a23          	sw	s1,20(sp)
- 270:	01212823          	sw	s2,16(sp)
- 274:	01312623          	sw	s3,12(sp)
- 278:	01412423          	sw	s4,8(sp)
- 27c:	00112e23          	sw	ra,28(sp)
- 280:	00100793          	addi	a5,zero,1
- 284:	80000437          	lui	s0,0x80000
- 288:	00200a13          	addi	s4,zero,2
- 28c:	00300993          	addi	s3,zero,3
- 290:	00400913          	addi	s2,zero,4
- 294:	00500493          	addi	s1,zero,5
- 298:	00f42023          	sw	a5,0(s0) # 80000000 <number_length+0x7ffff800>
- 29c:	f99ff0ef          	jal	ra,234 <delay>
- 2a0:	01442023          	sw	s4,0(s0)
- 2a4:	f91ff0ef          	jal	ra,234 <delay>
- 2a8:	01342023          	sw	s3,0(s0)
- 2ac:	f89ff0ef          	jal	ra,234 <delay>
- 2b0:	01242023          	sw	s2,0(s0)
- 2b4:	f81ff0ef          	jal	ra,234 <delay>
- 2b8:	00500793          	addi	a5,zero,5
- 2bc:	00942023          	sw	s1,0(s0)
- 2c0:	fd9ff06f          	jal	zero,298 <main+0x34>
+ 264:	ff010113          	addi	sp,sp,-16
+ 268:	00812423          	sw	s0,8(sp)
+ 26c:	00912223          	sw	s1,4(sp)
+ 270:	00112623          	sw	ra,12(sp)
+ 274:	80000437          	lui	s0,0x80000
+ 278:	00100493          	addi	s1,zero,1
+ 27c:	00942023          	sw	s1,0(s0) # 80000000 <number_length+0x7ffff800>
+ 280:	fb5ff0ef          	jal	ra,234 <delay>
+ 284:	ff9ff06f          	jal	zero,27c <main+0x18>
 
 Disassembly of section .data:
 
