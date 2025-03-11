@@ -178,19 +178,40 @@ Disassembly of section .text:
  260:	fe5ff06f          	jal	zero,244 <delay+0x10>
 
 00000264 <main>:
- 264:	ff010113          	addi	sp,sp,-16
- 268:	00812423          	sw	s0,8(sp)
- 26c:	00112623          	sw	ra,12(sp)
- 270:	00100793          	addi	a5,zero,1
- 274:	80000437          	lui	s0,0x80000
- 278:	00f42023          	sw	a5,0(s0) # 80000000 <number_length+0x7ffff800>
- 27c:	fb9ff0ef          	jal	ra,234 <delay>
- 280:	fb5ff0ef          	jal	ra,234 <delay>
- 284:	fb1ff0ef          	jal	ra,234 <delay>
- 288:	fadff0ef          	jal	ra,234 <delay>
- 28c:	fa9ff0ef          	jal	ra,234 <delay>
- 290:	00f00793          	addi	a5,zero,15
- 294:	fe5ff06f          	jal	zero,278 <main+0x14>
+ 264:	fe010113          	addi	sp,sp,-32
+ 268:	00812c23          	sw	s0,24(sp)
+ 26c:	00912a23          	sw	s1,20(sp)
+ 270:	01212823          	sw	s2,16(sp)
+ 274:	01312623          	sw	s3,12(sp)
+ 278:	01412423          	sw	s4,8(sp)
+ 27c:	01512223          	sw	s5,4(sp)
+ 280:	01612023          	sw	s6,0(sp)
+ 284:	00112e23          	sw	ra,28(sp)
+ 288:	00100793          	addi	a5,zero,1
+ 28c:	80000437          	lui	s0,0x80000
+ 290:	00100a93          	addi	s5,zero,1
+ 294:	00100b13          	addi	s6,zero,1
+ 298:	00200993          	addi	s3,zero,2
+ 29c:	00400913          	addi	s2,zero,4
+ 2a0:	00800493          	addi	s1,zero,8
+ 2a4:	00f00a13          	addi	s4,zero,15
+ 2a8:	00f42023          	sw	a5,0(s0) # 80000000 <number_length+0x7ffff800>
+ 2ac:	01642023          	sw	s6,0(s0)
+ 2b0:	f85ff0ef          	jal	ra,234 <delay>
+ 2b4:	01542023          	sw	s5,0(s0)
+ 2b8:	01342023          	sw	s3,0(s0)
+ 2bc:	f79ff0ef          	jal	ra,234 <delay>
+ 2c0:	01342023          	sw	s3,0(s0)
+ 2c4:	01242023          	sw	s2,0(s0)
+ 2c8:	f6dff0ef          	jal	ra,234 <delay>
+ 2cc:	01242023          	sw	s2,0(s0)
+ 2d0:	00942023          	sw	s1,0(s0)
+ 2d4:	f61ff0ef          	jal	ra,234 <delay>
+ 2d8:	00942023          	sw	s1,0(s0)
+ 2dc:	01442023          	sw	s4,0(s0)
+ 2e0:	f55ff0ef          	jal	ra,234 <delay>
+ 2e4:	00f00793          	addi	a5,zero,15
+ 2e8:	fc1ff06f          	jal	zero,2a8 <main+0x44>
 
 Disassembly of section .data:
 
