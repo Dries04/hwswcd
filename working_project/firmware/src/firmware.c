@@ -11,9 +11,6 @@ int main() {
     
     while (1) {
         *ADDR = value;
-        
-        value ^= 0x07; // Toggle between 0x01 and 0x00
-        delay(); // Wait for a while
     }
     
     return 0;
