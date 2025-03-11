@@ -1,6 +1,9 @@
 # READ ME
 
-## Resource useage
+## Resource usage
+
+### Clock frequency
+
 
 ### Hardware 
 
