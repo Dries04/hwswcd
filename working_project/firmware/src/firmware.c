@@ -15,6 +15,18 @@ int main() {
         value = 1; // Toggle between 0x01 and 0x00
         *((volatile unsigned int*)0x80000000) = value; // Output the value to the LED 
         delay();
+        value = 2
+        *((volatile unsigned int*)0x80000000) = value; // Output the value to the LED
+        delay();
+        value = 4
+        *((volatile unsigned int*)0x80000000) = value; // Output the value to the LED
+        delay();
+        value = 8
+        *((volatile unsigned int*)0x80000000) = value; // Output the value to the LED
+        delay();
+        value = 16
+        *((volatile unsigned int*)0x80000000) = value; // Output the value to the LED
+        delay();
 
     }
     
