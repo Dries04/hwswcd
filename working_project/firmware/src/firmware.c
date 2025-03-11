@@ -11,12 +11,39 @@ int main() {
     while (1) {
         
         *((volatile unsigned int*)0x80000000) = value; // Output the value to the LED  
-        value = 0x01; // Toggle between 0x01 and 0x00
+        value = 1; // Toggle between 0x01 and 0x00
         delay();
-        value = 0x02;
+        value = 2;
         *((volatile unsigned int*)0x80000000) = value; // Output the value to the LED  
         delay();
-        value = 0x04;
+        value = 3;
+        *((volatile unsigned int*)0x80000000) = value; // Output the value to the LED
+        delay();
+        value = 4;
+        *((volatile unsigned int*)0x80000000) = value; // Output the value to the LED
+        delay();
+        value = 5;
+        *((volatile unsigned int*)0x80000000) = value; // Output the value to the LED
+        delay();
+        value = 6;
+        *((volatile unsigned int*)0x80000000) = value; // Output the value to the LED
+        delay();
+        value = 7;
+        *((volatile unsigned int*)0x80000000) = value; // Output the value to the LED
+        delay();
+        value = 8;
+        *((volatile unsigned int*)0x80000000) = value; // Output the value to the LED
+        delay();
+        value = 9;
+        *((volatile unsigned int*)0x80000000) = value; // Output the value to the LED
+        delay();
+        value = 10;
+        *((volatile unsigned int*)0x80000000) = value; // Output the value to the LED
+        delay();
+        value = 11;
+        *((volatile unsigned int*)0x80000000) = value; // Output the value to the LED
+        delay();
+        value = 12;
         *((volatile unsigned int*)0x80000000) = value; // Output the value to the LED
         delay();
     }
