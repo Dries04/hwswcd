@@ -115,17 +115,24 @@ begin
         PC => PC
     );
 
-    PREG_CPU_CTRL: process(clock)
-    begin
-        if rising_edge(clock) then
-            if reset = '1' then 
-                ce <= '0';
+PREG_CPU_CTRL: process(clock)
+    variable count : integer range 0 to 2 := 0;
+begin
+    if rising_edge(clock) then
+        if reset = '1' then 
+            count := 0;
+            ce <= '0';
+        else
+            if count = 2 then
+                count := 0;
+                ce <= '1'; -- ce goes high on every third clock cycle
             else
-                ce <= not(ce);
+                count := count + 1;
+                ce <= '0';
             end if;
         end if;
-    end process;
-
+    end if;
+end process;
 
     -------------------------------------------------------------------------------
     -- MEMORIES

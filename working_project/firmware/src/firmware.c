@@ -2,7 +2,7 @@
 #include "ex105.h"
 
 void delay() {
-    for (volatile unsigned int i = 0; i < 100000000; i++); // Simple delay loop
+    for (volatile unsigned int i = 0; i < 4000000; i++); // Simple delay loop
 }
 
 int main() {
