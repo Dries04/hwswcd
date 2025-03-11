@@ -83,6 +83,7 @@ architecture Behavioural of riscv_microcontroller is
     signal reset : STD_LOGIC;
 
     signal ce, ce_d : STD_LOGIC;
+    signal ce_counter: integer;
     signal toid, toid_d : STD_LOGIC;
 
     signal leds : STD_LOGIC_VECTOR(6 downto 0);
@@ -120,8 +121,12 @@ begin
         if rising_edge(clock) then
             if reset = '1' then 
                 ce <= '0';
+                ce_counter <= 0;
             else
-                ce <= not(ce);
+                if ce_counter = 3 then
+                    ce_counter <= 0;
+                    ce <= not(ce);
+                end if;
             end if;
         end if;
     end process;
