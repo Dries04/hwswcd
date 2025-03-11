@@ -180,14 +180,17 @@ Disassembly of section .text:
 00000264 <main>:
  264:	ff010113          	addi	sp,sp,-16
  268:	00812423          	sw	s0,8(sp)
- 26c:	00912223          	sw	s1,4(sp)
- 270:	00112623          	sw	ra,12(sp)
- 274:	00100413          	addi	s0,zero,1
- 278:	800004b7          	lui	s1,0x80000
- 27c:	0084a023          	sw	s0,0(s1) # 80000000 <number_length+0x7ffff800>
- 280:	00144413          	xori	s0,s0,1
+ 26c:	00112623          	sw	ra,12(sp)
+ 270:	00100793          	addi	a5,zero,1
+ 274:	80000437          	lui	s0,0x80000
+ 278:	00f42023          	sw	a5,0(s0) # 80000000 <number_length+0x7ffff800>
+ 27c:	fb9ff0ef          	jal	ra,234 <delay>
+ 280:	fb5ff0ef          	jal	ra,234 <delay>
  284:	fb1ff0ef          	jal	ra,234 <delay>
- 288:	ff5ff06f          	jal	zero,27c <main+0x18>
+ 288:	fadff0ef          	jal	ra,234 <delay>
+ 28c:	fa9ff0ef          	jal	ra,234 <delay>
+ 290:	00f00793          	addi	a5,zero,15
+ 294:	fe5ff06f          	jal	zero,278 <main+0x14>
 
 Disassembly of section .data:
 
