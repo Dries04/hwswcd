@@ -185,7 +185,7 @@ Disassembly of section .text:
  274:	00100413          	addi	s0,zero,1
  278:	800004b7          	lui	s1,0x80000
  27c:	0084a023          	sw	s0,0(s1) # 80000000 <number_length+0x7ffff800>
- 280:	00144413          	xori	s0,s0,1
+ 280:	00744413          	xori	s0,s0,7
  284:	fb1ff0ef          	jal	ra,234 <delay>
  288:	ff5ff06f          	jal	zero,27c <main+0x18>
 
