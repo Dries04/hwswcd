@@ -2,8 +2,10 @@
 
 ## Resource usage
 
-### Clock frequency
+### Clock frequency and slack
+![alt text](image-3.png)
 
+![alt text](image-4.png)
 
 ### Hardware 
 
