@@ -10,6 +10,9 @@ Discarded input sections
  .comment       0x00000000       0x1c build/mathlib.o
  .riscv.attributes
                 0x00000000       0x1c build/mathlib.o
+ .comment       0x00000000       0x1c build/tcnt.o
+ .riscv.attributes
+                0x00000000       0x1c build/tcnt.o
  .comment       0x00000000       0x1c build/firmware.o
  .riscv.attributes
                 0x00000000       0x1c build/firmware.o
@@ -26,27 +29,33 @@ RAM              0x00000800         0x00000800         xrw
 Linker script and memory map
 
 
-.text           0x00000000      0x298
+.text           0x00000000      0x428
                 0x00000000                        . = 0x0
  *(.init)
- .init          0x00000000       0x90 build/start.o
+ .init          0x00000000       0xc0 build/start.o
                 0x00000000                start
+                0x00000090                sw_mult
  *(.text*)
- .text          0x00000090       0x14 build/ex105.o
-                0x00000090                convert
- .text          0x000000a4      0x150 build/print.o
-                0x000000a4                print_chr
-                0x000000b0                print_str
-                0x000000cc                getNumber
-                0x000000dc                print_dec
-                0x000001ac                print_hex
- .text          0x000001f4       0x40 build/mathlib.o
-                0x000001f4                divide
- .text          0x00000234       0x30 build/firmware.o
-                0x00000234                delay
- .text.startup  0x00000264       0x34 build/firmware.o
-                0x00000264                main
- .text          0x00000298        0x0 build/start.o
+ .text          0x000000c0       0x14 build/ex105.o
+                0x000000c0                convert
+ .text          0x000000d4      0x150 build/print.o
+                0x000000d4                print_chr
+                0x000000e0                print_str
+                0x000000fc                getNumber
+                0x0000010c                print_dec
+                0x000001dc                print_hex
+ .text          0x00000224       0x40 build/mathlib.o
+                0x00000224                divide
+ .text          0x00000264       0x78 build/tcnt.o
+                0x00000264                TCNT_start
+                0x00000278                TCNT_stop
+                0x0000028c                TCNT_start_div8
+                0x000002b4                TCNT_start_div16
+ .text          0x000002dc       0xd0 build/firmware.o
+                0x000002dc                matrix_mult
+ .text.startup  0x000003ac       0x7c build/firmware.o
+                0x000003ac                main
+ .text          0x00000428        0x0 build/start.o
 
 .data           0x00000800       0x24
                 0x00000000                        . = 0x0
@@ -55,6 +64,7 @@ Linker script and memory map
  .data          0x00000800       0x24 build/print.o
                 0x00000800                number_length
  .data          0x00000824        0x0 build/mathlib.o
+ .data          0x00000824        0x0 build/tcnt.o
  .data          0x00000824        0x0 build/firmware.o
  .data          0x00000824        0x0 build/start.o
 
@@ -62,6 +72,7 @@ Linker script and memory map
  .bss           0x00000824        0x0 build/ex105.o
  .bss           0x00000824        0x0 build/print.o
  .bss           0x00000824        0x0 build/mathlib.o
+ .bss           0x00000824        0x0 build/tcnt.o
  .bss           0x00000824        0x0 build/firmware.o
  .bss           0x00000824        0x0 build/start.o
 
@@ -86,6 +97,7 @@ Linker script and memory map
 LOAD build/ex105.o
 LOAD build/print.o
 LOAD build/mathlib.o
+LOAD build/tcnt.o
 LOAD build/firmware.o
 LOAD build/start.o
 LOAD /opt/riscv/lib/gcc/riscv32-unknown-elf/13.2.0/libgcc.a
