@@ -37,7 +37,7 @@ Disassembly of section .text:
   74:	00000f13          	addi	t5,zero,0
   78:	00000f93          	addi	t6,zero,0
   7c:	00001137          	lui	sp,0x1
-  80:	25c000ef          	jal	ra,2dc <main>
+  80:	288000ef          	jal	ra,308 <main>
   84:	0080006f          	jal	zero,8c <end>
   88:	00100073          	ebreak
 
@@ -219,30 +219,33 @@ Disassembly of section .text:
  2d4:	01010113          	addi	sp,sp,16
  2d8:	00008067          	jalr	zero,0(ra)
 
-000002dc <main>:
+000002dc <delay>:
  2dc:	ff010113          	addi	sp,sp,-16
- 2e0:	00500513          	addi	a0,zero,5
- 2e4:	00112623          	sw	ra,12(sp)
- 2e8:	00812423          	sw	s0,8(sp)
- 2ec:	e21ff0ef          	jal	ra,10c <print_dec>
- 2f0:	00001437          	lui	s0,0x1
- 2f4:	c2440513          	addi	a0,s0,-988 # c24 <number_length+0x424>
- 2f8:	de9ff0ef          	jal	ra,e0 <print_str>
- 2fc:	00600513          	addi	a0,zero,6
- 300:	e0dff0ef          	jal	ra,10c <print_dec>
- 304:	c2440513          	addi	a0,s0,-988
- 308:	dd9ff0ef          	jal	ra,e0 <print_str>
- 30c:	00600593          	addi	a1,zero,6
- 310:	00500513          	addi	a0,zero,5
- 314:	d7dff0ef          	jal	ra,90 <sw_mult>
- 318:	df5ff0ef          	jal	ra,10c <print_dec>
- 31c:	c2440513          	addi	a0,s0,-988
- 320:	dc1ff0ef          	jal	ra,e0 <print_str>
- 324:	00c12083          	lw	ra,12(sp)
- 328:	00812403          	lw	s0,8(sp)
- 32c:	00000513          	addi	a0,zero,0
- 330:	01010113          	addi	sp,sp,16
- 334:	00008067          	jalr	zero,0(ra)
+ 2e0:	00012623          	sw	zero,12(sp)
+ 2e4:	02700713          	addi	a4,zero,39
+ 2e8:	00c12783          	lw	a5,12(sp)
+ 2ec:	00f77663          	bgeu	a4,a5,2f8 <delay+0x1c>
+ 2f0:	01010113          	addi	sp,sp,16
+ 2f4:	00008067          	jalr	zero,0(ra)
+ 2f8:	00c12783          	lw	a5,12(sp)
+ 2fc:	00178793          	addi	a5,a5,1
+ 300:	00f12623          	sw	a5,12(sp)
+ 304:	fe5ff06f          	jal	zero,2e8 <delay+0xc>
+
+00000308 <main>:
+ 308:	ff010113          	addi	sp,sp,-16
+ 30c:	00812423          	sw	s0,8(sp)
+ 310:	00912223          	sw	s1,4(sp)
+ 314:	00112623          	sw	ra,12(sp)
+ 318:	01212023          	sw	s2,0(sp)
+ 31c:	00000413          	addi	s0,zero,0
+ 320:	800004b7          	lui	s1,0x80000
+ 324:	01040913          	addi	s2,s0,16
+ 328:	00140413          	addi	s0,s0,1
+ 32c:	0084a023          	sw	s0,0(s1) # 80000000 <number_length+0x7ffff800>
+ 330:	fadff0ef          	jal	ra,2dc <delay>
+ 334:	ff241ae3          	bne	s0,s2,328 <main+0x20>
+ 338:	fedff06f          	jal	zero,324 <main+0x1c>
 
 Disassembly of section .data:
 
