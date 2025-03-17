@@ -69,7 +69,7 @@ begin
     -------------------------------------------------------------------------------
     -- PARSING
     -------------------------------------------------------------------------------
-    address_within_range <= '1' when iface_a_i(C_WIDTH-1 downto 20) = C_TIMER_BASE_ADDRESS_MASK else '0';
+    address_within_range <= '1' when iface_a_i(C_WIDTH-1 downto 12) = C_TIMER_BASE_ADDRESS_MASK else '0';
     targeted_register <= iface_a_i(19 downto 2);
 
     timer_CS <= reg0(1 downto 0);

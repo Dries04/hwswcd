@@ -96,18 +96,19 @@ architecture Behavioural of riscv_microcontroller is
     signal clock : STD_LOGIC;
     signal reset : STD_LOGIC;
 
-    signal ce, ce_d : STD_LOGIC;
+    signal ce: std_logic_vector (2 downto 0);
+    signal ce_d : STD_LOGIC;
     signal toid, toid_d : STD_LOGIC;
 
     signal leds : STD_LOGIC_VECTOR(6 downto 0);
     
     -- SIGNAL TO WRAPPER_TIMER
-    signal wr_tr_di, wr_tr_a, wr_tr_do: std_logic_vector(31 downto 0);
-    signal wr_tr_we: std_logic;
+    signal wr_tr_do: std_logic_vector(31 downto 0);
     
     -- SIGNALS FOR PERIPHERALS
-    signal peripheral_di, peripheral_a, peripheral_do: std_logic_vector (31 downto 0);
-    signal peripheral_we: std_logic;
+    signal peripheral_do: std_logic_vector (31 downto 0);
+    
+    signal print_dec_test: std_logic_vector(31 downto 0);
 
 begin
 
@@ -128,9 +129,9 @@ begin
     wrapped_timer_inst00: component wrapped_timer port map(
         clock => clock,
         reset => reset,
-        iface_di => wr_tr_di,
-        iface_a => wr_tr_a,
-        iface_we => wr_tr_we,
+        iface_di => dmem_di,
+        iface_a => dmem_a,
+        iface_we => dmem_we,
         iface_do => wr_tr_do
     );
 
@@ -140,33 +141,44 @@ begin
     riscv_inst00: component riscv port map(
         clock => clock,
         reset => reset,
-        ce => ce,
+        ce => ce(2),
         dmem_do => peripheral_do,
-        dmem_we => peripheral_we,
-        dmem_a => peripheral_a,
-        dmem_di => peripheral_di,
+        dmem_we => dmem_we,
+        dmem_a => dmem_a,
+        dmem_di => dmem_di,
         instruction => instruction,
         PC => PC
     );
 
-    PREG_CPU_CTRL: process(clock)
-        variable count : integer range 0 to 2 := 0;
-    begin
-        if rising_edge(clock) then
-            if reset = '1' then 
-                count := 0;
-                ce <= '0';
-            else
-                if count = 2 then
-                    count := 0;
-                    ce <= '1'; -- ce goes high on every third clock cycle
+--    PREG_CPU_CTRL: process(clock)
+--        variable count : integer range 0 to 2 := 0;
+--    begin
+--        if rising_edge(clock) then
+--            if reset = '1' then 
+--                count := 0;
+--                ce <= '0';
+--            else
+--                if count = 2 then
+--                    count := 0;
+--                    ce <= '1'; -- ce goes high on every third clock cycle
+--                else
+--                    count := count + 1;
+--                    ce <= '0';
+--                end if;
+--            end if;
+--        end if;
+--    end process;
+
+        PREG_CPU_CTRL: process(clock)
+        begin
+            if rising_edge(clock) then
+                if reset = '1' then 
+                    ce <= "001";
                 else
-                    count := count + 1;
-                    ce <= '0';
+                    ce <= ce(1 downto 0) & ce(2);
                 end if;
             end if;
-        end if;
-    end process;
+        end process;
 
     -------------------------------------------------------------------------------
     -- MEMORIES
@@ -205,35 +217,18 @@ begin
             else
                 if dmem_we = '1' and dmem_a = x"80000000" then 
                     leds <= dmem_di(6 downto 0);
+                    print_dec_test <= dmem_di;
                 end if;
             end if;
         end if;
     end process;
     
-    PERIPH: process (clock)
+    PERIPH: process (peripheral_do, wr_tr_do, dmem_do)
     begin
-        if rising_edge(clock)then
-            if peripheral_a >= C_TIMER_BASE_ADDRESS_MASK then
-                wr_tr_we <= peripheral_we;
-                wr_tr_di <= peripheral_di;
-                wr_tr_do <= peripheral_do;
-                wr_tr_a <= peripheral_a;
-                
-                dmem_we <= '0';
-                dmem_di <= (others => '0');
-                dmem_do <= (others => '0');
-                dmem_a <= (others => '0'); 
-            else
-                dmem_we <= peripheral_we;
-                dmem_di <= peripheral_di;
-                dmem_do <= peripheral_do;
-                dmem_a <= peripheral_a; 
-                
-                wr_tr_we <= '0';
-                wr_tr_di <= (others => '0');
-                wr_tr_do <= (others => '0');
-                wr_tr_a <= (others => '0');
-            end if;
+        if dmem_a(C_WIDTH-1 downto 12) = C_TIMER_BASE_ADDRESS_MASK then
+            peripheral_do <= wr_tr_do;
+        else
+            peripheral_do <= dmem_do;
         end if;
     end process;
 
