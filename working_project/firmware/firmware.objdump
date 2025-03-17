@@ -37,7 +37,7 @@ Disassembly of section .text:
   74:	00000f13          	addi	t5,zero,0
   78:	00000f93          	addi	t6,zero,0
   7c:	00001137          	lui	sp,0x1
-  80:	32c000ef          	jal	ra,3ac <main>
+  80:	25c000ef          	jal	ra,2dc <main>
   84:	0080006f          	jal	zero,8c <end>
   88:	00100073          	ebreak
 
@@ -219,71 +219,17 @@ Disassembly of section .text:
  2d4:	01010113          	addi	sp,sp,16
  2d8:	00008067          	jalr	zero,0(ra)
 
-000002dc <matrix_mult>:
- 2dc:	fe010113          	addi	sp,sp,-32
- 2e0:	00812c23          	sw	s0,24(sp)
- 2e4:	00058413          	addi	s0,a1,0
- 2e8:	01212823          	sw	s2,16(sp)
- 2ec:	00062583          	lw	a1,0(a2)
- 2f0:	00050913          	addi	s2,a0,0
- 2f4:	00042503          	lw	a0,0(s0)
- 2f8:	00112e23          	sw	ra,28(sp)
- 2fc:	00912a23          	sw	s1,20(sp)
- 300:	01312623          	sw	s3,12(sp)
- 304:	00060493          	addi	s1,a2,0
- 308:	d89ff0ef          	jal	ra,90 <sw_mult>
- 30c:	0084a583          	lw	a1,8(s1)
- 310:	00050993          	addi	s3,a0,0
- 314:	00442503          	lw	a0,4(s0)
- 318:	d79ff0ef          	jal	ra,90 <sw_mult>
- 31c:	00a989b3          	add	s3,s3,a0
- 320:	01392023          	sw	s3,0(s2)
- 324:	0044a583          	lw	a1,4(s1)
- 328:	00042503          	lw	a0,0(s0)
- 32c:	d65ff0ef          	jal	ra,90 <sw_mult>
- 330:	00c4a583          	lw	a1,12(s1)
- 334:	00050993          	addi	s3,a0,0
- 338:	00442503          	lw	a0,4(s0)
- 33c:	d55ff0ef          	jal	ra,90 <sw_mult>
- 340:	0004a583          	lw	a1,0(s1)
- 344:	00a989b3          	add	s3,s3,a0
- 348:	00842503          	lw	a0,8(s0)
- 34c:	01392223          	sw	s3,4(s2)
- 350:	d41ff0ef          	jal	ra,90 <sw_mult>
- 354:	0084a583          	lw	a1,8(s1)
- 358:	00050993          	addi	s3,a0,0
- 35c:	00c42503          	lw	a0,12(s0)
- 360:	d31ff0ef          	jal	ra,90 <sw_mult>
- 364:	00a989b3          	add	s3,s3,a0
- 368:	01392423          	sw	s3,8(s2)
- 36c:	0044a583          	lw	a1,4(s1)
- 370:	00842503          	lw	a0,8(s0)
- 374:	d1dff0ef          	jal	ra,90 <sw_mult>
- 378:	00c4a583          	lw	a1,12(s1)
- 37c:	00050993          	addi	s3,a0,0
- 380:	00c42503          	lw	a0,12(s0)
- 384:	d0dff0ef          	jal	ra,90 <sw_mult>
- 388:	01c12083          	lw	ra,28(sp)
- 38c:	01812403          	lw	s0,24(sp)
- 390:	00a989b3          	add	s3,s3,a0
- 394:	01392623          	sw	s3,12(s2)
- 398:	01412483          	lw	s1,20(sp)
- 39c:	01012903          	lw	s2,16(sp)
- 3a0:	00c12983          	lw	s3,12(sp)
- 3a4:	02010113          	addi	sp,sp,32
- 3a8:	00008067          	jalr	zero,0(ra)
-
-000003ac <main>:
- 3ac:	ff010113          	addi	sp,sp,-16
- 3b0:	00600593          	addi	a1,zero,6
- 3b4:	00500513          	addi	a0,zero,5
- 3b8:	00112623          	sw	ra,12(sp)
- 3bc:	cd5ff0ef          	jal	ra,90 <sw_mult>
- 3c0:	d4dff0ef          	jal	ra,10c <print_dec>
- 3c4:	00c12083          	lw	ra,12(sp)
- 3c8:	00000513          	addi	a0,zero,0
- 3cc:	01010113          	addi	sp,sp,16
- 3d0:	00008067          	jalr	zero,0(ra)
+000002dc <main>:
+ 2dc:	ff010113          	addi	sp,sp,-16
+ 2e0:	00600593          	addi	a1,zero,6
+ 2e4:	00500513          	addi	a0,zero,5
+ 2e8:	00112623          	sw	ra,12(sp)
+ 2ec:	da5ff0ef          	jal	ra,90 <sw_mult>
+ 2f0:	e1dff0ef          	jal	ra,10c <print_dec>
+ 2f4:	00c12083          	lw	ra,12(sp)
+ 2f8:	00000513          	addi	a0,zero,0
+ 2fc:	01010113          	addi	sp,sp,16
+ 300:	00008067          	jalr	zero,0(ra)
 
 Disassembly of section .data:
 
