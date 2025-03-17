@@ -29,7 +29,7 @@ RAM              0x00000800         0x00000800         xrw
 Linker script and memory map
 
 
-.text           0x00000000      0x330
+.text           0x00000000      0x334
                 0x00000000                        . = 0x0
  *(.init)
  .init          0x00000000       0xc0 build/start.o
@@ -52,9 +52,9 @@ Linker script and memory map
                 0x0000028c                TCNT_start_div8
                 0x000002b4                TCNT_start_div16
  .text          0x000002dc        0x0 build/firmware.o
- .text.startup  0x000002dc       0x54 build/firmware.o
+ .text.startup  0x000002dc       0x58 build/firmware.o
                 0x000002dc                main
- .text          0x00000330        0x0 build/start.o
+ .text          0x00000334        0x0 build/start.o
 
 .data           0x00000800       0x24
                 0x00000000                        . = 0x0
