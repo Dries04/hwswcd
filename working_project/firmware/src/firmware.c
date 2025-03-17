@@ -8,10 +8,10 @@ extern unsigned int sw_mult(unsigned int x, unsigned int y);
 int main() {
 
 	for (int i = 0; i < 10; i++) {
-		print_dec(i);
+		print_hex(i, 8);
 		print_str("\n");
 	}
-	
+
 	// print_dec(5);
 	// print_str("\n");
 	// print_dec(6);
