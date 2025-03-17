@@ -5,9 +5,13 @@ extern unsigned int sw_mult(unsigned int x, unsigned int y);
 
 int main() {
 
-	unsigned int result;
-	result = sw_mult(5, 6);
-	print_dec(result);
+	print_dec(5);
+	print_str("\n");
+	print_dec(6);
+	print_str("\n");
+	print_dec(sw_mult(5, 6));
+	print_str("\n");
+	
 
 	// unsigned int tcnt;
 	// struct matrix_t m, n, o;
