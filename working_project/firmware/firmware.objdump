@@ -274,37 +274,16 @@ Disassembly of section .text:
  3a8:	00008067          	jalr	zero,0(ra)
 
 000003ac <main>:
- 3ac:	fc010113          	addi	sp,sp,-64
- 3b0:	00100793          	addi	a5,zero,1
- 3b4:	00f12023          	sw	a5,0(sp)
- 3b8:	00500793          	addi	a5,zero,5
- 3bc:	00f12823          	sw	a5,16(sp)
- 3c0:	00200793          	addi	a5,zero,2
- 3c4:	00f12223          	sw	a5,4(sp)
- 3c8:	00600793          	addi	a5,zero,6
- 3cc:	00f12a23          	sw	a5,20(sp)
- 3d0:	00300793          	addi	a5,zero,3
- 3d4:	00f12423          	sw	a5,8(sp)
- 3d8:	00700793          	addi	a5,zero,7
- 3dc:	00f12c23          	sw	a5,24(sp)
- 3e0:	00400793          	addi	a5,zero,4
- 3e4:	00f12623          	sw	a5,12(sp)
- 3e8:	00800793          	addi	a5,zero,8
- 3ec:	02112e23          	sw	ra,60(sp)
- 3f0:	00f12e23          	sw	a5,28(sp)
- 3f4:	e71ff0ef          	jal	ra,264 <TCNT_start>
- 3f8:	01010613          	addi	a2,sp,16
- 3fc:	00010593          	addi	a1,sp,0
- 400:	02010513          	addi	a0,sp,32
- 404:	ed9ff0ef          	jal	ra,2dc <matrix_mult>
- 408:	e71ff0ef          	jal	ra,278 <TCNT_stop>
- 40c:	810007b7          	lui	a5,0x81000
- 410:	00c7a503          	lw	a0,12(a5) # 8100000c <number_length+0x80fff80c>
- 414:	cf9ff0ef          	jal	ra,10c <print_dec>
- 418:	03c12083          	lw	ra,60(sp)
- 41c:	00000513          	addi	a0,zero,0
- 420:	04010113          	addi	sp,sp,64
- 424:	00008067          	jalr	zero,0(ra)
+ 3ac:	ff010113          	addi	sp,sp,-16
+ 3b0:	00600593          	addi	a1,zero,6
+ 3b4:	00500513          	addi	a0,zero,5
+ 3b8:	00112623          	sw	ra,12(sp)
+ 3bc:	cd5ff0ef          	jal	ra,90 <sw_mult>
+ 3c0:	d4dff0ef          	jal	ra,10c <print_dec>
+ 3c4:	00c12083          	lw	ra,12(sp)
+ 3c8:	00000513          	addi	a0,zero,0
+ 3cc:	01010113          	addi	sp,sp,16
+ 3d0:	00008067          	jalr	zero,0(ra)
 
 Disassembly of section .data:
 
