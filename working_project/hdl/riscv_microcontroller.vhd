@@ -149,24 +149,24 @@ begin
         PC => PC
     );
 
-PREG_CPU_CTRL: process(clock)
-    variable count : integer range 0 to 2 := 0;
-begin
-    if rising_edge(clock) then
-        if reset = '1' then 
-            count := 0;
-            ce <= '0';
-        else
-            if count = 2 then
+    PREG_CPU_CTRL: process(clock)
+        variable count : integer range 0 to 2 := 0;
+    begin
+        if rising_edge(clock) then
+            if reset = '1' then 
                 count := 0;
-                ce <= '1'; -- ce goes high on every third clock cycle
-            else
-                count := count + 1;
                 ce <= '0';
+            else
+                if count = 2 then
+                    count := 0;
+                    ce <= '1'; -- ce goes high on every third clock cycle
+                else
+                    count := count + 1;
+                    ce <= '0';
+                end if;
             end if;
         end if;
-    end if;
-end process;
+    end process;
 
     -------------------------------------------------------------------------------
     -- MEMORIES
@@ -218,11 +218,21 @@ end process;
                 wr_tr_di <= peripheral_di;
                 wr_tr_do <= peripheral_do;
                 wr_tr_a <= peripheral_a;
+                
+                dmem_we <= '0';
+                dmem_di <= (others => '0');
+                dmem_do <= (others => '0');
+                dmem_a <= (others => '0'); 
             else
                 dmem_we <= peripheral_we;
                 dmem_di <= peripheral_di;
                 dmem_do <= peripheral_do;
-                dmem_a <= peripheral_a;      
+                dmem_a <= peripheral_a; 
+                
+                wr_tr_we <= '0';
+                wr_tr_di <= (others => '0');
+                wr_tr_do <= (others => '0');
+                wr_tr_a <= (others => '0');
             end if;
         end if;
     end process;

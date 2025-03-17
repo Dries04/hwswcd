@@ -32,7 +32,8 @@ package PKG_hwswcd is
     -- This comes down to 64 32-bit words.
     -- A peripheral can hence have 64 memory-mapped registers
     --constant C_TIMER_BASE_ADDRESS_MASK : STD_LOGIC_VECTOR(C_WIDTH-1 downto 8) := x"800001";
-    constant C_TIMER_BASE_ADDRESS_MASK : STD_LOGIC_VECTOR(C_WIDTH-1 downto 8) := x"81000";
+    constant C_TIMER_BASE_ADDRESS_MASK : STD_LOGIC_VECTOR(C_WIDTH-1 downto 12) := x"81000";
+
     
     constant C_MRO_xF11_MVENDORID : STD_LOGIC_VECTOR(C_WIDTH-1 downto 0) := x"01234568";
     constant C_MRO_xF14_MHARTID : STD_LOGIC_VECTOR(C_WIDTH-1 downto 0) := x"CAFEBABE";
@@ -187,25 +188,25 @@ package PKG_hwswcd is
         );
     end component wrapped_timer;
     
---    component timer is 
---        generic(
---            G_WIDTH : natural := 8
---        );
---        port(
---            clock : in STD_LOGIC;
---            reset : in STD_LOGIC;
+    component timer is 
+        generic(
+            G_WIDTH : natural := 8
+        );
+        port(
+            clock : in STD_LOGIC;
+            reset : in STD_LOGIC;
     
---            CS : in STD_LOGIC_VECTOR(1 downto 0);               -- clock select
---            WGM : in STD_LOGIC_VECTOR(1 downto 0);              -- waveform generation mode
+            CS : in STD_LOGIC_VECTOR(1 downto 0);               -- clock select
+            WGM : in STD_LOGIC_VECTOR(1 downto 0);              -- waveform generation mode
             
---            CMP : in STD_LOGIC_VECTOR(G_WIDTH-1 downto 0);
+            CMP : in STD_LOGIC_VECTOR(G_WIDTH-1 downto 0);
     
---            OFl : out std_LOGIC;
---            PWM : out std_LOGIC;
---            CEQ : out std_LOGIC;
---            TCNT : out STD_LOGIC_VECTOR(G_WIDTH-1 downto 0)
---        );
---    end component timer;
+            OFl : out std_LOGIC;
+            PWM : out std_LOGIC;
+            CEQ : out std_LOGIC;
+            TCNT : out STD_LOGIC_VECTOR(G_WIDTH-1 downto 0)
+        );
+    end component timer;
 
 end package;
 
