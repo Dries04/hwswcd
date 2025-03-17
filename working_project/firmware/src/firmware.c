@@ -3,14 +3,31 @@
 
 extern unsigned int sw_mult(unsigned int x, unsigned int y);
 
+void delay() {
+    for (volatile unsigned int i = 0; i < 40; i++); // Simple delay loop
+}
+
 int main() {
 
-	print_dec(5);
-	print_str("\n");
-	print_dec(6);
-	print_str("\n");
-	print_dec(sw_mult(5, 6));
-	print_str("\n");
+	int value = 0;
+
+    while (1) {
+
+        for (int i = 0; i < 16; i++) {
+            value = value + 1;
+            *((volatile unsigned int*)0x80000000) = value;
+            delay();
+        }
+
+    }
+
+
+	// print_dec(5);
+	// print_str("\n");
+	// print_dec(6);
+	// print_str("\n");
+	// print_dec(sw_mult(5, 6));
+	// print_str("\n");
 	
 
 	// unsigned int tcnt;
