@@ -163,7 +163,7 @@ Disassembly of section .text:
  22c:	0000006f          	jal	zero,22c <error>
 
 00000230 <irq_handler>:
- 230:	00457513          	andi	a0,a0,4
+ 230:	00557513          	andi	a0,a0,5
  234:	00050863          	beq	a0,zero,244 <irq_handler+0x14>
  238:	800007b7          	lui	a5,0x80000
  23c:	fff00713          	addi	a4,zero,-1
