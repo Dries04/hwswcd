@@ -9,7 +9,7 @@
 
 void irq_handler(unsigned int cause) {
 
-    if (cause & 4) {
+    if (cause & 5) {
         LED = 0xFFFFFFFF;
     }
 
