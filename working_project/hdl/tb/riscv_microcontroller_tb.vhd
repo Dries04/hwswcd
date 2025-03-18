@@ -24,17 +24,11 @@ end entity riscv_microcontroller_tb;
 
 architecture Behavioural of riscv_microcontroller_tb is
 
-    component riscv_microcontroller is
-        port(
-            sys_clock : in STD_LOGIC;
-            sys_reset : in STD_LOGIC;
-            gpio_leds : out STD_LOGIC_VECTOR(3 downto 0)
-        );
-    end component riscv_microcontroller;
 
     -- clock and reset
     signal sys_clock : STD_LOGIC;
     signal sys_reset : STD_LOGIC;
+    signal irq : STD_LOGIC_VECTOR(31 downto 0);
     signal gpio_leds : STD_LOGIC_VECTOR(3 downto 0);
 
     -- constants
@@ -43,6 +37,15 @@ architecture Behavioural of riscv_microcontroller_tb is
 
 begin
 
+    PSTIM: process
+    begin
+        irq <= (others => '0');
+        wait for 10 us;
+        irq <= (2 => '1', others => '0');
+        wait for 1 us;
+        irq <= (others => '0');
+        wait;
+    end process PSTIM;
 
     -------------------------------------------------------------------------------
     -- DUT
@@ -50,6 +53,7 @@ begin
     DUT: component riscv_microcontroller port map(
         sys_clock => sys_clock,
         sys_reset => sys_reset,
+        irq => irq,
         gpio_leds => gpio_leds
     );
 

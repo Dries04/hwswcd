@@ -24,17 +24,16 @@ package PKG_hwswcd is
     constant C_GND : STD_LOGIC_VECTOR(C_WIDTH-1 downto 0) := (others => '0');
     constant C_VCC : STD_LOGIC_VECTOR(C_WIDTH-1 downto 0) := (others => '1');
     constant C_FOUR : STD_LOGIC_VECTOR(C_WIDTH-1 downto 0) := (2 => '1', others => '0');
+    constant C_HARTID_0 : STD_LOGIC_VECTOR(C_WIDTH-1 downto 0) := (others => '0');
 
     -- constant C_PERIPHERAL_MASK_PADDING : STD_LOGIC_VECTOR()
 
     -- Peripherals are all assigned a BASE ADDRESS.
-    -- From this address 256 positions are reserved.
-    -- This comes down to 64 32-bit words.
-    -- A peripheral can hence have 64 memory-mapped registers
-    --constant C_TIMER_BASE_ADDRESS_MASK : STD_LOGIC_VECTOR(C_WIDTH-1 downto 8) := x"800001";
+    -- From this address 4096 positions are reserved.
+    -- This comes down to 1024 32-bit words.
+    -- A peripheral can hence have 1024 memory-mapped registers
     constant C_TIMER_BASE_ADDRESS_MASK : STD_LOGIC_VECTOR(C_WIDTH-1 downto 12) := x"81000";
 
-    
     constant C_MRO_xF11_MVENDORID : STD_LOGIC_VECTOR(C_WIDTH-1 downto 0) := x"01234568";
     constant C_MRO_xF14_MHARTID : STD_LOGIC_VECTOR(C_WIDTH-1 downto 0) := x"CAFEBABE";
 
@@ -92,6 +91,8 @@ package PKG_hwswcd is
             opcode : in std_logic_vector(6 downto 0);
             funct3 : in std_logic_vector(2 downto 0);
             funct7 : in std_logic_vector(6 downto 0);
+            rd : in std_logic_vector(4 downto 0);
+            rs1 : in std_logic_vector(4 downto 0);
             ToRegister : out std_logic_vector(2 downto 0);
             mem_we : out std_logic;
             Branch : out std_logic_vector(3 downto 0);
@@ -101,7 +102,12 @@ package PKG_hwswcd is
             regfile_we : out std_logic;
             arith_logic_b : out STD_LOGIC;
             signed_unsigned_b : out STD_LOGIC;
-            result_filter : out STD_LOGIC_VECTOR(1 downto 0)
+            result_filter : out STD_LOGIC_VECTOR(1 downto 0);
+            csr_src : out STD_LOGIC;
+            csr_we : out STD_LOGIC;
+            csr_set_bits : out STD_LOGIC;
+            csr_clear_bits : out STD_LOGIC;
+            csr_mret : out STD_LOGIC
         );
     end component control;
 
@@ -110,6 +116,7 @@ package PKG_hwswcd is
             clock : IN STD_LOGIC;
             reset : IN STD_LOGIC;
             ce: IN STD_LOGIC;
+            irq : in STD_LOGIC_VECTOR(31 downto 0);
             dmem_do : in STD_LOGIC_VECTOR(31 downto 0);
             dmem_we : out STD_LOGIC;
             dmem_a : out STD_LOGIC_VECTOR(31 downto 0);
@@ -121,10 +128,10 @@ package PKG_hwswcd is
 
     component riscv_microcontroller is
         port(
-            sys_clock_p : in STD_LOGIC;
-            sys_clock_n : in STD_LOGIC;
+            sys_clock : in STD_LOGIC;
             sys_reset : in STD_LOGIC;
-            gpio_leds : out STD_LOGIC_VECTOR(7 downto 0)
+            irq : in STD_LOGIC_VECTOR(31 downto 0);
+            gpio_leds : out STD_LOGIC_VECTOR(3 downto 0)
         );
     end component riscv_microcontroller;
 
@@ -187,26 +194,81 @@ package PKG_hwswcd is
             iface_do : out STD_LOGIC_VECTOR(C_WIDTH-1 downto 0)
         );
     end component wrapped_timer;
-    
-    component timer is 
+
+    component timer is
         generic(
             G_WIDTH : natural := 8
         );
         port(
             clock : in STD_LOGIC;
             reset : in STD_LOGIC;
-    
             CS : in STD_LOGIC_VECTOR(1 downto 0);               -- clock select
             WGM : in STD_LOGIC_VECTOR(1 downto 0);              -- waveform generation mode
-            
             CMP : in STD_LOGIC_VECTOR(G_WIDTH-1 downto 0);
-    
             OFl : out std_LOGIC;
             PWM : out std_LOGIC;
             CEQ : out std_LOGIC;
             TCNT : out STD_LOGIC_VECTOR(G_WIDTH-1 downto 0)
         );
     end component timer;
+
+    component riscv_csr is
+        generic (
+            G_HARTID : STD_LOGIC_VECTOR(C_WIDTH-1 downto 0) := (others => '0')
+        );
+        port(
+            clock : in STD_LOGIC;
+            reset : in STD_LOGIC;
+            ce : in STD_LOGIC;
+            data_in : in STD_LOGIC_VECTOR(C_WIDTH-1 downto 0);
+            CSR_address : in STD_LOGIC_VECTOR(11 downto 0);
+            rw : in STD_LOGIC;
+            rs : in STD_LOGIC;
+            rc : in STD_LOGIC;
+            interrupt_request : in STD_LOGIC_VECTOR(32-1 downto 0);
+            mret : in STD_LOGIC;
+            data_out : out STD_LOGIC_VECTOR(C_WIDTH-1 downto 0);
+            interrupt : out STD_LOGIC;
+            pc_in : in STD_LOGIC_VECTOR(31 downto 0);
+            pc_out : out STD_LOGIC_VECTOR(31 downto 0)
+        );
+    end component riscv_csr;
+
+    component clock_and_reset_pynq is
+        port(
+            sysclock : IN STD_LOGIC;
+            sysreset : IN STD_LOGIC;
+            sreset : out STD_LOGIC;
+            clock : out STD_LOGIC;
+            heartbeat : out STD_LOGIC
+        );
+    end component clock_and_reset_pynq;
+
+    component two_k_bram_dmem is
+        port(
+            clock : in STD_LOGIC;
+            init_data_in : in STD_LOGIC_VECTOR(31 downto 0);
+            init_write_enable : in STD_LOGIC;
+            init_address : in STD_LOGIC_VECTOR(10 downto 0);
+            data_in : in STD_LOGIC_VECTOR(31 downto 0);
+            write_enable : in STD_LOGIC;
+            address : in STD_LOGIC_VECTOR(10 downto 0);
+            data_out : out STD_LOGIC_VECTOR(31 downto 0)
+        );
+    end component two_k_bram_dmem;
+
+    component two_k_bram_imem is
+        port(
+            clock : in STD_LOGIC;
+            init_data_in : in STD_LOGIC_VECTOR(31 downto 0);
+            init_write_enable : in STD_LOGIC;
+            init_address : in STD_LOGIC_VECTOR(10 downto 0);
+            data_in : in STD_LOGIC_VECTOR(31 downto 0);
+            write_enable : in STD_LOGIC;
+            address : in STD_LOGIC_VECTOR(10 downto 0);
+            data_out : out STD_LOGIC_VECTOR(31 downto 0)
+        );
+    end component two_k_bram_imem;
 
 end package;
 

@@ -22,6 +22,9 @@ entity riscv is
         reset : IN STD_LOGIC;
         ce : IN STD_LOGIC;
 
+        -- interrupts
+        irq : in STD_LOGIC_VECTOR(31 downto 0);
+
         -- dmem
         dmem_do : in STD_LOGIC_VECTOR(31 downto 0);
         dmem_we : out STD_LOGIC;
@@ -40,6 +43,7 @@ architecture Behavioural of riscv is
     signal clock_i : STD_LOGIC;
     signal reset_i : STD_LOGIC;
     signal ce_i : STD_LOGIC;
+    signal irq_i : STD_LOGIC_VECTOR(31 downto 0);
     signal dmem_di_o : STD_LOGIC_VECTOR(31 downto 0);
     signal dmem_we_o : STD_LOGIC;
     signal dmem_a_o : STD_LOGIC_VECTOR(31 downto 0);
@@ -55,7 +59,7 @@ architecture Behavioural of riscv is
     alias inst_rd : STD_LOGIC_VECTOR(4 downto 0) is instruction_i(11 downto 7);
     alias inst_opcode : STD_LOGIC_VECTOR(6 downto 0) is instruction_i(6 downto 0);
 
-    alias inst_csr : STD_LOGIC_VECTOR(11 downto 0) is instruction_i(31 downto 20);
+    alias inst_csr_address : STD_LOGIC_VECTOR(11 downto 0) is instruction_i(31 downto 20);
 
     -- regfile
     signal regfile_data1 : std_logic_vector(C_WIDTH-1 downto 0);
@@ -103,10 +107,12 @@ architecture Behavioural of riscv is
     signal pc_inc_imm_sh12_c : STD_LOGIC_VECTOR(C_WIDTH downto 0);
     signal dmem_do_i_signpadding : std_logic_vector(C_WIDTH-1 downto 0);
     
+    -- ZiCSR extension
     signal from_CSR : STD_LOGIC_VECTOR(C_WIDTH-1 downto 0);
     signal to_CSR : STD_LOGIC_VECTOR(C_WIDTH-1 downto 0);
-    signal program_counter_interrupted : STD_LOGIC_VECTOR(C_WIDTH-1 downto 0);
+    signal pc_interrupted : STD_LOGIC_VECTOR(C_WIDTH-1 downto 0);
     signal interrupt : STD_LOGIC;
+    -- signal csr_src, csr_we, csr_set_bits, csr_clear_bits, csr_mret : STD_LOGIC;
 
 begin
 
@@ -116,6 +122,7 @@ begin
     clock_i <= clock;
     reset_i <= reset;
     ce_i <= ce;
+    irq_i <= irq;
     dmem_di <= dmem_di_o;
     dmem_we <= dmem_we_o;
     dmem_a <= dmem_a_o;
@@ -152,6 +159,8 @@ begin
         opcode => inst_opcode,
         funct3 => inst_funct3,
         funct7 => inst_funct7,
+        rd => inst_rd,
+        rs1 => inst_rs1,
 
         -- jumping and branching
         Branch => ctrl_Branch,
@@ -169,8 +178,16 @@ begin
         -- to RegFile
         regfile_we => ctrl_regfile_we,
         ToRegister => ctrl_ToRegister,
-        result_filter => ctrl_result_filter
+        result_filter => ctrl_result_filter,
+
+        -- ZiCSR extension
+        csr_src => ctrl_csr_src,
+        csr_we => ctrl_CSR_rw,
+        csr_set_bits => ctrl_CSR_rs,
+        csr_clear_bits => ctrl_CSR_rc,
+        csr_mret => ctrl_csr_mret
     );
+
 
     immediate_gen_inst00: component immediate_gen port map(
         instruction => instruction_i,
@@ -206,7 +223,7 @@ begin
         end case;
     end process;
 
-    PMUX_REGFILE: process(ctrl_ToRegister, ctrl_result_filter, dmem_do_i, dmem_do_i_signpadding, program_counter, pc_inc4, immediate, alu_result, pc_inc_imm_sh12)
+    PMUX_REGFILE: process(ctrl_ToRegister, ctrl_result_filter, dmem_do_i, dmem_do_i_signpadding, program_counter, pc_inc4, immediate, alu_result, pc_inc_imm_sh12, from_CSR)
     begin
 
         case ctrl_ToRegister is
@@ -227,6 +244,7 @@ begin
             when "100" => regfile_data <= immediate(19 downto 0) & C_GND(11 downto 0);              -- for LUI
             when "101" => regfile_data <= pc_inc4;                                                  -- for JAL
             when "111" => regfile_data <= pc_inc_imm_sh12;                                          -- for auipc
+            when "110" => regfile_data <= from_CSR;                                               -- for ALU
             when others => regfile_data <= alu_result;
         end case;
     end process;
@@ -235,8 +253,17 @@ begin
     -------------------------------------------------------------------------------
     -- PC
     -------------------------------------------------------------------------------
-    program_counter_next <= pc_sum when reset = '0' else C_GND;
     
+    PMUX_PCNEXT: process(interrupt, ctrl_csr_mret, pc_interrupted, pc_sum)
+    begin
+        if interrupt = '1' then 
+            program_counter_next <= pc_interrupted;
+        elsif ctrl_csr_mret = '1' then 
+            program_counter_next <= pc_interrupted;
+        else
+            program_counter_next <= pc_sum;
+        end if;
+    end process;
 
     PREG_PC: process(clock_i)
     begin
@@ -292,5 +319,27 @@ begin
         pc_inc_imm_sh12_c(i+1) <= (program_counter(i) AND imm_sh12(i)) OR (pc_inc_imm_sh12_c(i) AND (program_counter(i) XOR imm_sh12(i)));
     end generate GENRCA_3;
 
+    -------------------------------------------------------------------------------
+    -- ZiCSR extension
+    -------------------------------------------------------------------------------
+
+    to_CSR <= regfile_data1 when ctrl_csr_src = '0' else x"000000" & "000" & inst_rs1;
+
+    riscv_csr_inst00: component riscv_csr generic map(G_HARTID => C_HARTID_0) port map(
+        clock => clock_i,
+        reset => reset_i,
+        ce => ce_i,
+        data_in => to_CSR,
+        CSR_address => inst_csr_address,
+        rw => ctrl_CSR_rw,
+        rs => ctrl_CSR_rs,
+        rc => ctrl_CSR_rc,
+        interrupt_request => irq_i,
+        mret => ctrl_csr_mret,
+        data_out => from_CSR,
+        interrupt => interrupt,
+        pc_in => program_counter,
+        pc_out => pc_interrupted
+    );
    
 end Behavioural;

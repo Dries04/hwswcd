@@ -5,19 +5,18 @@ RISCV_GNU_TOOLCHAIN_GIT_REVISION = 20f6153
 RISCV_GNU_TOOLCHAIN_INSTALL_PREFIX = /opt/riscv
 TOOLCHAIN_PREFIX = $(RISCV_GNU_TOOLCHAIN_INSTALL_PREFIX)/bin/riscv32-unknown-elf-
 
-PYTHON = python
+PYTHON = /usr/bin/python3
 CC=$(TOOLCHAIN_PREFIX)gcc
 RM = rm -rf
 MKDIR = mkdir
 
-ARCHITECTURE = rv32i
+ARCHITECTURE = rv32i_zicsr
 ABI = ilp32
 
 CFLAGS = -c -Os -march=$(ARCHITECTURE) -mabi=$(ABI) -ffreestanding --std=c99
 SFLAGS = -c -Os -march=$(ARCHITECTURE) -mabi=$(ABI) -ffreestanding --std=c99
 LDFLAGS = -Wl,-Bstatic,-T,firmware.lds,-Map,firmware.map,--strip-debug -march=$(ARCHITECTURE) -mabi=$(ABI) -nostartfiles
 
-LIBS = -L/opt/riscv/lib/gcc/riscv32-unknown-elf/14.2.0/libgcc.a -lgcc
 LIBS =
 
 BUILDDIR = build
@@ -47,12 +46,11 @@ all: firmware.hex firmware.objdump vhd
 	$(TOOLCHAIN_PREFIX)objcopy -O binary $< $@
 
 %.hex: %.bin
-	$(PYTHON) $(TOOLS)/makehex.py $^ 4096
+	$(PYTHON) $(TOOLS)/makehex.py $^ 16384
 
 vhd: firmware_imem.hex
 	$(PYTHON) $(TOOLS)/makevhd.py firmware_imem.hex ../hdl/two_k_bram_imem.vhd $(TOOLS)/template/two_k_bram_imem.vhd_template 
 	$(PYTHON) $(TOOLS)/makevhd.py firmware_dmem.hex ../hdl/two_k_bram_dmem.vhd $(TOOLS)/template/two_k_bram_dmem.vhd_template 
-
 
 # LINKING ######################################################################
 $(BINARY): $(OBJECTS) $(OBJECTS_A)

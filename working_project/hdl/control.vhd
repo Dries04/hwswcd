@@ -18,6 +18,8 @@ entity control is
         opcode : in std_logic_vector(6 downto 0);
         funct3 : in std_logic_vector(2 downto 0);
         funct7 : in std_logic_vector(6 downto 0);
+        rd : in std_logic_vector(4 downto 0);
+        rs1 : in std_logic_vector(4 downto 0);
 
         ToRegister : out std_logic_vector(2 downto 0);
         mem_we : out std_logic;
@@ -28,9 +30,13 @@ entity control is
         regfile_we : out std_logic;
         arith_logic_b : out STD_LOGIC;
         signed_unsigned_b : out STD_LOGIC;
-        result_filter : out STD_LOGIC_VECTOR(1 downto 0)
+        result_filter : out STD_LOGIC_VECTOR(1 downto 0);
+        csr_src : out STD_LOGIC;
+        csr_we : out STD_LOGIC;
+        csr_set_bits : out STD_LOGIC;
+        csr_clear_bits : out STD_LOGIC;
+        csr_mret : out STD_LOGIC
     );
-
 end entity control;
 
 architecture Behavioural of control is
@@ -39,6 +45,8 @@ architecture Behavioural of control is
     signal opcode_i : std_logic_vector(6 downto 0);
     signal funct3_i : std_logic_vector(2 downto 0);
     signal funct7_i : std_logic_vector(6 downto 0);
+    signal rd_i : std_logic_vector(4 downto 0);
+    signal rs1_i : std_logic_vector(4 downto 0);
 
     signal ToRegister_o : std_logic_vector(2 downto 0);
     signal mem_we_o : std_logic;
@@ -50,6 +58,11 @@ architecture Behavioural of control is
     signal arith_logic_b_o : STD_LOGIC;
     signal signed_unsigned_b_o : STD_LOGIC;
     signal result_filter_o : STD_LOGIC_VECTOR(1 downto 0);
+    signal csr_src_o : STD_LOGIC;
+    signal csr_we_o : STD_LOGIC;
+    signal csr_set_bits_o : STD_LOGIC;
+    signal csr_clear_bits_o : STD_LOGIC;
+    signal csr_mret_o : STD_LOGIC;
 
 begin
 
@@ -59,6 +72,8 @@ begin
     opcode_i <= opcode;
     funct3_i <= funct3;
     funct7_i <= funct7;
+    rd_i <= rd;
+    rs1_i <= rs1;
 
     branch <= branch_o;
     mem_we <= mem_we_o;
@@ -66,11 +81,14 @@ begin
     signed_unsigned_b <= signed_unsigned_b_o;
     result_filter <= result_filter_o;
     StoreSel <= StoreSel_o;
-
-
     regfile_we <= regfile_we_o;
+    csr_we <= csr_we_o;
+    csr_set_bits <= csr_set_bits_o;
+    csr_clear_bits <= csr_clear_bits_o;
+    csr_src <= csr_src_o;
+    csr_mret <= csr_mret_o;
 
-    process(opcode_i, funct7, funct3)
+    process(opcode_i, funct7, funct3, rd_i, rs1_i)
     begin
         case opcode_i is
 -- R TYPE -----------------------------------------------------------------------------
@@ -81,6 +99,11 @@ begin
                 arith_logic_b_o <= '0';
                 signed_unsigned_b_o <= '0';
                 result_filter_o <= "00";
+                csr_we_o <= '0';
+                csr_set_bits_o <= '0';
+                csr_clear_bits_o <= '0';
+                csr_src_o <= '0';
+                csr_mret_o <= '0';
 
                 case funct3 is
                     when "000" =>
@@ -158,6 +181,11 @@ begin
                 ToRegister <= "000";
                 ALUSrc      <= '0';
                 result_filter_o <= "00";
+                csr_we_o <= '0';
+                csr_set_bits_o <= '0';
+                csr_clear_bits_o <= '0';
+                csr_src_o <= '0';
+                csr_mret_o <= '0';
 
                 case funct3 is
                     when "000" =>                   --ADDI
@@ -221,6 +249,12 @@ begin
                 arith_logic_b_o <= '0';
                 signed_unsigned_b_o <= '0';
                 StoreSel_o <= "00";
+                csr_we_o <= '0';
+                csr_set_bits_o <= '0';
+                csr_clear_bits_o <= '0';
+                csr_src_o <= '0';
+                csr_mret_o <= '0';
+
                 case funct3 is
                         when "000" =>                   --LB
                             ToRegister <= "010";
@@ -262,6 +296,12 @@ begin
                 arith_logic_b_o <= '0';
                 signed_unsigned_b_o <= '0';
                 result_filter_o <= "00";
+                csr_we_o <= '0';
+                csr_set_bits_o <= '0';
+                csr_clear_bits_o <= '0';
+                csr_src_o <= '0';
+                csr_mret_o <= '0';
+
                 case funct3 is
                     when "000" =>                   --SB
                         mem_we_o <= '1';
@@ -289,6 +329,12 @@ begin
                 arith_logic_b_o <= '0';
                 signed_unsigned_b_o <= '0';
                 result_filter_o <= "00";
+                csr_we_o <= '0';
+                csr_set_bits_o <= '0';
+                csr_clear_bits_o <= '0';
+                csr_src_o <= '0';
+                csr_mret_o <= '0';
+
                 case funct3 is
                     when "000" =>                   --BEQ
                         branch_o <= "1001";
@@ -331,6 +377,11 @@ begin
                 arith_logic_b_o <= '0';
                 signed_unsigned_b_o <= '0';
                 result_filter_o <= "00";
+                csr_we_o <= '0';
+                csr_set_bits_o <= '0';
+                csr_clear_bits_o <= '0';
+                csr_src_o <= '0';
+                csr_mret_o <= '0';
 -- remaining -------------------------------------------------------------------
             when "1100111" =>
                 mem_we_o <= '0';
@@ -338,6 +389,11 @@ begin
                 arith_logic_b_o <= '0';
                 signed_unsigned_b_o <= '0';
                 result_filter_o <= "00";
+                csr_we_o <= '0';
+                csr_set_bits_o <= '0';
+                csr_clear_bits_o <= '0';
+                csr_src_o <= '0';
+                csr_mret_o <= '0';
                 if funct3 = "000" then                   --JALR
                     branch_o <= "1110";
                     ToRegister <= "011";           --PC
@@ -363,6 +419,11 @@ begin
                 branch_o <= "0000";
                 ALUSrc <= '0';
                 ALUOp <= "000";
+                csr_we_o <= '0';
+                csr_set_bits_o <= '0';
+                csr_clear_bits_o <= '0';
+                csr_src_o <= '0';
+                csr_mret_o <= '0';
 
             when "0010111" =>
                 mem_we_o <= '0';
@@ -375,6 +436,112 @@ begin
                 branch_o <= "0000";
                 ALUSrc <= '0';
                 ALUOp <= "000";                
+                csr_we_o <= '0';
+                csr_set_bits_o <= '0';
+                csr_clear_bits_o <= '0';
+                csr_src_o <= '0';
+                csr_mret_o <= '0';
+-- SYSTEM TYPE -----------------------------------------------------------------
+            when "1110011" =>
+                mem_we_o <= '0';
+                StoreSel_o <= "00";
+                arith_logic_b_o <= '0';
+                signed_unsigned_b_o <= '0';
+                result_filter_o <= "00";
+                branch_o <= "0000";
+                ALUSrc <= '0';
+                ALUOp <= "000";
+
+                case funct3 is
+                    when "001" =>                   -- CSR_Read-Write Register
+                        csr_we_o <= '1';
+                        csr_set_bits_o <= '0';
+                        csr_clear_bits_o <= '0';
+                        csr_src_o <= '0';
+                        ToRegister <= "110";
+                        if rd_i = "00000" then 
+                            regfile_we_o <= '0';
+                        else
+                            regfile_we_o <= '1';
+                        end if;
+                        csr_mret_o <= '0';
+                    when "010" =>                   -- CSR_Read-Set Register
+                        csr_we_o <= '0';
+                        csr_clear_bits_o <= '0';
+                        csr_src_o <= '0';
+                        ToRegister <= "110";
+                        regfile_we_o <= '1';
+                        if rs1_i = "00000" then 
+                            csr_set_bits_o <= '0';
+                        else
+                            csr_set_bits_o <= '1';
+                        end if;
+                        csr_mret_o <= '0';
+                    when "011" =>                   -- CSR_Read-Clear Register
+                        csr_we_o <= '0';
+                        csr_set_bits_o <= '0';
+                        csr_src_o <= '0';
+                        ToRegister <= "110";
+                        regfile_we_o <= '1';
+                        if rs1_i = "00000" then 
+                            csr_clear_bits_o <= '0';
+                        else
+                            csr_clear_bits_o <= '1';
+                        end if;
+                        csr_mret_o <= '0';
+                    when "101" =>                   -- CSR_Read-Write Immediate
+                        csr_we_o <= '1';
+                        csr_set_bits_o <= '0';
+                        csr_clear_bits_o <= '0';
+                        csr_src_o <= '1';
+                        ToRegister <= "110";
+                        if rd_i = "00000" then 
+                            regfile_we_o <= '0';
+                        else
+                            regfile_we_o <= '1';
+                        end if;
+                        csr_mret_o <= '0';
+                    when "110" =>                   -- CSR_Read-Set Immediate
+                        csr_we_o <= '0';
+                        csr_clear_bits_o <= '0';
+                        csr_src_o <= '1';
+                        ToRegister <= "110";
+                        regfile_we_o <= '1';
+                        if rs1_i = "00000" then 
+                            csr_set_bits_o <= '0';
+                        else
+                            csr_set_bits_o <= '1';
+                        end if;
+                        csr_mret_o <= '0';
+                    when "111" =>                   -- CSR_Read-Clear Immediate
+                        csr_we_o <= '0';
+                        csr_set_bits_o <= '0';
+                        csr_src_o <= '1';
+                        ToRegister <= "110";
+                        regfile_we_o <= '1';
+                        csr_mret_o <= '0';
+                        if rs1_i = "00000" then 
+                            csr_clear_bits_o <= '0';
+                        else
+                            csr_clear_bits_o <= '1';
+                        end if;
+                    when "000" =>                   -- mret
+                        csr_we_o <= '0';
+                        csr_set_bits_o <= '0';
+                        csr_src_o <= '1';
+                        ToRegister <= "110";
+                        regfile_we_o <= '1';
+                        csr_clear_bits_o <= '0';
+                        csr_mret_o <= '1';
+                    when others => 
+                        ToRegister <= "000";       
+                        regfile_we_o <= '0';    
+                        csr_we_o <= '0';
+                        csr_set_bits_o <= '0';
+                        csr_clear_bits_o <= '0';
+                        csr_src_o <= '0';
+                        csr_mret_o <= '0';
+                end case;
 --------------------------------------------------------------------------------
             when others =>                  
                 branch_o <= "0000";
@@ -387,6 +554,11 @@ begin
                 arith_logic_b_o <= '0';
                 signed_unsigned_b_o <= '0';
                 result_filter_o <= "00";
+                csr_we_o <= '0';
+                csr_set_bits_o <= '0';
+                csr_clear_bits_o <= '0';
+                csr_src_o <= '0';
+                csr_mret_o <= '0';
         end case;    
     end process;
 end Behavioural;
