@@ -19,12 +19,14 @@ SECTIONS {
         *(.data);
     } > RAM
 
+    /*
     .rodata : {
         . = 0x400;
         *(.rodata);
         . = ALIGN(4);
         FILL(0xFF)
     } > RAM
+    */
 
     /DISCARD/ :
     {

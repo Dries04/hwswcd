@@ -9,9 +9,9 @@
 # launch with: source /home/jvliegen/Desktop/temp/ch4_template/scripts/tcl/vivado_proj.tcl
 ################################################################################
 
-set pname "hwswcd_chapter_4"
-set path "/home/jvliegen/Documents/courses/KULeuven/sem8_HWSWCD/vivado/"
-set srcpath "/home/jvliegen/Desktop/temp/ch4_template"
+set pname "hwswcd_chapter_1_example"
+set path C:/Users/Dries/Documents/Uhasselt/ma_EA-ICT/HW_SW/Vivado
+set srcpath C:/Users/Dries/Documents/Uhasselt/ma_EA-ICT/HW_SW/gitrepo/working_project
 
 set part "xc7z020clg400-1"
 set board "tul.com.tw:pynq-z2:part0:1.0"
