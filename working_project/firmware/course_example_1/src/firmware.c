@@ -26,7 +26,7 @@ void main(void) {
     
     unsigned int i=1, j;
 
-    TCNT_CMP = 0xfff;
+    TCNT_CMP = 0xffff;
     TCNT_start();
 
     while(1) {
