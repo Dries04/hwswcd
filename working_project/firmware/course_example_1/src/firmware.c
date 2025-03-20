@@ -16,8 +16,8 @@ void irq_handler(unsigned int cause) {
         LED = 0xFFFFFFFF;
     }
     if(i < 8){
-        LED = i;
         i++;
+        LED = i;
     }else{
         i = 1;
     }
