@@ -110,12 +110,12 @@ Disassembly of section .text:
  188:	00000f13          	addi	t5,zero,0
  18c:	00000f93          	addi	t6,zero,0
  190:	00001137          	lui	sp,0x1
- 194:	fe010113          	addi	sp,sp,-32 # fe0 <main+0xd0c>
+ 194:	fe010113          	addi	sp,sp,-32 # fe0 <main+0xcfc>
  198:	deadc1b7          	lui	gp,0xdeadc
- 19c:	eef18193          	addi	gp,gp,-273 # deadbeef <i+0xdead9eef>
+ 19c:	eef18193          	addi	gp,gp,-273 # deadbeef <one_sec_bool+0xdead9eef>
  1a0:	00018213          	addi	tp,gp,0
  1a4:	00001137          	lui	sp,0x1
- 1a8:	00010113          	addi	sp,sp,0 # 1000 <main+0xd2c>
+ 1a8:	00010113          	addi	sp,sp,0 # 1000 <main+0xd1c>
  1ac:	34011073          	csrrw	zero,mscratch,sp
  1b0:	00000117          	auipc	sp,0x0
  1b4:	e6010113          	addi	sp,sp,-416 # 10 <trap_vector>
@@ -123,9 +123,9 @@ Disassembly of section .text:
  1bc:	30045073          	csrrwi	zero,mstatus,8
  1c0:	fff00113          	addi	sp,zero,-1
  1c4:	30411073          	csrrw	zero,mie,sp
- 1c8:	10c000ef          	jal	ra,2d4 <main>
+ 1c8:	11c000ef          	jal	ra,2e4 <main>
  1cc:	00100073          	ebreak
- 1d0:	104000ef          	jal	ra,2d4 <main>
+ 1d0:	114000ef          	jal	ra,2e4 <main>
  1d4:	0540006f          	jal	zero,228 <done>
 
 000001d8 <sw_mult>:
@@ -164,14 +164,14 @@ Disassembly of section .text:
 
 00000230 <TCNT_start>:
  230:	81000737          	lui	a4,0x81000
- 234:	00072783          	lw	a5,0(a4) # 81000000 <i+0x80ffe000>
+ 234:	00072783          	lw	a5,0(a4) # 81000000 <one_sec_bool+0x80ffe000>
  238:	0077e793          	ori	a5,a5,7
  23c:	00f72023          	sw	a5,0(a4)
  240:	00008067          	jalr	zero,0(ra)
 
 00000244 <TCNT_stop>:
  244:	81000737          	lui	a4,0x81000
- 248:	00072783          	lw	a5,0(a4) # 81000000 <i+0x80ffe000>
+ 248:	00072783          	lw	a5,0(a4) # 81000000 <one_sec_bool+0x80ffe000>
  24c:	ff87f793          	andi	a5,a5,-8
  250:	00f72023          	sw	a5,0(a4)
  254:	00008067          	jalr	zero,0(ra)
@@ -181,7 +181,7 @@ Disassembly of section .text:
  25c:	00112623          	sw	ra,12(sp)
  260:	fe5ff0ef          	jal	ra,244 <TCNT_stop>
  264:	81000737          	lui	a4,0x81000
- 268:	00072783          	lw	a5,0(a4) # 81000000 <i+0x80ffe000>
+ 268:	00072783          	lw	a5,0(a4) # 81000000 <one_sec_bool+0x80ffe000>
  26c:	00c12083          	lw	ra,12(sp)
  270:	0017e793          	ori	a5,a5,1
  274:	00f72023          	sw	a5,0(a4)
@@ -193,7 +193,7 @@ Disassembly of section .text:
  284:	00112623          	sw	ra,12(sp)
  288:	fbdff0ef          	jal	ra,244 <TCNT_stop>
  28c:	81000737          	lui	a4,0x81000
- 290:	00072783          	lw	a5,0(a4) # 81000000 <i+0x80ffe000>
+ 290:	00072783          	lw	a5,0(a4) # 81000000 <one_sec_bool+0x80ffe000>
  294:	00c12083          	lw	ra,12(sp)
  298:	0027e793          	ori	a5,a5,2
  29c:	00f72023          	sw	a5,0(a4)
@@ -205,36 +205,37 @@ Disassembly of section .text:
  2ac:	00050863          	beq	a0,zero,2bc <irq_handler+0x14>
  2b0:	800007b7          	lui	a5,0x80000
  2b4:	fff00713          	addi	a4,zero,-1
- 2b8:	00e7a023          	sw	a4,0(a5) # 80000000 <i+0x7fffe000>
- 2bc:	810007b7          	lui	a5,0x81000
- 2c0:	01700713          	addi	a4,zero,23
- 2c4:	00e7a023          	sw	a4,0(a5) # 81000000 <i+0x80ffe000>
- 2c8:	00700713          	addi	a4,zero,7
- 2cc:	00e7a023          	sw	a4,0(a5)
- 2d0:	00008067          	jalr	zero,0(ra)
+ 2b8:	00e7a023          	sw	a4,0(a5) # 80000000 <one_sec_bool+0x7fffe000>
+ 2bc:	00002737          	lui	a4,0x2
+ 2c0:	00072783          	lw	a5,0(a4) # 2000 <one_sec_bool>
+ 2c4:	00178793          	addi	a5,a5,1
+ 2c8:	00f72023          	sw	a5,0(a4)
+ 2cc:	810007b7          	lui	a5,0x81000
+ 2d0:	01700713          	addi	a4,zero,23
+ 2d4:	00e7a023          	sw	a4,0(a5) # 81000000 <one_sec_bool+0x80ffe000>
+ 2d8:	00700713          	addi	a4,zero,7
+ 2dc:	00e7a023          	sw	a4,0(a5)
+ 2e0:	00008067          	jalr	zero,0(ra)
 
-000002d4 <main>:
- 2d4:	ff010113          	addi	sp,sp,-16
- 2d8:	00c66737          	lui	a4,0xc66
- 2dc:	d4070713          	addi	a4,a4,-704 # c65d40 <i+0xc63d40>
- 2e0:	00112623          	sw	ra,12(sp)
- 2e4:	810007b7          	lui	a5,0x81000
- 2e8:	00e7a223          	sw	a4,4(a5) # 81000004 <i+0x80ffe004>
- 2ec:	f45ff0ef          	jal	ra,230 <TCNT_start>
- 2f0:	00002737          	lui	a4,0x2
- 2f4:	00700613          	addi	a2,zero,7
- 2f8:	800006b7          	lui	a3,0x80000
- 2fc:	00072783          	lw	a5,0(a4) # 2000 <i>
- 300:	00f64a63          	blt	a2,a5,314 <main+0x40>
- 304:	00178793          	addi	a5,a5,1
- 308:	00f72023          	sw	a5,0(a4)
- 30c:	00f6a023          	sw	a5,0(a3) # 80000000 <i+0x7fffe000>
- 310:	fedff06f          	jal	zero,2fc <main+0x28>
- 314:	00100793          	addi	a5,zero,1
- 318:	ff1ff06f          	jal	zero,308 <main+0x34>
-
-Disassembly of section .sdata:
-
-00002000 <i>:
-    2000:	0001                	.insn	2, 0x0001
-	...
+000002e4 <main>:
+ 2e4:	ff010113          	addi	sp,sp,-16
+ 2e8:	00c66737          	lui	a4,0xc66
+ 2ec:	810007b7          	lui	a5,0x81000
+ 2f0:	d4070713          	addi	a4,a4,-704 # c65d40 <one_sec_bool+0xc63d40>
+ 2f4:	00112623          	sw	ra,12(sp)
+ 2f8:	00e7a223          	sw	a4,4(a5) # 81000004 <one_sec_bool+0x80ffe004>
+ 2fc:	f35ff0ef          	jal	ra,230 <TCNT_start>
+ 300:	00100793          	addi	a5,zero,1
+ 304:	00002737          	lui	a4,0x2
+ 308:	00100613          	addi	a2,zero,1
+ 30c:	00e00593          	addi	a1,zero,14
+ 310:	800006b7          	lui	a3,0x80000
+ 314:	00072503          	lw	a0,0(a4) # 2000 <one_sec_bool>
+ 318:	00c51863          	bne	a0,a2,328 <main+0x44>
+ 31c:	00072023          	sw	zero,0(a4)
+ 320:	00f5e863          	bltu	a1,a5,330 <main+0x4c>
+ 324:	00178793          	addi	a5,a5,1
+ 328:	00f6a023          	sw	a5,0(a3) # 80000000 <one_sec_bool+0x7fffe000>
+ 32c:	fe9ff06f          	jal	zero,314 <main+0x30>
+ 330:	00100793          	addi	a5,zero,1
+ 334:	ff5ff06f          	jal	zero,328 <main+0x44>

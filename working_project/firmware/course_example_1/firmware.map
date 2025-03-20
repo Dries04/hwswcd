@@ -20,7 +20,7 @@ RAM              0x00002000         0x00002000         xrw
 Linker script and memory map
 
 
-.text           0x00000000      0x31c
+.text           0x00000000      0x338
                 0x00000000                        . = 0x0
  *(.init)
  .init          0x00000000      0x230 build/start.o
@@ -32,11 +32,11 @@ Linker script and memory map
                 0x00000244                TCNT_stop
                 0x00000258                TCNT_start_div8
                 0x00000280                TCNT_start_div16
- .text          0x000002a8       0x2c build/firmware.o
+ .text          0x000002a8       0x3c build/firmware.o
                 0x000002a8                irq_handler
- .text.startup  0x000002d4       0x48 build/firmware.o
-                0x000002d4                main
- .text          0x0000031c        0x0 build/start.o
+ .text.startup  0x000002e4       0x54 build/firmware.o
+                0x000002e4                main
+ .text          0x00000338        0x0 build/start.o
 
 .data           0x00002000        0x0
                 0x00000000                        . = 0x0
@@ -45,14 +45,14 @@ Linker script and memory map
  .data          0x00002000        0x0 build/firmware.o
  .data          0x00002000        0x0 build/start.o
 
-.sdata          0x00002000        0x4
- .sdata         0x00002000        0x4 build/firmware.o
-                0x00002000                i
+.bss            0x00002000        0x0
+ .bss           0x00002000        0x0 build/tcnt.o
+ .bss           0x00002000        0x0 build/firmware.o
+ .bss           0x00002000        0x0 build/start.o
 
-.bss            0x00002004        0x0
- .bss           0x00002004        0x0 build/tcnt.o
- .bss           0x00002004        0x0 build/firmware.o
- .bss           0x00002004        0x0 build/start.o
+.sbss           0x00002000        0x4
+ .sbss          0x00002000        0x4 build/firmware.o
+                0x00002000                one_sec_bool
 
 .rodata         0x00002004     0x1000
                 0x00001000                        . = 0x1000
