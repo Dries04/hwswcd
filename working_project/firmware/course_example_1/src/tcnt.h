@@ -17,7 +17,7 @@
 
 #define TCNT_CR_CS_DIV8         0x1
 #define TCNT_CR_CS_DIV64        0x2
-#define TCNT_CR_CS_ON           0x3
+#define TCNT_CR_CS_ON           0x7
 
 void TCNT_start(void);
 void TCNT_start_div8(void);
