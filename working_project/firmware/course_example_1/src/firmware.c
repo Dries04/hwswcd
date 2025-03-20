@@ -17,6 +17,9 @@ void irq_handler(unsigned int cause) {
         LED = 0xFFFFFFFF;
     }
 
+    TCNT_CR = 0x17;
+    TCNT_CR = 0x7;
+
 }
 
 
@@ -24,14 +27,8 @@ void main(void) {
     
     unsigned int i=1, j;
 
-    TCNT_CMP = 0xfff;
+    TCNT_CMP = 0x2DC6C0;
     TCNT_start();
-
-    while(1) {
-        for(i=0;i<8;i++) {
-            LED = i;
-        }
-    }
 
     while(1) {
         for(i=0;i<8;i++) {
