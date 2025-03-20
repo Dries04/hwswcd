@@ -15,13 +15,6 @@ void irq_handler(unsigned int cause) {
     if (cause & 4) {
         LED = 0xFFFFFFFF;
     }
-    if(i < 8){
-        i++;
-    }else{
-        i = 1;
-    }
-
-    LED = i;
 
     TCNT_CR = 0x17;
     TCNT_CR = 0x7;
@@ -37,6 +30,12 @@ void main(void) {
     TCNT_start();
 
     while(1) {
-
+        if(i < 8){
+            i++;
+        }else{
+            i = 1;
+        }
+    
+        LED = i;
     }
 }
