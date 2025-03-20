@@ -218,22 +218,26 @@ Disassembly of section .text:
 
 000002e0 <main>:
  2e0:	ff010113          	addi	sp,sp,-16
- 2e4:	00112623          	sw	ra,12(sp)
- 2e8:	f49ff0ef          	jal	ra,230 <TCNT_start>
- 2ec:	800007b7          	lui	a5,0x80000
- 2f0:	00100893          	addi	a7,zero,1
- 2f4:	00200813          	addi	a6,zero,2
- 2f8:	00300513          	addi	a0,zero,3
- 2fc:	00400593          	addi	a1,zero,4
- 300:	00500613          	addi	a2,zero,5
- 304:	00600693          	addi	a3,zero,6
- 308:	00700713          	addi	a4,zero,7
- 30c:	0007a023          	sw	zero,0(a5) # 80000000 <main+0x7ffffd20>
- 310:	0117a023          	sw	a7,0(a5)
- 314:	0107a023          	sw	a6,0(a5)
- 318:	00a7a023          	sw	a0,0(a5)
- 31c:	00b7a023          	sw	a1,0(a5)
- 320:	00c7a023          	sw	a2,0(a5)
- 324:	00d7a023          	sw	a3,0(a5)
- 328:	00e7a023          	sw	a4,0(a5)
- 32c:	fe1ff06f          	jal	zero,30c <main+0x2c>
+ 2e4:	00100737          	lui	a4,0x100
+ 2e8:	810007b7          	lui	a5,0x81000
+ 2ec:	fff70713          	addi	a4,a4,-1 # fffff <main+0xffd1f>
+ 2f0:	00112623          	sw	ra,12(sp)
+ 2f4:	00e7a223          	sw	a4,4(a5) # 81000004 <main+0x80fffd24>
+ 2f8:	f39ff0ef          	jal	ra,230 <TCNT_start>
+ 2fc:	800007b7          	lui	a5,0x80000
+ 300:	00100893          	addi	a7,zero,1
+ 304:	00200813          	addi	a6,zero,2
+ 308:	00300513          	addi	a0,zero,3
+ 30c:	00400593          	addi	a1,zero,4
+ 310:	00500613          	addi	a2,zero,5
+ 314:	00600693          	addi	a3,zero,6
+ 318:	00700713          	addi	a4,zero,7
+ 31c:	0007a023          	sw	zero,0(a5) # 80000000 <main+0x7ffffd20>
+ 320:	0117a023          	sw	a7,0(a5)
+ 324:	0107a023          	sw	a6,0(a5)
+ 328:	00a7a023          	sw	a0,0(a5)
+ 32c:	00b7a023          	sw	a1,0(a5)
+ 330:	00c7a023          	sw	a2,0(a5)
+ 334:	00d7a023          	sw	a3,0(a5)
+ 338:	00e7a023          	sw	a4,0(a5)
+ 33c:	fe1ff06f          	jal	zero,31c <main+0x3c>
