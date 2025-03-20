@@ -219,9 +219,9 @@ Disassembly of section .text:
 
 000002e4 <main>:
  2e4:	ff010113          	addi	sp,sp,-16
- 2e8:	00e66737          	lui	a4,0xe66
+ 2e8:	00f96737          	lui	a4,0xf96
  2ec:	810007b7          	lui	a5,0x81000
- 2f0:	d4070713          	addi	a4,a4,-704 # e65d40 <one_sec_bool+0xe63d40>
+ 2f0:	d4070713          	addi	a4,a4,-704 # f95d40 <one_sec_bool+0xf93d40>
  2f4:	00112623          	sw	ra,12(sp)
  2f8:	00e7a223          	sw	a4,4(a5) # 81000004 <one_sec_bool+0x80ffe004>
  2fc:	f35ff0ef          	jal	ra,230 <TCNT_start>
