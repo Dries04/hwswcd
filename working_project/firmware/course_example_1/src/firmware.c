@@ -17,10 +17,11 @@ void irq_handler(unsigned int cause) {
     }
     if(i < 8){
         i++;
-        LED = i;
     }else{
         i = 1;
     }
+
+    LED = i;
 
     TCNT_CR = 0x17;
     TCNT_CR = 0x7;
