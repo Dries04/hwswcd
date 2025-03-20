@@ -3,6 +3,7 @@
 
 .section .init, "ax"
 
+start:
 reset_vector:
     j do_reset
 
@@ -113,6 +114,14 @@ do_reset:
     addi x30, x0, 0
     addi x31, x0, 0
 
+    /* set stack pointer */
+    lui x2, %hi(4*1024-32)
+    addi x2, x2, %lo(4*1024-32)
+
+    /* set gp and tp */
+    lui gp, %hi(0xdeadbeef)
+    addi gp, gp, %lo(0xdeadbeef)
+    addi tp, gp, 0
 
     /* This part is for/from Zicsr */
     lui x2, %hi(4*1024)
@@ -130,14 +139,7 @@ do_reset:
     addi x2, zero, -1
     csrrw x0, mie, x2
 
-    /* set stack pointer */
-    lui x2, %hi(4*1024-32)
-    addi x2, x2, %lo(4*1024-32)
 
-    /* set gp and tp */
-    lui gp, %hi(0xdeadbeef)
-    addi gp, gp, %lo(0xdeadbeef)
-    addi tp, gp, 0
 
     /* call main function */
     jal ra, main

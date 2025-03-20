@@ -23,6 +23,7 @@ entity wrapped_timer is
     port(
         clock : in STD_LOGIC;
         reset : in STD_LOGIC;
+        irq : out STD_LOGIC;
         iface_di : in STD_LOGIC_VECTOR(C_WIDTH-1 downto 0);
         iface_a : in STD_LOGIC_VECTOR(C_WIDTH-1 downto 0);
         iface_we : in STD_LOGIC;
@@ -35,6 +36,7 @@ architecture Behavioural of wrapped_timer is
     -- (DE-)LOCALISING IN/OUTPUTS
     signal clock_i : STD_LOGIC;
     signal reset_i : STD_LOGIC;
+    signal irq_o : STD_LOGIC;
     signal iface_di_i : STD_LOGIC_VECTOR(C_WIDTH-1 downto 0);
     signal iface_a_i : STD_LOGIC_VECTOR(C_WIDTH-1 downto 0);
     signal iface_we_i : STD_LOGIC;
@@ -53,6 +55,9 @@ architecture Behavioural of wrapped_timer is
     signal timer_CEQ : std_LOGIC;
     signal timer_TCNT : STD_LOGIC_VECTOR(G_WIDTH-1 downto 0);
 
+
+    signal interrupt_request, interrupt_request_set, interrupt_request_reset : STD_LOGIC;
+
 begin
 
     -------------------------------------------------------------------------------
@@ -64,20 +69,24 @@ begin
     iface_a_i <= iface_a;
     iface_we_i <= iface_we;
     iface_do <= iface_do_o;
+    irq <= irq_o;
+    
 
 
     -------------------------------------------------------------------------------
     -- PARSING
     -------------------------------------------------------------------------------
-    address_within_range <= '1' when iface_a_i(C_WIDTH-1 downto 12) = C_TIMER_BASE_ADDRESS_MASK else '0';
+    address_within_range <= '1' when iface_a_i(C_WIDTH-1 downto C_PERIPHERAL_MASK_LOWINDEX) = C_TIMER_BASE_ADDRESS_MASK else '0';
     targeted_register <= iface_a_i(19 downto 2);
 
     timer_CS <= reg0(1 downto 0);
     timer_WGM <= reg0(3 downto 2);
+    interrupt_request_reset <= reg0(4);
     timer_CMP <= reg1(G_WIDTH-1 downto 0);
     reg2 <= C_GND(C_WIDTH-1 downto 3) & timer_PWM & timer_OFl & timer_CEQ;
     reg3 <= C_GND(C_WIDTH-1 downto G_WIDTH) & timer_TCNT;
 
+    irq_o <= interrupt_request;
 
     -------------------------------------------------------------------------------
     -- WRITE
@@ -117,6 +126,23 @@ begin
                 when "000000000000000011" => iface_do_o <= reg3;
                 when others  => iface_do_o <= C_GND;
             end case;
+        end if;
+    end process;
+
+    interrupt_request_set <= timer_CEQ;
+    --interrupt_request_reset <= reg0(4);
+    PSRFF: process(clock_i)
+    begin
+        if rising_edge(clock_i) then
+            if reset_i = '1' then 
+                interrupt_request <= '0';
+            else
+                if interrupt_request_reset = '1' then 
+                    interrupt_request <= '0';
+                elsif interrupt_request_set = '1' then 
+                    interrupt_request <= '1';
+                end if;
+            end if;
         end if;
     end process;
 

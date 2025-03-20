@@ -26,13 +26,17 @@ package PKG_hwswcd is
     constant C_FOUR : STD_LOGIC_VECTOR(C_WIDTH-1 downto 0) := (2 => '1', others => '0');
     constant C_HARTID_0 : STD_LOGIC_VECTOR(C_WIDTH-1 downto 0) := (others => '0');
 
-    -- constant C_PERIPHERAL_MASK_PADDING : STD_LOGIC_VECTOR()
+    constant C_PERIPHERAL_MASK_WIDTH: natural := 16;
+    constant C_PERIPHERAL_MASK_LOWINDEX: natural := C_WIDTH - C_PERIPHERAL_MASK_WIDTH;
+
 
     -- Peripherals are all assigned a BASE ADDRESS.
     -- From this address 4096 positions are reserved.
     -- This comes down to 1024 32-bit words.
     -- A peripheral can hence have 1024 memory-mapped registers
-    constant C_TIMER_BASE_ADDRESS_MASK : STD_LOGIC_VECTOR(C_WIDTH-1 downto 12) := x"81000";
+    constant C_DMEM_BASE_ADDRESS_MASK : STD_LOGIC_VECTOR(C_WIDTH-1 downto C_PERIPHERAL_MASK_LOWINDEX) := x"0000";
+    constant C_LED_BASE_ADDRESS_MASK : STD_LOGIC_VECTOR(C_WIDTH-1 downto C_PERIPHERAL_MASK_LOWINDEX) := x"8000";
+    constant C_TIMER_BASE_ADDRESS_MASK : STD_LOGIC_VECTOR(C_WIDTH-1 downto C_PERIPHERAL_MASK_LOWINDEX) := x"8100";
 
     constant C_MRO_xF11_MVENDORID : STD_LOGIC_VECTOR(C_WIDTH-1 downto 0) := x"01234568";
     constant C_MRO_xF14_MHARTID : STD_LOGIC_VECTOR(C_WIDTH-1 downto 0) := x"CAFEBABE";
@@ -130,7 +134,7 @@ package PKG_hwswcd is
         port(
             sys_clock : in STD_LOGIC;
             sys_reset : in STD_LOGIC;
-            irq : in STD_LOGIC_VECTOR(31 downto 0);
+            external_irq : in STD_LOGIC;
             gpio_leds : out STD_LOGIC_VECTOR(3 downto 0)
         );
     end component riscv_microcontroller;
@@ -188,6 +192,7 @@ package PKG_hwswcd is
         port(
             clock : in STD_LOGIC;
             reset : in STD_LOGIC;
+            irq : out STD_LOGIC;
             iface_di : in STD_LOGIC_VECTOR(C_WIDTH-1 downto 0);
             iface_a : in STD_LOGIC_VECTOR(C_WIDTH-1 downto 0);
             iface_we : in STD_LOGIC;

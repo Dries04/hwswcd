@@ -2,8 +2,8 @@ ENTRY(start)
 
 MEMORY 
 {
-    ROM (rx) : ORIGIN = 0x00000000, LENGTH = 2k
-    RAM (rwx) : ORIGIN = 0x00000800, LENGTH = 2k
+    ROM (rx) : ORIGIN = 0x00000000, LENGTH = 8k
+    RAM (rwx) : ORIGIN = 0x00002000, LENGTH = 8k
 }
 SECTIONS {
     /* this part has to go into the IMEM */
@@ -20,7 +20,7 @@ SECTIONS {
     } > RAM
 
     .rodata : {
-        . = 0x400;
+        . = 0x1000;
         *(.rodata);
         . = ALIGN(4);
         FILL(0xFF)
