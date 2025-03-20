@@ -14,7 +14,8 @@
 void irq_handler(unsigned int cause) {
 
     if (cause & 4) {
-        LED = 0xFFFFFFFF;
+        //LED = 0xFFFFFFFF;
+        LED = 0x0;
     }
 
 }
@@ -24,7 +25,7 @@ void main(void) {
     
     unsigned int i=1, j;
 
-    TCNT_CMP = 0xffff;
+    TCNT_CMP = 0xfff;
     TCNT_start();
 
     while(1) {
