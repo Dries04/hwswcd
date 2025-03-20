@@ -165,14 +165,14 @@ Disassembly of section .text:
 00000230 <TCNT_start>:
  230:	81000737          	lui	a4,0x81000
  234:	00072783          	lw	a5,0(a4) # 81000000 <main+0x80fffd20>
- 238:	0037e793          	ori	a5,a5,3
+ 238:	0077e793          	ori	a5,a5,7
  23c:	00f72023          	sw	a5,0(a4)
  240:	00008067          	jalr	zero,0(ra)
 
 00000244 <TCNT_stop>:
  244:	81000737          	lui	a4,0x81000
  248:	00072783          	lw	a5,0(a4) # 81000000 <main+0x80fffd20>
- 24c:	ffc7f793          	andi	a5,a5,-4
+ 24c:	ff87f793          	andi	a5,a5,-8
  250:	00f72023          	sw	a5,0(a4)
  254:	00008067          	jalr	zero,0(ra)
 
