@@ -18,7 +18,7 @@ library work;
 
 entity wrapped_timer is
     generic(
-        G_WIDTH : natural := 8
+        G_WIDTH : natural := 31
     );
     port(
         clock : in STD_LOGIC;

@@ -37,7 +37,7 @@ void main(void) {
             if(i < 15){
                 i++;
             }else{
-                i = 1;
+                i = 0;
             }
         }
         LED = i;

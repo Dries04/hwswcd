@@ -187,7 +187,7 @@ package PKG_hwswcd is
 
     component wrapped_timer is
         generic(
-            G_WIDTH : natural := 8
+            G_WIDTH : natural := 31
         );
         port(
             clock : in STD_LOGIC;
@@ -202,7 +202,7 @@ package PKG_hwswcd is
 
     component timer is
         generic(
-            G_WIDTH : natural := 8
+            G_WIDTH : natural := 31
         );
         port(
             clock : in STD_LOGIC;

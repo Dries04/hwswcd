@@ -15,7 +15,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 
 entity timer is
     generic(
-        G_WIDTH : natural := 8
+        G_WIDTH : natural := 31
     );
     port(
         clock : in STD_LOGIC;
