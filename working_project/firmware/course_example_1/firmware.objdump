@@ -237,5 +237,5 @@ Disassembly of section .text:
  324:	00178793          	addi	a5,a5,1
  328:	00f6a023          	sw	a5,0(a3) # 80000000 <one_sec_bool+0x7fffe000>
  32c:	fe9ff06f          	jal	zero,314 <main+0x30>
- 330:	00100793          	addi	a5,zero,1
+ 330:	00000793          	addi	a5,zero,0
  334:	ff5ff06f          	jal	zero,328 <main+0x44>
