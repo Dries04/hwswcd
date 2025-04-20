@@ -16,6 +16,8 @@
 #define QOI_OP_RGB   0xFE
 #define QOI_OP_RGBA  0xFF
 
+
+int one_sec_bool = 0;
 void irq_handler(unsigned int cause) {
 
     if (cause & 4) {
