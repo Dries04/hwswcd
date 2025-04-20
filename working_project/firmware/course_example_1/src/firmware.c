@@ -1,4 +1,10 @@
 #include "print.h"
+#include "tcnt.h"
+
+#define LED_BASEAxDDRESS 0x80000000
+#define LED_REG0_ADDRESS (LED_BASEAxDDRESS + 0*4)
+#define LED              (*(volatile unsigned int *) LED_REG0_ADDRESS)
+
 
 #define C_WIDTH 8
 #define C_HEIGHT 8
@@ -9,6 +15,20 @@
 #define QOI_OP_RUN   0xC0 // 11xxxxxx
 #define QOI_OP_RGB   0xFE
 #define QOI_OP_RGBA  0xFF
+
+void irq_handler(unsigned int cause) {
+
+    if (cause & 4) {
+        LED = 0xFFFFFFFF;
+    }
+
+    one_sec_bool++;
+
+
+    TCNT_CR = 0x17;
+    TCNT_CR = 0x7;
+
+}
 
 typedef struct {
     unsigned char r, g, b, a;
