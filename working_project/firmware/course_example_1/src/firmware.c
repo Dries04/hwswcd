@@ -89,7 +89,15 @@ int main(void) {
     unsigned char b[C_HEIGHT][C_WIDTH];
     unsigned char a[C_HEIGHT][C_WIDTH];
 
-    Pixel index_array[64] = {0};
+    Pixel index_array[64];  // just declare
+
+    for (int i = 0; i < 64; i++) {
+        index_array[i].r = 0;
+        index_array[i].g = 0;
+        index_array[i].b = 0;
+        index_array[i].a = 0;
+    }
+
 
     Pixel prev = {0, 0, 0, 255};
     int run = 0;

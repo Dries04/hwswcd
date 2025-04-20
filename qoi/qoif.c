@@ -46,6 +46,7 @@ int main(void) {
     uint8_t rv;
     uint8_t index;
     uint32_t value;
+    
 
     /* Sanity check */
     if((C_WIDTH % 2) || (C_HEIGHT % 2)) {
@@ -64,7 +65,15 @@ int main(void) {
     for(uint8_t h=0;h<C_HEIGHT;h++) {
         for(uint8_t w=0;w<C_WIDTH;w++) {
             /* Do something useful here */
-            printf(running_array[i] == 0 ? "0" : "1");
+            
+            /* Header */
+            if(h == 0 && w == 0) {
+                printf("QOI Header\n");
+
+            }
+
+
+
         }
     }
 
