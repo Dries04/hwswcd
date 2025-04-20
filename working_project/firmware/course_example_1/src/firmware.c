@@ -1,3 +1,5 @@
+#include <print.h>
+
 #define C_WIDTH 8
 #define C_HEIGHT 8
 
@@ -9,29 +11,29 @@
 #define QOI_OP_RGBA  0xFF
 
 typedef struct {
-    uint8_t r, g, b, a;
+    unsigned char r, g, b, a;
 } Pixel;
 
 int rgb_equal(Pixel a, Pixel b) {
     return a.r == b.r && a.g == b.g && a.b == b.b;
 }
 
-uint8_t pixel_hash(Pixel px) {
+unsigned char pixel_hash(Pixel px) {
     return (px.r * 3 + px.g * 5 + px.b * 7 + px.a * 11) % 64;
 }
 
-void write_byte(uint8_t **p, uint8_t byte) {
+void write_byte(unsigned char **p, unsigned char byte) {
     *(*p)++ = byte;
 }
 
-void write_3(uint8_t **p, uint8_t r, uint8_t g, uint8_t b) {
+void write_3(unsigned char **p, unsigned char r, unsigned char g, unsigned char b) {
     write_byte(p, QOI_OP_RGB);
     write_byte(p, r);
     write_byte(p, g);
     write_byte(p, b);
 }
 
-void write_4(uint8_t **p, uint8_t r, uint8_t g, uint8_t b, uint8_t a) {
+void write_4(unsigned char **p, unsigned char r, unsigned char g, unsigned char b, unsigned char a) {
     write_byte(p, QOI_OP_RGBA);
     write_byte(p, r);
     write_byte(p, g);
@@ -39,8 +41,8 @@ void write_4(uint8_t **p, uint8_t r, uint8_t g, uint8_t b, uint8_t a) {
     write_byte(p, a);
 }
 
-void initialise(uint8_t r[C_WIDTH][C_HEIGHT], uint8_t g[C_WIDTH][C_HEIGHT], uint8_t b[C_WIDTH][C_HEIGHT], uint8_t a[C_WIDTH][C_HEIGHT]) {
-    uint8_t w, h;
+void initialise(unsigned char r[C_WIDTH][C_HEIGHT], unsigned char g[C_WIDTH][C_HEIGHT], unsigned char b[C_WIDTH][C_HEIGHT], unsigned char a[C_WIDTH][C_HEIGHT]) {
+    unsigned char w, h;
     for (h = 0; h < C_HEIGHT / 2; h++) {
         for (w = 0; w < C_WIDTH / 2; w++) {
             r[h][w] = 255; g[h][w] = 0; b[h][w] = 0; a[h][w] = 255;
@@ -60,18 +62,18 @@ void initialise(uint8_t r[C_WIDTH][C_HEIGHT], uint8_t g[C_WIDTH][C_HEIGHT], uint
 }
 
 int main(void) {
-    uint8_t r[C_HEIGHT][C_WIDTH];
-    uint8_t g[C_HEIGHT][C_WIDTH];
-    uint8_t b[C_HEIGHT][C_WIDTH];
-    uint8_t a[C_HEIGHT][C_WIDTH];
+    unsigned char r[C_HEIGHT][C_WIDTH];
+    unsigned char g[C_HEIGHT][C_WIDTH];
+    unsigned char b[C_HEIGHT][C_WIDTH];
+    unsigned char a[C_HEIGHT][C_WIDTH];
 
     Pixel index_array[64] = {0};
 
     Pixel prev = {0, 0, 0, 255};
     int run = 0;
 
-    uint8_t encoded[1024]; // enough for small image
-    uint8_t *p = encoded;
+    unsigned char encoded[1024]; // enough for small image
+    unsigned char *p = encoded;
 
     initialise(r, g, b, a);
 
@@ -100,8 +102,8 @@ int main(void) {
     write_byte(&p, 0);
 
 
-    for (uint8_t h = 0; h < C_HEIGHT; h++) {
-        for (uint8_t w = 0; w < C_WIDTH; w++) {
+    for (unsigned char h = 0; h < C_HEIGHT; h++) {
+        for (unsigned char w = 0; w < C_WIDTH; w++) {
             Pixel px = { r[h][w], g[h][w], b[h][w], 255 };
 
             if (rgb_equal(px, prev)) {
@@ -116,7 +118,7 @@ int main(void) {
                     run = 0;
                 }
 
-                uint8_t index_pos = pixel_hash(px);
+                unsigned char index_pos = pixel_hash(px);
                 if (rgb_equal(px, index_array[index_pos])) {
                     write_byte(&p, QOI_OP_INDEX | index_pos);
                 } else {
@@ -145,7 +147,7 @@ int main(void) {
                         (dg >= -2 && dg <= 1) &&
                         (db >= -2 && db <= 1)) {
                         
-                        uint8_t diff_byte = QOI_OP_DIFF |
+                        unsigned char diff_byte = QOI_OP_DIFF |
                             ((dr + 2) << 4) |
                             ((dg + 2) << 2) |
                             (db + 2);
@@ -158,8 +160,8 @@ int main(void) {
 
                         if ((dr_dg >= -8 && dr_dg <= 7) &&
                             (db_dg >= -8 && db_dg <= 7)) {
-                            uint8_t byte1 = QOI_OP_LUMA | (dg + 32);
-                            uint8_t byte2 = ((dr_dg + 8) << 4) | (db_dg + 8);
+                            unsigned char byte1 = QOI_OP_LUMA | (dg + 32);
+                            unsigned char byte2 = ((dr_dg + 8) << 4) | (db_dg + 8);
                             write_byte(&p, byte1);
                             write_byte(&p, byte2);
                         } else {
@@ -187,8 +189,8 @@ int main(void) {
     write_byte(&p, 0x01);
 
     // Output (for verification)
-    for (uint8_t *i = encoded; i < p; i++) {
-        print_hex(*i, 2);²
+    for (unsigned char *i = encoded; i < p; i++) {
+        print_hex(*i, 2);
     }
     print_str("\n");
 
