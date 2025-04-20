@@ -1,6 +1,13 @@
+Archive member included to satisfy reference by file (symbol)
+
+/opt/riscv/lib/gcc/riscv32-unknown-elf/13.2.0/../../../../riscv32-unknown-elf/lib/libc.a(libc_a-memset.o)
+                              build/firmware.o (memset)
 
 Discarded input sections
 
+ .comment       0x00000000       0x1c build/print.o
+ .riscv.attributes
+                0x00000000       0x25 build/print.o
  .comment       0x00000000       0x1c build/tcnt.o
  .riscv.attributes
                 0x00000000       0x25 build/tcnt.o
@@ -9,6 +16,8 @@ Discarded input sections
                 0x00000000       0x25 build/firmware.o
  .riscv.attributes
                 0x00000000       0x27 build/start.o
+ .riscv.attributes
+                0x00000000       0x51 /opt/riscv/lib/gcc/riscv32-unknown-elf/13.2.0/../../../../riscv32-unknown-elf/lib/libc.a(libc_a-memset.o)
 
 Memory Configuration
 
@@ -20,35 +29,51 @@ RAM              0x00002000         0x00002000         xrw
 Linker script and memory map
 
 
-.text           0x00000000      0x338
+.text           0x00000000      0x9d8
                 0x00000000                        . = 0x0
  *(.init)
  .init          0x00000000      0x230 build/start.o
                 0x00000000                start
                 0x000001d8                sw_mult
  *(.text*)
- .text          0x00000230       0x78 build/tcnt.o
-                0x00000230                TCNT_start
-                0x00000244                TCNT_stop
-                0x00000258                TCNT_start_div8
-                0x00000280                TCNT_start_div16
- .text          0x000002a8       0x3c build/firmware.o
-                0x000002a8                irq_handler
- .text.startup  0x000002e4       0x54 build/firmware.o
-                0x000002e4                main
- .text          0x00000338        0x0 build/start.o
+ .text          0x00000230       0x70 build/print.o
+                0x00000230                print_chr
+                0x0000023c                print_str
+                0x00000258                print_hex
+ .text          0x000002a0       0x78 build/tcnt.o
+                0x000002a0                TCNT_start
+                0x000002b4                TCNT_stop
+                0x000002c8                TCNT_start_div8
+                0x000002f0                TCNT_start_div16
+ .text          0x00000318      0x2ac build/firmware.o
+                0x00000318                irq_handler
+                0x00000354                rgb_equal
+                0x0000039c                pixel_hash
+                0x000003fc                write_byte
+                0x00000410                write_3
+                0x00000458                write_4
+                0x000004b0                initialise
+ .text.startup  0x000005c4      0x36c build/firmware.o
+                0x000005c4                main
+ .text          0x00000930        0x0 build/start.o
+ .text          0x00000930       0xa8 /opt/riscv/lib/gcc/riscv32-unknown-elf/13.2.0/../../../../riscv32-unknown-elf/lib/libc.a(libc_a-memset.o)
+                0x00000930                memset
 
 .data           0x00002000        0x0
                 0x00000000                        . = 0x0
  *(.data)
+ .data          0x00002000        0x0 build/print.o
  .data          0x00002000        0x0 build/tcnt.o
  .data          0x00002000        0x0 build/firmware.o
  .data          0x00002000        0x0 build/start.o
+ .data          0x00002000        0x0 /opt/riscv/lib/gcc/riscv32-unknown-elf/13.2.0/../../../../riscv32-unknown-elf/lib/libc.a(libc_a-memset.o)
 
 .bss            0x00002000        0x0
+ .bss           0x00002000        0x0 build/print.o
  .bss           0x00002000        0x0 build/tcnt.o
  .bss           0x00002000        0x0 build/firmware.o
  .bss           0x00002000        0x0 build/start.o
+ .bss           0x00002000        0x0 /opt/riscv/lib/gcc/riscv32-unknown-elf/13.2.0/../../../../riscv32-unknown-elf/lib/libc.a(libc_a-memset.o)
 
 .sbss           0x00002000        0x4
  .sbss          0x00002000        0x4 build/firmware.o
@@ -61,6 +86,12 @@ Linker script and memory map
                 0x00003004                        . = ALIGN (0x4)
  FILL mask 0xff
 
+.rodata.str1.4  0x00003004       0x15
+ .rodata.str1.4
+                0x00003004       0x15 build/print.o
+ .rodata.str1.4
+                0x00003019        0x2 build/firmware.o
+
 /DISCARD/
  *(.note*)
  *(.iplt*)
@@ -68,6 +99,7 @@ Linker script and memory map
  *(.rel*)
  *(.comment)
  *(.riscv.attributes)
+LOAD build/print.o
 LOAD build/tcnt.o
 LOAD build/firmware.o
 LOAD build/start.o
