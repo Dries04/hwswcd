@@ -59,12 +59,11 @@ int main(void) {
         running_array[i] = 0;
     }
 
-
     /* Loop over pixels */
     for(uint8_t h=0;h<C_HEIGHT;h++) {
         for(uint8_t w=0;w<C_WIDTH;w++) {
+
             /* Do something useful here */
-            printf(running_array[i] == 0 ? "0" : "1");
         }
     }
 
