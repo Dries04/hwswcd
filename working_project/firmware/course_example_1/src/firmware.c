@@ -1,3 +1,48 @@
+#include "tcnt.h"
+
+#define C_WIDTH 8
+#define C_HEIGHT 8
+
+#define QOI_OP_INDEX 0x00 // 00xxxxxx
+#define QOI_OP_DIFF  0x40 // 01xxxxxx
+#define QOI_OP_LUMA  0x80 // 10xxxxxx
+#define QOI_OP_RUN   0xC0 // 11xxxxxx
+#define QOI_OP_RGB   0xFE
+#define QOI_OP_RGBA  0xFF
+
+#define OUTPORT 0x80000000
+#define OUT_REG0_ADDRESS (OUTPORT + 0*4)
+#define LED (*(volatile unsigned int *) OUT_REG0_ADDRESS)
+
+extern unsigned int sw_mult(unsigned int x, unsigned int y);
+
+void irq_handler(unsigned int cause) {
+}
+
+void initialise(unsigned char r[C_HEIGHT][C_WIDTH], unsigned char g[C_HEIGHT][C_WIDTH], unsigned char b[C_HEIGHT][C_WIDTH], unsigned char a[C_HEIGHT][C_WIDTH]) {
+    unsigned char w, h;
+    for (h = 0; h < 4; h++) {
+        for (w = 0; w < 4; w++) {
+            r[h][w] = 255; g[h][w] = 0; b[h][w] = 0; a[h][w] = 255;
+        }
+        for (w = 4; w < C_WIDTH; w++) {
+            r[h][w] = 0; g[h][w] = 255; b[h][w] = 0; a[h][w] = 255;
+        }
+    }
+    for (h = 4; h < C_HEIGHT; h++) {
+        for (w = 0; w < 4; w++) {
+            r[h][w] = 0; g[h][w] = 0; b[h][w] = 255; a[h][w] = 255;
+        }
+        for (w = 4; w < C_WIDTH; w++) {
+            r[h][w] = 127; g[h][w] = 127; b[h][w] = 127; a[h][w] = 255;
+        }
+    }
+}
+
+unsigned char pixel_hash(unsigned char r, unsigned char g, unsigned char b, unsigned char a) {
+    return (sw_mult(r, 3) + sw_mult(g, 5) + sw_mult(b, 7) + sw_mult(a, 11)) & 0x3F;
+}
+
 int main(void) {
     unsigned char r[C_HEIGHT][C_WIDTH];
     unsigned char g[C_HEIGHT][C_WIDTH];
