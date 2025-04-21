@@ -11,6 +11,8 @@
 #define QOI_OP_RGB   0xFE
 #define QOI_OP_RGBA  0xFF
 
+extern unsigned int sw_mult(unsigned int x, unsigned int y);
+
 void irq_handler(unsigned int cause) {
 }
 
@@ -22,9 +24,14 @@ int rgb_equal(Pixel *a, Pixel *b) {
     return a->r == b->r && a->g == b->g && a->b == b->b;
 }
 
+// unsigned char pixel_hash(Pixel *px) {
+//     return (px->r * 3 + px->g * 5 + px->b * 7 + px->a * 11) & 0x3F;
+// }
+
 unsigned char pixel_hash(Pixel *px) {
-    return (px->r * 3 + px->g * 5 + px->b * 7 + px->a * 11) % 64;
+    return (sw_mult(px->r, 3) + sw_mult(px->g, 5) + sw_mult(px->b, 7) + sw_mult(px->a, 11)) & 0x3F;
 }
+
 
 void write_byte(unsigned char **p, unsigned char byte) {
     *(*p)++ = byte;
@@ -47,19 +54,19 @@ void write_4(unsigned char **p, unsigned char r, unsigned char g, unsigned char 
 
 void initialise(unsigned char r[C_WIDTH][C_HEIGHT], unsigned char g[C_WIDTH][C_HEIGHT], unsigned char b[C_WIDTH][C_HEIGHT], unsigned char a[C_WIDTH][C_HEIGHT]) {
     unsigned char w, h;
-    for (h = 0; h < C_HEIGHT / 2; h++) {
-        for (w = 0; w < C_WIDTH / 2; w++) {
+    for (h = 0; h < 4; h++) {
+        for (w = 0; w < 4; w++) {
             r[h][w] = 255; g[h][w] = 0; b[h][w] = 0; a[h][w] = 255;
         }
         for (w = C_WIDTH / 2; w < C_WIDTH; w++) {
             r[h][w] = 0; g[h][w] = 255; b[h][w] = 0; a[h][w] = 255;
         }
     }
-    for (h = C_HEIGHT / 2; h < C_HEIGHT; h++) {
-        for (w = 0; w < C_WIDTH / 2; w++) {
+    for (h = 4; h < C_HEIGHT; h++) {
+        for (w = 0; w < 4; w++) {
             r[h][w] = 0; g[h][w] = 0; b[h][w] = 255; a[h][w] = 255;
         }
-        for (w = C_WIDTH / 2; w < C_WIDTH; w++) {
+        for (w = 4; w < C_WIDTH; w++) {
             r[h][w] = 127; g[h][w] = 127; b[h][w] = 127; a[h][w] = 255;
         }
     }
@@ -193,7 +200,7 @@ int main(void) {
 
     for (unsigned char *i = encoded; i < p; i++) {
         //printf("%02X ", *i);
-        print_hex(*i, 2);
+        OUTPORT = *i;
     }
 
     return 0;
