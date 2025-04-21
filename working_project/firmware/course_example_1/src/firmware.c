@@ -1,6 +1,5 @@
 #include "print.h"
 #include "tcnt.h"
-#include <stdio.h>
 
 #define C_WIDTH 8
 #define C_HEIGHT 8
