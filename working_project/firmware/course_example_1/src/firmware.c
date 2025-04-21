@@ -1,3 +1,4 @@
+#include "tcnt.h"
 
 #define C_WIDTH 8
 #define C_HEIGHT 8
