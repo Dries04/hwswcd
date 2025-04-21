@@ -79,6 +79,10 @@ int main(void) {
     unsigned char *q = encoded;
     for (i = 0; i < 14; i++) {
         LED = *q++;
+        
+        for (int z = 0; z < 10; z++) {
+            // Do nothing, just waste time
+        }
     }
 
 
