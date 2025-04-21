@@ -556,7 +556,7 @@ Disassembly of section .text:
  7d8:	00888413          	addi	s0,a7,8
  7dc:	0089fc63          	bgeu	s3,s0,7f4 <main+0x260>
  7e0:	0009c503          	lbu	a0,0(s3)
- 7e4:	00200593          	addi	a1,zero,2
+ 7e4:	00100593          	addi	a1,zero,1
  7e8:	00198993          	addi	s3,s3,1
  7ec:	a6dff0ef          	jal	ra,258 <print_hex>
  7f0:	fe8998e3          	bne	s3,s0,7e0 <main+0x24c>
