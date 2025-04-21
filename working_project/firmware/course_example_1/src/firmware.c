@@ -11,6 +11,10 @@
 #define QOI_OP_RGB   0xFE
 #define QOI_OP_RGBA  0xFF
 
+void irq_handler(unsigned int cause) {
+
+}
+
 typedef struct {
     unsigned char r, g, b, a;
 } Pixel;
