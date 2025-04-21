@@ -29,7 +29,7 @@ architecture Behavioural of riscv_microcontroller_tb is
     signal sys_clock : STD_LOGIC;
     signal sys_reset : STD_LOGIC;
     signal external_irq : STD_LOGIC;
-    signal gpio_leds : STD_LOGIC_VECTOR(3 downto 0);
+    signal gpio_leds : STD_LOGIC_VECTOR(31 downto 0);
 
     -- constants
     constant C_ZEROES: STD_LOGIC_VECTOR(G_DATA_WIDTH-1 downto 0) := (others => '0');

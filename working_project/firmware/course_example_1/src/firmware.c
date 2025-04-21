@@ -11,7 +11,8 @@
 #define QOI_OP_RGBA  0xFF
 
 #define OUTPORT 0x80000000
-#define LED (*(volatile unsigned int *) OUTPORT)
+#define OUT_REG0_ADDRESS (OUTPORT + 0*4)
+#define LED (*(volatile unsigned int *) OUT_REG0_ADDRESS)
 
 extern unsigned int sw_mult(unsigned int x, unsigned int y);
 
