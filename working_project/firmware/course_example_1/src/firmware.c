@@ -70,20 +70,20 @@ int main(void) {
     initialise(r, g, b, a);
 
     // Write header
-    *p++ = 'q'; *p++ = 'o'; *p++ = 'i'; *p++ = 'f';
+    LED = 'q'; LED = 'o'; LED = 'i'; LED = 'f';
     *p++ = 0; *p++ = 0; *p++ = 0; *p++ = C_WIDTH;
     *p++ = 0; *p++ = 0; *p++ = 0; *p++ = C_HEIGHT;
     *p++ = 3; *p++ = 0;
 
     // Output the header immediately
-    unsigned char *q = encoded;
-    for (i = 0; i < 14; i++) {
-        LED = *q++;
+    // unsigned char *q = encoded;
+    // for (i = 0; i < 14; i++) {
+    //     LED = *q++;
         
-        for (int z = 0; z < 10; z++) {
-            // Do nothing, just waste time
-        }
-    }
+    //     for (int z = 0; z < 10; z++) {
+    //         // Do nothing, just waste time
+    //     }
+    // }
 
 
     for (i = 0; i < C_HEIGHT; i++) {
