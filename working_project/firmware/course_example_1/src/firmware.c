@@ -62,9 +62,9 @@ int main(void) {
 
     // Write header directly to LED
     LED = 'q'; LED = 'o'; LED = 'i'; LED = 'f';
-    LED = 0; LED = 0; LED = 0; LED = C_WIDTH;
-    LED = 0; LED = 0; LED = 0; LED = C_HEIGHT;
-    LED = 3; LED = 0;
+    LED = 0x00; LED = 0x00; LED = 0x00; LED = C_WIDTH;
+    LED = 0x00; LED = 0x00; LED = 0x00; LED = C_HEIGHT;
+    LED = 0x03; LED = 0x00;
 
     for (i = 0; i < C_HEIGHT; i++) {
         for (int j = 0; j < C_WIDTH; j++) {
