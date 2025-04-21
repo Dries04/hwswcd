@@ -222,10 +222,10 @@ int main(void) {
     for (unsigned char *i = encoded; i < p; i++) {
         //print_hex(*i, 2);
         //printf("%02X ", *i);
-        while (*i != 0)
-		*((volatile unsigned int*)OUTPORT) = *(i++);
+        LED = *i;
+        
     }
-    // print_str("\n");
+    //print_str("\n");
 
     return 0;
 }
