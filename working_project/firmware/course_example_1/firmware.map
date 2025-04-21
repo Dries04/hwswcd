@@ -23,7 +23,7 @@ RAM              0x00002000         0x00002000         xrw
 Linker script and memory map
 
 
-.text           0x00000000      0x918
+.text           0x00000000      0x924
                 0x00000000                        . = 0x0
  *(.init)
  .init          0x00000000      0x230 build/start.o
@@ -47,9 +47,9 @@ Linker script and memory map
                 0x00000410                write_3
                 0x00000458                write_4
                 0x000004b0                initialise
- .text.startup  0x000005cc      0x34c build/firmware.o
+ .text.startup  0x000005cc      0x358 build/firmware.o
                 0x000005cc                main
- .text          0x00000918        0x0 build/start.o
+ .text          0x00000924        0x0 build/start.o
 
 .data           0x00002000        0x0
                 0x00000000                        . = 0x0
@@ -79,8 +79,6 @@ Linker script and memory map
 .rodata.str1.4  0x00003004       0x15
  .rodata.str1.4
                 0x00003004       0x15 build/print.o
- .rodata.str1.4
-                0x00003019        0x2 build/firmware.o
 
 /DISCARD/
  *(.note*)
