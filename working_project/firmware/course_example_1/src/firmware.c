@@ -49,10 +49,19 @@ int main(void) {
     unsigned char b[C_HEIGHT][C_WIDTH];
     unsigned char a[C_HEIGHT][C_WIDTH];
 
-    unsigned char r_prev = 0, g_prev = 0, b_prev = 0, a_prev = 255;
-    int run = 0;
+    unsigned char r_prev, g_prev, b_prev, a_prev;
+    int run;
     unsigned int running_array[64];
+    static unsigned char encoded[1024];
+    unsigned char *p;
     int i;
+
+    r_prev = 0;
+    g_prev = 0;
+    b_prev = 0;
+    a_prev = 255;
+    run = 0;
+    p = encoded;
 
     for (i = 0; i < 64; i++) {
         running_array[i] = 0;
@@ -60,14 +69,22 @@ int main(void) {
 
     initialise(r, g, b, a);
 
-    // Write header directly to LED
-    LED = 'q'; LED = 'o'; LED = 'i'; LED = 'f';
-    LED = 0x00; LED = 0x00; LED = 0x00; LED = C_WIDTH;
-    LED = 0x00; LED = 0x00; LED = 0x00; LED = C_HEIGHT;
-    LED = 0x03; LED = 0x00;
+    // Write header
+    *p++ = 'q'; *p++ = 'o'; *p++ = 'i'; *p++ = 'f';
+    *p++ = 0x00; *p++ = 0x00; *p++ = 0x00; *p++ = C_WIDTH;
+    *p++ = 0x00; *p++ = 0x00; *p++ = 0x00; *p++ = C_HEIGHT;
+    *p++ = 0x03; *p++ = 0x00;
+
+    // Output the header immediately
+     unsigned char *q = encoded;
+    for (i = 0; i < 14; i++) {
+        LED = *q++;
+    }
+
 
     for (i = 0; i < C_HEIGHT; i++) {
-        for (int j = 0; j < C_WIDTH; j++) {
+        int j;
+        for (j = 0; j < C_WIDTH; j++) {
             unsigned char r_cur = r[i][j];
             unsigned char g_cur = g[i][j];
             unsigned char b_cur = b[i][j];
@@ -76,12 +93,14 @@ int main(void) {
             if (r_cur == r_prev && g_cur == g_prev && b_cur == b_prev && a_cur == a_prev) {
                 run++;
                 if (run == 62) {
-                    LED = QOI_OP_RUN | (run - 1);
+                    *p = QOI_OP_RUN | (run - 1);
+                    p++;
                     run = 0;
                 }
             } else {
                 if (run > 0) {
-                    LED = QOI_OP_RUN | (run - 1);
+                    *p = QOI_OP_RUN | (run - 1);
+                    p++;
                     run = 0;
                 }
 
@@ -89,7 +108,8 @@ int main(void) {
                 unsigned int current_pixel = ((unsigned int)r_cur << 24) | ((unsigned int)g_cur << 16) | ((unsigned int)b_cur << 8) | a_cur;
 
                 if (running_array[index] == current_pixel) {
-                    LED = QOI_OP_INDEX | index;
+                    *p = QOI_OP_INDEX | index;
+                    p++;
                 } else {
                     running_array[index] = current_pixel;
 
@@ -107,25 +127,26 @@ int main(void) {
                     else if (db > 127) db -= 256;
 
                     if ((dr >= -2 && dr <= 1) && (dg >= -2 && dg <= 1) && (db >= -2 && db <= 1)) {
-                        LED = QOI_OP_DIFF | ((dr + 2) << 4) | ((dg + 2) << 2) | (db + 2);
+                        *p = QOI_OP_DIFF | ((dr + 2) << 4) | ((dg + 2) << 2) | (db + 2);
+                        p++;
                     } else if (dg >= -32 && dg <= 31) {
                         int dr_dg = dr - dg;
                         int db_dg = db - dg;
 
                         if ((dr_dg >= -8 && dr_dg <= 7) && (db_dg >= -8 && db_dg <= 7)) {
-                            LED = QOI_OP_LUMA | (dg + 32);
-                            LED = ((dr_dg + 8) << 4) | (db_dg + 8);
+                            *p++ = QOI_OP_LUMA | (dg + 32);
+                            *p++ = ((dr_dg + 8) << 4) | (db_dg + 8);
                         } else {
-                            LED = QOI_OP_RGB;
-                            LED = r_cur;
-                            LED = g_cur;
-                            LED = b_cur;
+                            *p++ = QOI_OP_RGB;
+                            *p++ = r_cur;
+                            *p++ = g_cur;
+                            *p++ = b_cur;
                         }
                     } else {
-                        LED = QOI_OP_RGB;
-                        LED = r_cur;
-                        LED = g_cur;
-                        LED = b_cur;
+                        *p++ = QOI_OP_RGB;
+                        *p++ = r_cur;
+                        *p++ = g_cur;
+                        *p++ = b_cur;
                     }
                 }
 
@@ -137,14 +158,22 @@ int main(void) {
         }
     }
 
-    // Flush any remaining run
     if (run > 0) {
-        LED = QOI_OP_RUN | (run - 1);
+        *p = QOI_OP_RUN | (run - 1);
+        p++;
     }
 
-    // End marker: 7x 0x00, 1x 0x01
-    for (i = 0; i < 7; i++) LED = 0;
-    LED = 1;
+    for (i = 0; i < 7; i++) {
+        *p = 0;
+        p++;
+    }
+    *p = 1;
+    p++;
+
+    for (i = 14; i < (p - encoded); i++) {
+        LED = encoded[i]; // Output each encoded byte to OUTPORT
+    }
+    
 
     return 0;
 }
