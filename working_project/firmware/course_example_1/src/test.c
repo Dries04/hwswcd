@@ -1,3 +1,4 @@
+#include <stdio.h>
 
 #define C_WIDTH 8
 #define C_HEIGHT 8
@@ -11,6 +12,17 @@
 
 #define OUTPORT 0x80000000
 #define LED (*(volatile unsigned int *) OUTPORT)
+
+unsigned int sw_mult(unsigned int x, unsigned int y) {
+    unsigned int result = 0;
+    int i;
+    for (i = 0; i < 32; i++) {
+        if (y & (1U << i)) {
+            result += x << i;
+        }
+    }
+    return result;
+}
 
 extern unsigned int sw_mult(unsigned int x, unsigned int y);
 
