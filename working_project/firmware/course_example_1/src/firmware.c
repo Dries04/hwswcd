@@ -1,5 +1,6 @@
 #include "print.h"
 #include "tcnt.h"
+#include <stdio.h>
 
 #define C_WIDTH 8
 #define C_HEIGHT 8
@@ -200,7 +201,7 @@ int main(void) {
 
     for (unsigned char *i = encoded; i < p; i++) {
         //printf("%02X ", *i);
-        OUTPORT = *i;
+        print_hex(*i, 2);
     }
 
     return 0;
