@@ -203,7 +203,7 @@ int main(void) {
 
     // Output (for verification)
     for (unsigned char *i = encoded; i < p; i++) {
-        print_hex(*i, 2);
+        print_hex(*i, 1);
         //printf("%02X ", *i);
         //OUTPORT = *i;
         
