@@ -74,6 +74,13 @@ int main(void) {
     *p++ = 0; *p++ = 0; *p++ = 0; *p++ = C_HEIGHT;
     *p++ = 3; *p++ = 0;
 
+    // Output the header immediately
+    unsigned char *q = encoded;
+    for (i = 0; i < 14; i++) {
+        LED = *q++;
+    }
+
+
     for (i = 0; i < C_HEIGHT; i++) {
         int j;
         for (j = 0; j < C_WIDTH; j++) {
@@ -162,7 +169,7 @@ int main(void) {
     *p = 1;
     p++;
 
-    for (i = 0; i < (p - encoded); i++) {
+    for (i = 14; i < (p - encoded); i++) {
         LED = encoded[i]; // Output each encoded byte to OUTPORT
     }
     
