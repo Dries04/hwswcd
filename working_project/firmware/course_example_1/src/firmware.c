@@ -75,9 +75,20 @@ int main(void) {
     for (i = 0; i < C_HEIGHT; i++) {
 
         LED = 0x23; // test for refresh
+        LED = 0x99; // test for refresh
+        LED = i; // test for refresh
+        LED = 0x88; // test for refresh
 
         for (int j = 0; j < C_WIDTH; j++) {
+            LED = 0x99; // test for refresh
+            LED = j; // test for refresh
+            LED = 0x88; // test for refresh
+            LED = r[i][j]; // test for refresh
+            LED = 0x77; // test for refresh
+
             unsigned char r_cur = r[i][j];
+
+
             unsigned char g_cur = g[i][j];
             unsigned char b_cur = b[i][j];
             unsigned char a_cur = 255;
