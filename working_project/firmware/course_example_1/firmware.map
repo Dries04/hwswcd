@@ -4,6 +4,9 @@ Discarded input sections
  .comment       0x00000000       0x1c build/print.o
  .riscv.attributes
                 0x00000000       0x25 build/print.o
+ .comment       0x00000000       0x1c build/sensor.o
+ .riscv.attributes
+                0x00000000       0x25 build/sensor.o
  .comment       0x00000000       0x1c build/tcnt.o
  .riscv.attributes
                 0x00000000       0x25 build/tcnt.o
@@ -23,7 +26,7 @@ RAM              0x00002000         0x00002000         xrw
 Linker script and memory map
 
 
-.text           0x00000000      0x828
+.text           0x00000000      0x730
                 0x00000000                        . = 0x0
  *(.init)
  .init          0x00000000      0x230 build/start.o
@@ -34,29 +37,32 @@ Linker script and memory map
                 0x00000230                print_chr
                 0x0000023c                print_str
                 0x0000025c                print_hex
- .text          0x000002a4       0x68 build/tcnt.o
-                0x000002a4                TCNT_start
-                0x000002b8                TCNT_start_div8
-                0x000002d8                TCNT_start_div16
-                0x000002f8                TCNT_stop
- .text          0x0000030c      0x1a8 build/firmware.o
-                0x0000030c                irq_handler
-                0x00000310                initialise
-                0x0000042c                pixel_hash
- .text.startup  0x000004b4      0x374 build/firmware.o
-                0x000004b4                main
- .text          0x00000828        0x0 build/start.o
+ .text          0x000002a4       0x28 build/sensor.o
+                0x000002a4                SENSOR_fetch
+ .text          0x000002cc       0x68 build/tcnt.o
+                0x000002cc                TCNT_start
+                0x000002e0                TCNT_start_div8
+                0x00000300                TCNT_start_div16
+                0x00000320                TCNT_stop
+ .text          0x00000334       0x8c build/firmware.o
+                0x00000334                irq_handler
+                0x00000338                pixel_hash
+ .text.startup  0x000003c0      0x370 build/firmware.o
+                0x000003c0                main
+ .text          0x00000730        0x0 build/start.o
 
 .data           0x00002000        0x0
                 0x00000000                        . = 0x0
  *(.data)
  .data          0x00002000        0x0 build/print.o
+ .data          0x00002000        0x0 build/sensor.o
  .data          0x00002000        0x0 build/tcnt.o
  .data          0x00002000        0x0 build/firmware.o
  .data          0x00002000        0x0 build/start.o
 
 .bss            0x00002000        0x0
  .bss           0x00002000        0x0 build/print.o
+ .bss           0x00002000        0x0 build/sensor.o
  .bss           0x00002000        0x0 build/tcnt.o
  .bss           0x00002000        0x0 build/firmware.o
  .bss           0x00002000        0x0 build/start.o
@@ -80,6 +86,7 @@ Linker script and memory map
  *(.comment)
  *(.riscv.attributes)
 LOAD build/print.o
+LOAD build/sensor.o
 LOAD build/tcnt.o
 LOAD build/firmware.o
 LOAD build/start.o
