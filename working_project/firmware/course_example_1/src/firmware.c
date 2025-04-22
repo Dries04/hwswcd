@@ -87,10 +87,12 @@ int main(void) {
             LED = r_cur; // test for refresh
             LED = 0x99; // test for refresh
             LED = g_cur; // test for refresh
+            LED = 0x88; // test for refresh
             LED = b_cur; // test for refresh
+            LED = 0x77; // test for refresh
 
             LED = a_cur; // test for refresh
-            LED = 0x77; // test for refresh
+            LED = 0x66; // test for refresh
 
             if (r_cur == r_prev && g_cur == g_prev && b_cur == b_prev && a_cur == a_prev) {
                 LED = 0x25;
