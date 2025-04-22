@@ -46,10 +46,6 @@ unsigned char pixel_hash(unsigned char r, unsigned char g, unsigned char b, unsi
 }
 
 int main(void) {
-    unsigned char r[C_HEIGHT][C_WIDTH];
-    unsigned char g[C_HEIGHT][C_WIDTH];
-    unsigned char b[C_HEIGHT][C_WIDTH];
-    unsigned char a[C_HEIGHT][C_WIDTH];
 
     unsigned char r_prev = 0, g_prev = 0, b_prev = 0, a_prev = 255;
     int run = 0;
@@ -59,6 +55,11 @@ int main(void) {
     for (i = 0; i < 64; i++) {
         running_array[i] = 0;
     }
+
+    unsigned char r[C_HEIGHT][C_WIDTH];
+    unsigned char g[C_HEIGHT][C_WIDTH];
+    unsigned char b[C_HEIGHT][C_WIDTH];
+    unsigned char a[C_HEIGHT][C_WIDTH];
 
     initialise(r, g, b, a);
 
