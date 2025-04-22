@@ -53,6 +53,7 @@ architecture Behavioural of riscv_microcontroller is
     signal ce : STD_LOGIC_VECTOR(2 downto 0);
     signal dmem_do_tcnt : STD_LOGIC_VECTOR(31 downto 0);
     signal leds : STD_LOGIC_VECTOR(31 downto 0);
+    signal dmem_do_wrapped_sensor: std_logic_vector(31 downto 0);
 
     -- INTERRUPTS
     signal linked_interrupts : STD_LOGIC_VECTOR(31 downto 0);
@@ -155,12 +156,22 @@ begin
         iface_we => dmem_we,
         iface_do => dmem_do_tcnt
     );
+    
+    wrapped_sensor_inst00: component wrapped_sensor port map(
+        clock => clock,
+        reset => reset,
+        iface_di => dmem_di,
+        iface_a => dmem_a,
+        iface_we => dmem_we,
+        iface_do => dmem_do_wrapped_sensor
+    );
 
     PMUX_bus: process(dmem_a, dmem_do_tcnt, dmem_do_dmem, leds)
     begin
         case dmem_a(dmem_a'high downto C_PERIPHERAL_MASK_LOWINDEX) is
             when C_LED_BASE_ADDRESS_MASK => dmem_do <= leds;
             when C_TIMER_BASE_ADDRESS_MASK => dmem_do <= dmem_do_tcnt;
+            when C_SENSOR_BASE_ADDRESS_MASK => dmem_do <= dmem_do_wrapped_sensor;
             when others => dmem_do <= dmem_do_dmem;
         end case;
     end process;
