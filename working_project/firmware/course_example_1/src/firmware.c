@@ -40,8 +40,13 @@ void initialise(unsigned char r[C_HEIGHT][C_WIDTH], unsigned char g[C_HEIGHT][C_
 }
 
 unsigned char pixel_hash(unsigned char r, unsigned char g, unsigned char b, unsigned char a) {
-    return (sw_mult(r, 3) + sw_mult(g, 5) + sw_mult(b, 7) + sw_mult(a, 11)) & 0x3F;
+    unsigned int hash = ((r << 1) + r) +       // r * 3
+                        ((g << 2) + g) +       // g * 5
+                        ((b << 3) - b) +       // b * 7
+                        ((a << 3) + (a << 1) + a); // a * 11
+    return hash & 0x3F;
 }
+
 
 int main(void) {
     unsigned char r[C_HEIGHT][C_WIDTH];
