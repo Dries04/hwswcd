@@ -124,43 +124,42 @@ Disassembly of section .text:
  1c0:	00001137          	lui	sp,0x1
  1c4:	fe010113          	addi	sp,sp,-32 # fe0 <main+0xb2c>
  1c8:	2ec000ef          	jal	ra,4b4 <main>
- 1cc:	00100073          	ebreak
- 1d0:	2e4000ef          	jal	ra,4b4 <main>
- 1d4:	0540006f          	jal	zero,228 <done>
+ 1cc:	0540006f          	jal	zero,220 <done>
 
-000001d8 <sw_mult>:
- 1d8:	ff410113          	addi	sp,sp,-12
- 1dc:	00112023          	sw	ra,0(sp)
- 1e0:	00512223          	sw	t0,4(sp)
- 1e4:	00612423          	sw	t1,8(sp)
- 1e8:	00051463          	bne	a0,zero,1f0 <sw_mult_init>
- 1ec:	0280006f          	jal	zero,214 <sw_mult_exit>
+000001d0 <sw_mult>:
+ 1d0:	ff410113          	addi	sp,sp,-12
+ 1d4:	00112023          	sw	ra,0(sp)
+ 1d8:	00512223          	sw	t0,4(sp)
+ 1dc:	00612423          	sw	t1,8(sp)
+ 1e0:	00051463          	bne	a0,zero,1e8 <sw_mult_init>
+ 1e4:	0280006f          	jal	zero,20c <sw_mult_exit>
 
-000001f0 <sw_mult_init>:
- 1f0:	00058333          	add	t1,a1,zero
- 1f4:	fff50293          	addi	t0,a0,-1
- 1f8:	00029663          	bne	t0,zero,204 <sw_mult_loop>
- 1fc:	00058533          	add	a0,a1,zero
- 200:	0140006f          	jal	zero,214 <sw_mult_exit>
+000001e8 <sw_mult_init>:
+ 1e8:	00058333          	add	t1,a1,zero
+ 1ec:	fff50293          	addi	t0,a0,-1
+ 1f0:	00029663          	bne	t0,zero,1fc <sw_mult_loop>
+ 1f4:	00058533          	add	a0,a1,zero
+ 1f8:	0140006f          	jal	zero,20c <sw_mult_exit>
 
-00000204 <sw_mult_loop>:
- 204:	00b30333          	add	t1,t1,a1
- 208:	fff28293          	addi	t0,t0,-1
- 20c:	fe029ce3          	bne	t0,zero,204 <sw_mult_loop>
- 210:	00030533          	add	a0,t1,zero
+000001fc <sw_mult_loop>:
+ 1fc:	00b30333          	add	t1,t1,a1
+ 200:	fff28293          	addi	t0,t0,-1
+ 204:	fe029ce3          	bne	t0,zero,1fc <sw_mult_loop>
+ 208:	00030533          	add	a0,t1,zero
 
-00000214 <sw_mult_exit>:
- 214:	00012083          	lw	ra,0(sp)
- 218:	00412283          	lw	t0,4(sp)
- 21c:	00812303          	lw	t1,8(sp)
- 220:	00c10113          	addi	sp,sp,12
- 224:	00008067          	jalr	zero,0(ra)
+0000020c <sw_mult_exit>:
+ 20c:	00012083          	lw	ra,0(sp)
+ 210:	00412283          	lw	t0,4(sp)
+ 214:	00812303          	lw	t1,8(sp)
+ 218:	00c10113          	addi	sp,sp,12
+ 21c:	00008067          	jalr	zero,0(ra)
 
-00000228 <done>:
- 228:	0000006f          	jal	zero,228 <done>
+00000220 <done>:
+ 220:	0000006f          	jal	zero,220 <done>
 
-0000022c <error>:
- 22c:	0000006f          	jal	zero,22c <error>
+00000224 <error>:
+ 224:	0000006f          	jal	zero,224 <error>
+	...
 
 00000230 <print_chr>:
  230:	800007b7          	lui	a5,0x80000
@@ -318,20 +317,20 @@ Disassembly of section .text:
  448:	01212823          	sw	s2,16(sp)
  44c:	00068493          	addi	s1,a3,0
  450:	00060913          	addi	s2,a2,0
- 454:	d85ff0ef          	jal	ra,1d8 <sw_mult>
+ 454:	d7dff0ef          	jal	ra,1d0 <sw_mult>
  458:	00050413          	addi	s0,a0,0
  45c:	00500593          	addi	a1,zero,5
  460:	00098513          	addi	a0,s3,0
- 464:	d75ff0ef          	jal	ra,1d8 <sw_mult>
+ 464:	d6dff0ef          	jal	ra,1d0 <sw_mult>
  468:	00a40433          	add	s0,s0,a0
  46c:	00700593          	addi	a1,zero,7
  470:	00090513          	addi	a0,s2,0
- 474:	d65ff0ef          	jal	ra,1d8 <sw_mult>
+ 474:	d5dff0ef          	jal	ra,1d0 <sw_mult>
  478:	0ff47413          	andi	s0,s0,255
  47c:	00a40433          	add	s0,s0,a0
  480:	00b00593          	addi	a1,zero,11
  484:	00048513          	addi	a0,s1,0
- 488:	d51ff0ef          	jal	ra,1d8 <sw_mult>
+ 488:	d49ff0ef          	jal	ra,1d0 <sw_mult>
  48c:	0ff47413          	andi	s0,s0,255
  490:	01c12083          	lw	ra,28(sp)
  494:	00a40533          	add	a0,s0,a0
@@ -416,21 +415,21 @@ Disassembly of section .text:
  5c8:	00000d93          	addi	s11,zero,0
  5cc:	00300593          	addi	a1,zero,3
  5d0:	000c8513          	addi	a0,s9,0
- 5d4:	c05ff0ef          	jal	ra,1d8 <sw_mult>
+ 5d4:	bfdff0ef          	jal	ra,1d0 <sw_mult>
  5d8:	00050a13          	addi	s4,a0,0
  5dc:	00500593          	addi	a1,zero,5
  5e0:	000b8513          	addi	a0,s7,0
- 5e4:	bf5ff0ef          	jal	ra,1d8 <sw_mult>
+ 5e4:	bedff0ef          	jal	ra,1d0 <sw_mult>
  5e8:	00aa07b3          	add	a5,s4,a0
  5ec:	00700593          	addi	a1,zero,7
  5f0:	000b0513          	addi	a0,s6,0
  5f4:	0ff7fa13          	andi	s4,a5,255
- 5f8:	be1ff0ef          	jal	ra,1d8 <sw_mult>
+ 5f8:	bd9ff0ef          	jal	ra,1d0 <sw_mult>
  5fc:	00aa07b3          	add	a5,s4,a0
  600:	00b00593          	addi	a1,zero,11
  604:	0ff00513          	addi	a0,zero,255
  608:	0ff7fa13          	andi	s4,a5,255
- 60c:	bcdff0ef          	jal	ra,1d8 <sw_mult>
+ 60c:	bc5ff0ef          	jal	ra,1d0 <sw_mult>
  610:	00aa0533          	add	a0,s4,a0
  614:	03f57513          	andi	a0,a0,63
  618:	00251593          	slli	a1,a0,0x2

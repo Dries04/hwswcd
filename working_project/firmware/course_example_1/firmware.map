@@ -28,7 +28,7 @@ Linker script and memory map
  *(.init)
  .init          0x00000000      0x230 build/start.o
                 0x00000000                start
-                0x000001d8                sw_mult
+                0x000001d0                sw_mult
  *(.text*)
  .text          0x00000230       0x74 build/print.o
                 0x00000230                print_chr
