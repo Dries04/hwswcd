@@ -99,7 +99,7 @@ int main(void) {
                     LED = QOI_OP_INDEX | found_index;
                 } else {
                     running_array[write_index] = current_pixel;
-                    write_index = (write_index + 1) % 64;
+                    write_index = (write_index + 1) & 0x3F;
 
                     int dr = (int)r_cur - (int)r_prev;
                     int dg = (int)g_cur - (int)g_prev;
