@@ -69,6 +69,8 @@ int main(void) {
     LED = 0x21; // test for refresh
     LED = 0x22; // test for refresh
 
+    int popo = 1;
+
     for (i = 0; i < C_HEIGHT; i++) {
 
         LED = 0x23; // test for refresh
@@ -81,7 +83,7 @@ int main(void) {
 
             LED = 0x24; // test for refresh
 
-            if (r_cur == r_prev && g_cur == g_prev && b_cur == b_prev && a_cur == a_prev) {
+            if (r_cur == r_prev && g_cur == g_prev && b_cur == b_prev && a_cur == a_prev && popo == 0) {
                 LED = 0x25;
                 run++;
                 if (run == 62) {
@@ -90,6 +92,7 @@ int main(void) {
                     run = 0;
                 }
             } else {
+                popo = 0;
                 LED = 0x26; // test for refresh
                 if (run > 0) {
                     LED = 0x51; // test for refresh
