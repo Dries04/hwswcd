@@ -19,25 +19,27 @@ extern unsigned int sw_mult(unsigned int x, unsigned int y);
 void irq_handler(unsigned int cause) {
 }
 
-void initialise(unsigned char r[C_HEIGHT][C_WIDTH], unsigned char g[C_HEIGHT][C_WIDTH], unsigned char b[C_HEIGHT][C_WIDTH], unsigned char a[C_HEIGHT][C_WIDTH]) {
+void initialise(unsigned char r[C_WIDTH][C_HEIGHT], unsigned char g[C_WIDTH][C_HEIGHT], unsigned char b[C_WIDTH][C_HEIGHT], unsigned char a[C_WIDTH][C_HEIGHT]) {
     unsigned char w, h;
-    for (h = 0; h < 4; h++) {
-        for (w = 0; w < 4; w++) {
+
+    for(h = 0; h < C_HEIGHT/2; h++) {
+        for(w = 0; w < C_WIDTH/2; w++) {
             r[h][w] = 255; g[h][w] = 0; b[h][w] = 0; a[h][w] = 255;
         }
-        for (w = 4; w < C_WIDTH; w++) {
+        for(w = C_WIDTH/2; w < C_WIDTH; w++) {
             r[h][w] = 0; g[h][w] = 255; b[h][w] = 0; a[h][w] = 255;
         }
     }
-    for (h = 4; h < C_HEIGHT; h++) {
-        for (w = 0; w < 4; w++) {
+    for(h = C_HEIGHT/2; h < C_HEIGHT; h++) {
+        for(w = 0; w < C_WIDTH/2; w++) {
             r[h][w] = 0; g[h][w] = 0; b[h][w] = 255; a[h][w] = 255;
         }
-        for (w = 4; w < C_WIDTH; w++) {
+        for(w = C_WIDTH/2; w < C_WIDTH; w++) {
             r[h][w] = 127; g[h][w] = 127; b[h][w] = 127; a[h][w] = 255;
         }
     }
 }
+
 
 unsigned char pixel_hash(unsigned char r, unsigned char g, unsigned char b, unsigned char a) {
     return (sw_mult(r, 3) + sw_mult(g, 5) + sw_mult(b, 7) + sw_mult(a, 11)) & 0x3F;
