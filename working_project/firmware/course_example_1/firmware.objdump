@@ -465,7 +465,7 @@ Disassembly of section .text:
  68c:	00240513          	addi	a0,s0,2
  690:	0ea5ee63          	bltu	a1,a0,78c <main+0x2cc>
  694:	00248e93          	addi	t4,s1,2
- 698:	19d5e863          	bltu	a1,t4,828 <main+0x368>
+ 698:	19d5e663          	bltu	a1,t4,824 <main+0x364>
  69c:	00479793          	slli	a5,a5,0x4
  6a0:	01d7e7b3          	or	a5,a5,t4
  6a4:	00251513          	slli	a0,a0,0x2
@@ -550,23 +550,23 @@ Disassembly of section .text:
  7e0:	f0070713          	addi	a4,a4,-256
  7e4:	e8dff06f          	jal	zero,670 <main+0x1b0>
  7e8:	40870733          	sub	a4,a4,s0
- 7ec:	00870793          	addi	a5,a4,8
- 7f0:	00f00693          	addi	a3,zero,15
- 7f4:	faf6e2e3          	bltu	a3,a5,798 <main+0x2d8>
+ 7ec:	00870713          	addi	a4,a4,8
+ 7f0:	00f00793          	addi	a5,zero,15
+ 7f4:	fae7e2e3          	bltu	a5,a4,798 <main+0x2d8>
  7f8:	408484b3          	sub	s1,s1,s0
  7fc:	00848493          	addi	s1,s1,8
  800:	00f00793          	addi	a5,zero,15
  804:	f897eae3          	bltu	a5,s1,798 <main+0x2d8>
  808:	02040413          	addi	s0,s0,32
- 80c:	00870713          	addi	a4,a4,8
- 810:	08046413          	ori	s0,s0,128
- 814:	00471793          	slli	a5,a4,0x4
- 818:	008d2023          	sw	s0,0(s10)
- 81c:	0097e7b3          	or	a5,a5,s1
- 820:	00fd2023          	sw	a5,0(s10)
- 824:	e91ff06f          	jal	zero,6b4 <main+0x1f4>
- 828:	40870733          	sub	a4,a4,s0
- 82c:	408484b3          	sub	s1,s1,s0
+ 80c:	08046413          	ori	s0,s0,128
+ 810:	00471713          	slli	a4,a4,0x4
+ 814:	008d2023          	sw	s0,0(s10)
+ 818:	00976733          	or	a4,a4,s1
+ 81c:	00ed2023          	sw	a4,0(s10)
+ 820:	e95ff06f          	jal	zero,6b4 <main+0x1f4>
+ 824:	40870733          	sub	a4,a4,s0
+ 828:	408484b3          	sub	s1,s1,s0
+ 82c:	00870713          	addi	a4,a4,8
  830:	fcdff06f          	jal	zero,7fc <main+0x33c>
 
 Disassembly of section .rodata.str1.4:
