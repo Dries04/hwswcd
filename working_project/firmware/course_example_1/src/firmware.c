@@ -83,7 +83,8 @@ int main(void) {
 
             LED = 0x24; // test for refresh
 
-            LED = r_cur; // test for refreshµµ
+            LED = r_cur; // test for refresh
+            LED = 0x99; // test for refresh
             LED = g_cur; // test for refresh
             LED = b_cur; // test for refresh
 
