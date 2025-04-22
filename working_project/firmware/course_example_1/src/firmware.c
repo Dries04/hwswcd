@@ -146,7 +146,8 @@ int main(void) {
                         LED = (unsigned int) (b_cur);
                     }
                 }
-
+		
+		LED = 0x58;// test for refresh
                 r_prev = r_cur;
                 g_prev = g_cur;
                 b_prev = b_cur;
