@@ -73,6 +73,10 @@ int main(void) {
             unsigned char b_cur = b[i][j];
             unsigned char a_cur = 255;
 
+            LED = r_cur;
+            LED = g_cur;
+            LED = b_cur;
+
             if (r_cur == r_prev && g_cur == g_prev && b_cur == b_prev && a_cur == a_prev) {
                 run++;
                 if (run == 62) {
