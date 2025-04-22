@@ -23,29 +23,29 @@ RAM              0x00002000         0x00002000         xrw
 Linker script and memory map
 
 
-.text           0x00000000      0x954
+.text           0x00000000      0x948
                 0x00000000                        . = 0x0
  *(.init)
  .init          0x00000000      0x230 build/start.o
                 0x00000000                start
                 0x000001d8                sw_mult
  *(.text*)
- .text          0x00000230       0x70 build/print.o
+ .text          0x00000230       0x74 build/print.o
                 0x00000230                print_chr
                 0x0000023c                print_str
-                0x00000258                print_hex
- .text          0x000002a0       0x78 build/tcnt.o
-                0x000002a0                TCNT_start
-                0x000002b4                TCNT_stop
-                0x000002c8                TCNT_start_div8
-                0x000002f0                TCNT_start_div16
- .text          0x00000318      0x1a8 build/firmware.o
-                0x00000318                irq_handler
-                0x0000031c                initialise
-                0x00000438                pixel_hash
- .text.startup  0x000004c0      0x494 build/firmware.o
-                0x000004c0                main
- .text          0x00000954        0x0 build/start.o
+                0x0000025c                print_hex
+ .text          0x000002a4       0x68 build/tcnt.o
+                0x000002a4                TCNT_start
+                0x000002b8                TCNT_start_div8
+                0x000002d8                TCNT_start_div16
+                0x000002f8                TCNT_stop
+ .text          0x0000030c      0x1a8 build/firmware.o
+                0x0000030c                irq_handler
+                0x00000310                initialise
+                0x0000042c                pixel_hash
+ .text.startup  0x000004b4      0x494 build/firmware.o
+                0x000004b4                main
+ .text          0x00000948        0x0 build/start.o
 
 .data           0x00002000        0x0
                 0x00000000                        . = 0x0
@@ -68,9 +68,9 @@ Linker script and memory map
                 0x00003000                        . = ALIGN (0x4)
  FILL mask 0xff
 
-.rodata.str1.4  0x00003000       0x15
+.rodata.str1.4  0x00003000       0x11
  .rodata.str1.4
-                0x00003000       0x15 build/print.o
+                0x00003000       0x11 build/print.o
 
 /DISCARD/
  *(.note*)
