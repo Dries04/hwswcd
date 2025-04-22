@@ -52,7 +52,7 @@ int main(void) {
     unsigned char r_prev, g_prev, b_prev, a_prev;
     int run;
     unsigned int running_array[64];
-    static unsigned char encoded[1024];
+    unsigned char encoded[1024];
     unsigned char *p;
     int i;
 
