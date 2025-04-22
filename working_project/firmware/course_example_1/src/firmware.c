@@ -39,14 +39,6 @@ void initialise(unsigned char r[C_HEIGHT][C_WIDTH], unsigned char g[C_HEIGHT][C_
     }
 }
 
-unsigned char pixel_hash(unsigned char r, unsigned char g, unsigned char b, unsigned char a) {
-    unsigned int hash = ((r << 1) + r) +       // r * 3
-                        ((g << 2) + g) +       // g * 5
-                        ((b << 3) - b) +       // b * 7
-                        ((a << 3) + (a << 1) + a); // a * 11
-    return hash & 0x3F;
-}
-
 int main(void) {
     unsigned char r[C_HEIGHT][C_WIDTH];
     unsigned char g[C_HEIGHT][C_WIDTH];
@@ -56,6 +48,7 @@ int main(void) {
     unsigned char r_prev = 0, g_prev = 0, b_prev = 0, a_prev = 255;
     int run = 0;
     unsigned int running_array[64];
+    int write_index = 0;
     int i;
 
     for (i = 0; i < 64; i++) {
@@ -64,7 +57,7 @@ int main(void) {
 
     initialise(r, g, b, a);
 
-    // Write header directly to LED
+    // Write QOI header
     LED = 'q'; LED = 'o'; LED = 'i'; LED = 'f';
     LED = 0x00; LED = 0x00; LED = 0x00; LED = C_WIDTH;
     LED = 0x00; LED = 0x00; LED = 0x00; LED = C_HEIGHT;
@@ -80,25 +73,33 @@ int main(void) {
             if (r_cur == r_prev && g_cur == g_prev && b_cur == b_prev && a_cur == a_prev) {
                 run++;
                 if (run == 62) {
-                    unsigned int val_run = QOI_OP_RUN + (run - 1);
-                    LED = val_run;
+                    LED = QOI_OP_RUN | (run - 1);
                     run = 0;
                 }
             } else {
                 if (run > 0) {
-                    unsigned int val_run = QOI_OP_RUN + (run - 1);
-                    LED = val_run;
+                    LED = QOI_OP_RUN | (run - 1);
                     run = 0;
                 }
 
-                unsigned char index = pixel_hash(r_cur, g_cur, b_cur, a_cur);
-                unsigned int current_pixel = ((unsigned int)r_cur << 24) + ((unsigned int)g_cur << 16) + ((unsigned int)b_cur << 8) + a_cur;
+                unsigned int current_pixel = ((unsigned int)r_cur << 24) |
+                                             ((unsigned int)g_cur << 16) |
+                                             ((unsigned int)b_cur << 8) |
+                                             a_cur;
 
-                if (running_array[index] == current_pixel) {
-                    unsigned int val_index = QOI_OP_INDEX + index;
-                    LED = val_index;
+                int found_index = -1;
+                for (int k = 0; k < 64; k++) {
+                    if (running_array[k] == current_pixel) {
+                        found_index = k;
+                        break;
+                    }
+                }
+
+                if (found_index != -1) {
+                    LED = QOI_OP_INDEX | found_index;
                 } else {
-                    running_array[index] = current_pixel;
+                    running_array[write_index] = current_pixel;
+                    write_index = (write_index + 1) % 64;
 
                     int dr = (int)r_cur - (int)r_prev;
                     int dg = (int)g_cur - (int)g_prev;
@@ -114,32 +115,25 @@ int main(void) {
                     else if (db > 127) db -= 256;
 
                     if ((dr >= -2 && dr <= 1) && (dg >= -2 && dg <= 1) && (db >= -2 && db <= 1)) {
-                        unsigned int diff_val = QOI_OP_DIFF;
-                        diff_val += ((dr + 2) << 4);
-                        diff_val += ((dg + 2) << 2);
-                        diff_val += (db + 2);
-                        LED = diff_val;
+                        LED = QOI_OP_DIFF | ((dr + 2) << 4) | ((dg + 2) << 2) | (db + 2);
                     } else if (dg >= -32 && dg <= 31) {
                         int dr_dg = dr - dg;
                         int db_dg = db - dg;
 
                         if ((dr_dg >= -8 && dr_dg <= 7) && (db_dg >= -8 && db_dg <= 7)) {
-                            unsigned int luma_val1 = QOI_OP_LUMA + (dg + 32);
-                            LED = luma_val1;
-
-                            unsigned int luma_val2 = ((dr_dg + 8) << 4) + (db_dg + 8);
-                            LED = luma_val2;
+                            LED = QOI_OP_LUMA | (dg + 32);
+                            LED = ((dr_dg + 8) << 4) | (db_dg + 8);
                         } else {
-                            LED = (unsigned int) QOI_OP_RGB;
-                            LED = (unsigned int) r_cur;
-                            LED = (unsigned int) g_cur;
-                            LED = (unsigned int) b_cur;
+                            LED = QOI_OP_RGB;
+                            LED = r_cur;
+                            LED = g_cur;
+                            LED = b_cur;
                         }
                     } else {
-                        LED = (unsigned int) QOI_OP_RGB;
-                        LED = (unsigned int) r_cur;
-                        LED = (unsigned int) g_cur;
-                        LED = (unsigned int) b_cur;
+                        LED = QOI_OP_RGB;
+                        LED = r_cur;
+                        LED = g_cur;
+                        LED = b_cur;
                     }
                 }
 
@@ -151,13 +145,10 @@ int main(void) {
         }
     }
 
-    // Flush any remaining run
     if (run > 0) {
-        unsigned int val_run = QOI_OP_RUN + (run - 1);
-        LED = val_run;
+        LED = QOI_OP_RUN | (run - 1);
     }
 
-    // End marker: 7x 0x00, 1x 0x01
     for (i = 0; i < 7; i++) LED = 0x00;
     LED = 0x01;
 
