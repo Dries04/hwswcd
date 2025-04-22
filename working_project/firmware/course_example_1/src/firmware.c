@@ -47,7 +47,6 @@ unsigned char pixel_hash(unsigned char r, unsigned char g, unsigned char b, unsi
     return hash & 0x3F;
 }
 
-
 int main(void) {
     unsigned char r[C_HEIGHT][C_WIDTH];
     unsigned char g[C_HEIGHT][C_WIDTH];
@@ -81,20 +80,23 @@ int main(void) {
             if (r_cur == r_prev && g_cur == g_prev && b_cur == b_prev && a_cur == a_prev) {
                 run++;
                 if (run == 62) {
-                    LED = (unsigned int) (QOI_OP_RUN | (run - 1));
+                    unsigned int val_run = QOI_OP_RUN + (run - 1);
+                    LED = val_run;
                     run = 0;
                 }
             } else {
                 if (run > 0) {
-                    LED = (unsigned int) (QOI_OP_RUN | (run - 1));
+                    unsigned int val_run = QOI_OP_RUN + (run - 1);
+                    LED = val_run;
                     run = 0;
                 }
 
                 unsigned char index = pixel_hash(r_cur, g_cur, b_cur, a_cur);
-                unsigned int current_pixel = ((unsigned int)r_cur << 24) | ((unsigned int)g_cur << 16) | ((unsigned int)b_cur << 8) | a_cur;
+                unsigned int current_pixel = ((unsigned int)r_cur << 24) + ((unsigned int)g_cur << 16) + ((unsigned int)b_cur << 8) + a_cur;
 
                 if (running_array[index] == current_pixel) {
-                    LED = (unsigned int) (QOI_OP_INDEX | index);
+                    unsigned int val_index = QOI_OP_INDEX + index;
+                    LED = val_index;
                 } else {
                     running_array[index] = current_pixel;
 
@@ -112,25 +114,32 @@ int main(void) {
                     else if (db > 127) db -= 256;
 
                     if ((dr >= -2 && dr <= 1) && (dg >= -2 && dg <= 1) && (db >= -2 && db <= 1)) {
-                        LED = (unsigned int) (QOI_OP_DIFF | ((dr + 2) << 4) | ((dg + 2) << 2) | (db + 2));
+                        unsigned int diff_val = QOI_OP_DIFF;
+                        diff_val += ((dr + 2) << 4);
+                        diff_val += ((dg + 2) << 2);
+                        diff_val += (db + 2);
+                        LED = diff_val;
                     } else if (dg >= -32 && dg <= 31) {
                         int dr_dg = dr - dg;
                         int db_dg = db - dg;
 
                         if ((dr_dg >= -8 && dr_dg <= 7) && (db_dg >= -8 && db_dg <= 7)) {
-                            LED = (unsigned int) (QOI_OP_LUMA | (dg + 32));
-                            LED = (unsigned int) ((dr_dg + 8) << 4) | (db_dg + 8);
+                            unsigned int luma_val1 = QOI_OP_LUMA + (dg + 32);
+                            LED = luma_val1;
+
+                            unsigned int luma_val2 = ((dr_dg + 8) << 4) + (db_dg + 8);
+                            LED = luma_val2;
                         } else {
-                            LED = (unsigned int) (QOI_OP_RGB);
-                            LED = (unsigned int) (r_cur);
-                            LED = (unsigned int) (g_cur);
-                            LED = (unsigned int) (b_cur);
+                            LED = (unsigned int) QOI_OP_RGB;
+                            LED = (unsigned int) r_cur;
+                            LED = (unsigned int) g_cur;
+                            LED = (unsigned int) b_cur;
                         }
                     } else {
-                        LED = (unsigned int) (QOI_OP_RGB);
-                        LED = (unsigned int) (r_cur);
-                        LED = (unsigned int) (g_cur);
-                        LED = (unsigned int) (b_cur);
+                        LED = (unsigned int) QOI_OP_RGB;
+                        LED = (unsigned int) r_cur;
+                        LED = (unsigned int) g_cur;
+                        LED = (unsigned int) b_cur;
                     }
                 }
 
@@ -144,7 +153,8 @@ int main(void) {
 
     // Flush any remaining run
     if (run > 0) {
-        LED = (unsigned int) (QOI_OP_RUN | (run - 1));
+        unsigned int val_run = QOI_OP_RUN + (run - 1);
+        LED = val_run;
     }
 
     // End marker: 7x 0x00, 1x 0x01
