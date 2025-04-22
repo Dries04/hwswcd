@@ -82,13 +82,16 @@ int main(void) {
             LED = 0x24; // test for refresh
 
             if (r_cur == r_prev && g_cur == g_prev && b_cur == b_prev && a_cur == a_prev) {
+                LED = 0x25;
                 run++;
                 if (run == 62) {
+                    LED = 0x50; // test for refresh
                     LED = (unsigned int) (QOI_OP_RUN | (run - 1));
                     run = 0;
                 }
             } else {
                 if (run > 0) {
+                    LED = 0x51; // test for refresh
                     LED = (unsigned int) (QOI_OP_RUN | (run - 1));
                     run = 0;
                 }
@@ -97,6 +100,7 @@ int main(void) {
                 unsigned int current_pixel = ((unsigned int)r_cur << 24) | ((unsigned int)g_cur << 16) | ((unsigned int)b_cur << 8) | a_cur;
 
                 if (running_array[index] == current_pixel) {
+                    LED = 0x52; // test for refresh
                     LED = (unsigned int) (QOI_OP_INDEX | index);
                 } else {
                     running_array[index] = current_pixel;
@@ -115,21 +119,25 @@ int main(void) {
                     else if (db > 127) db -= 256;
 
                     if ((dr >= -2 && dr <= 1) && (dg >= -2 && dg <= 1) && (db >= -2 && db <= 1)) {
+                        LED = 0x53; // test for refresh
                         LED = (unsigned int) (QOI_OP_DIFF | ((dr + 2) << 4) | ((dg + 2) << 2) | (db + 2));
                     } else if (dg >= -32 && dg <= 31) {
                         int dr_dg = dr - dg;
                         int db_dg = db - dg;
 
                         if ((dr_dg >= -8 && dr_dg <= 7) && (db_dg >= -8 && db_dg <= 7)) {
+                            LED = 0x55; // test for refresh
                             LED = (unsigned int) (QOI_OP_LUMA | (dg + 32));
                             LED = (unsigned int) ((dr_dg + 8) << 4) | (db_dg + 8);
                         } else {
+                            LED = 0x56; // test for refresh
                             LED = (unsigned int) (QOI_OP_RGB);
                             LED = (unsigned int) (r_cur);
                             LED = (unsigned int) (g_cur);
                             LED = (unsigned int) (b_cur);
                         }
                     } else {
+                        LED = 0x57; // test for refresh
                         LED = (unsigned int) (QOI_OP_RGB);
                         LED = (unsigned int) (r_cur);
                         LED = (unsigned int) (g_cur);
@@ -147,6 +155,7 @@ int main(void) {
 
     // Flush any remaining run
     if (run > 0) {
+        LED = 0x58; // test for refresh
         LED = (unsigned int) (QOI_OP_RUN | (run - 1));
     }
 
