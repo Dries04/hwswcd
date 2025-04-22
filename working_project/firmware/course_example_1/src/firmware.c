@@ -1,4 +1,5 @@
 #include "tcnt.h"
+#include "sensor.h"
 
 #define C_WIDTH 8
 #define C_HEIGHT 8
@@ -19,28 +20,6 @@ extern unsigned int sw_mult(unsigned int x, unsigned int y);
 void irq_handler(unsigned int cause) {
 }
 
-void initialise(unsigned char r[C_WIDTH][C_HEIGHT], unsigned char g[C_WIDTH][C_HEIGHT], unsigned char b[C_WIDTH][C_HEIGHT], unsigned char a[C_WIDTH][C_HEIGHT]) {
-    unsigned char w, h;
-
-    for(h = 0; h < C_HEIGHT/2; h++) {
-        for(w = 0; w < C_WIDTH/2; w++) {
-            r[h][w] = 255; g[h][w] = 0; b[h][w] = 0; a[h][w] = 255;
-        }
-        for(w = C_WIDTH/2; w < C_WIDTH; w++) {
-            r[h][w] = 0; g[h][w] = 255; b[h][w] = 0; a[h][w] = 255;
-        }
-    }
-    for(h = C_HEIGHT/2; h < C_HEIGHT; h++) {
-        for(w = 0; w < C_WIDTH/2; w++) {
-            r[h][w] = 0; g[h][w] = 0; b[h][w] = 255; a[h][w] = 255;
-        }
-        for(w = C_WIDTH/2; w < C_WIDTH; w++) {
-            r[h][w] = 127; g[h][w] = 127; b[h][w] = 127; a[h][w] = 255;
-        }
-    }
-}
-
-
 unsigned char pixel_hash(unsigned char r, unsigned char g, unsigned char b, unsigned char a) {
     return (sw_mult(r, 3) + sw_mult(g, 5) + sw_mult(b, 7) + sw_mult(a, 11)) & 0x3F;
 }
@@ -56,13 +35,6 @@ int main(void) {
         running_array[i] = 0;
     }
 
-    unsigned char r[C_HEIGHT][C_WIDTH];
-    unsigned char g[C_HEIGHT][C_WIDTH];
-    unsigned char b[C_HEIGHT][C_WIDTH];
-    unsigned char a[C_HEIGHT][C_WIDTH];
-
-    initialise(r, g, b, a);
-
     // Write header directly to LED
     LED = 'q'; LED = 'o'; LED = 'i'; LED = 'f';
     LED = 0x00; LED = 0x00; LED = 0x00; LED = C_WIDTH;
@@ -73,10 +45,11 @@ int main(void) {
 
         for (int j = 0; j < C_WIDTH; j++) {
 
-            unsigned char r_cur = r[i][j];
-            unsigned char g_cur = g[i][j];
-            unsigned char b_cur = b[i][j];
-            unsigned char a_cur = 255;
+            unsigned int pixeldata = SENSOR_fetch();
+            unsigned char r_cur = (pixeldata >> 24) & 0xFF;
+            unsigned char g_cur = (pixeldata >> 16) & 0xFF;
+            unsigned char b_cur = (pixeldata >> 8) & 0xFF;
+            unsigned char a_cur = pixeldata & 0xFF;
 
             if (r_cur == r_prev && g_cur == g_prev && b_cur == b_prev && a_cur == a_prev) {
                 run++;
