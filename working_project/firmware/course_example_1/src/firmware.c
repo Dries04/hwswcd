@@ -90,6 +90,7 @@ int main(void) {
                     run = 0;
                 }
             } else {
+                LED = 0x26; // test for refresh
                 if (run > 0) {
                     LED = 0x51; // test for refresh
                     LED = (unsigned int) (QOI_OP_RUN | (run - 1));
@@ -103,6 +104,7 @@ int main(void) {
                     LED = 0x52; // test for refresh
                     LED = (unsigned int) (QOI_OP_INDEX | index);
                 } else {
+                    LED = 0x27; // test for refresh
                     running_array[index] = current_pixel;
 
                     int dr = (int)r_cur - (int)r_prev;
