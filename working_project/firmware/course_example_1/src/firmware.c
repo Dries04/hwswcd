@@ -66,16 +66,15 @@ int main(void) {
     LED = 0x00; LED = 0x00; LED = 0x00; LED = C_HEIGHT;
     LED = 0x03; LED = 0x00;
 
+    LED = 0x81; // test for refresh
+    LED = 0x65; // test for refresh
+
     for (i = 0; i < C_HEIGHT; i++) {
         for (int j = 0; j < C_WIDTH; j++) {
             unsigned char r_cur = r[i][j];
             unsigned char g_cur = g[i][j];
             unsigned char b_cur = b[i][j];
             unsigned char a_cur = 255;
-
-            LED = r_cur;
-            LED = g_cur;
-            LED = b_cur;
 
             if (r_cur == r_prev && g_cur == g_prev && b_cur == b_prev && a_cur == a_prev) {
                 run++;
