@@ -35,10 +35,18 @@ int main(void) {
         running_array[i] = 0;
     }
 
+    unsigned char sensor_w, sensor_h;
+    sensor_w = SENSOR_get_height();
+    sensor_h = SENSOR_get_width();
+
     // Write header directly to LED
     LED = 'q'; LED = 'o'; LED = 'i'; LED = 'f';
-    LED = 0x00; LED = 0x00; LED = 0x00; LED = C_WIDTH;
-    LED = 0x00; LED = 0x00; LED = 0x00; LED = C_HEIGHT;
+    LED = 0x00; LED = 0x00; LED = 0x00; 
+    //LED = C_WIDTH;
+    LED = sensor_w;
+    LED = 0x00; LED = 0x00; LED = 0x00; 
+    //LED = C_HEIGHT;
+    LED = sensor_h;
     LED = 0x03; LED = 0x00;
 
     for (i = 0; i < C_HEIGHT; i++) {
