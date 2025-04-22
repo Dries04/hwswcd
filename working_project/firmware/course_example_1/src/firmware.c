@@ -53,6 +53,16 @@ int main(void) {
             unsigned char b_cur = (unsigned char) ((pixeldata >> 8) & 0xFF);
             unsigned char a_cur = (unsigned char) (pixeldata & 0xFF);
 
+            LED = 0x99; // Test for refresh
+            LED = r_cur; // Test for refresh
+            LED = 0x99; // Test for refresh
+            LED = g_cur; // Test for refresh
+            LED = 0x99; // Test for refresh
+            LED = b_cur; // Test for refresh
+            LED = 0x99; // Test for refresh
+            LED = a_cur; // Test for refresh
+            LED = 0x99; // Test for refresh
+
 
             if (r_cur == r_prev && g_cur == g_prev && b_cur == b_prev && a_cur == a_prev) {
                 run++;
