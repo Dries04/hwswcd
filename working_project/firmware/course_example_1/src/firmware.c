@@ -1,9 +1,6 @@
 #include "tcnt.h"
 #include "sensor.h"
 
-#define C_WIDTH 8
-#define C_HEIGHT 8
-
 #define QOI_OP_INDEX 0x00 // 00xxxxxx
 #define QOI_OP_DIFF  0x40 // 01xxxxxx
 #define QOI_OP_LUMA  0x80 // 10xxxxxx
@@ -35,12 +32,15 @@ int main(void) {
         running_array[i] = 0;
     }
 
+    int C_WIDTH = SENSOR_get_width();
+    int C_HEIGHT = SENSOR_get_height();
+
     // Write header directly to LED
     LED = 'q'; LED = 'o'; LED = 'i'; LED = 'f';
     LED = 0x00; LED = 0x00; LED = 0x00; 
-    LED = SENSOR_get_width();
+    LED = C_WIDTH;
     LED = 0x00; LED = 0x00; LED = 0x00; 
-    LED = SENSOR_get_height();
+    LED = C_HEIGHT;
     LED = 0x03; LED = 0x00;
 
     for (i = 0; i < C_HEIGHT; i++) {
