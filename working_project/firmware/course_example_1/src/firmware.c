@@ -96,16 +96,16 @@ int main(void) {
                             LED = (unsigned int) (QOI_OP_LUMA | (dg + 32));
                             LED = (unsigned int) ((dr_dg + 8) << 4) | (db_dg + 8);
                         } else {
-                            LED = (unsigned int) (QOI_OP_RGB);
-                            LED = (unsigned int) (r_cur);
-                            LED = (unsigned int) (g_cur);
-                            LED = (unsigned int) (b_cur);
+                            LED = (QOI_OP_RGB);
+                            LED = (r_cur);
+                            LED = (g_cur);
+                            LED = (b_cur);
                         }
                     } else {
-                        LED = (unsigned int) (QOI_OP_RGB);
-                        LED = (unsigned int) (r_cur);
-                        LED = (unsigned int) (g_cur);
-                        LED = (unsigned int) (b_cur);
+                        LED = (QOI_OP_RGB);
+                        LED = (r_cur);
+                        LED = (g_cur);
+                        LED = (b_cur);
                     }
                 }
 		
