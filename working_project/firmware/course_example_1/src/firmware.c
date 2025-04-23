@@ -31,6 +31,11 @@ unsigned int Multiply(unsigned int a, unsigned int b) {
 void irq_handler(unsigned int cause) {
 }
 
+unsigned char closest_difference(unsigned char current, unsigned char prev) {
+    signed char diff = (current >= prev) ? current - prev : 256 - (prev - current);
+    return diff;
+}
+
 unsigned char pixel_hash(unsigned char r, unsigned char g, unsigned char b, unsigned char a) {
     return (Multiply(r, 3) + Multiply(g, 5) + Multiply(b, 7) + Multiply(a, 11)) & 0x3F;
 }
@@ -90,18 +95,23 @@ int main(void) {
                 } else {
                     running_array[index] = current_pixel;
 
-                    int dr = r_cur - r_prev;
-                    int dg = g_cur - g_prev;
-                    int db = b_cur - b_prev;
+                    // int dr = r_cur - r_prev;
+                    // int dg = g_cur - g_prev;
+                    // int db = b_cur - b_prev;
 
-                    if (dr < -128) dr += 256;
-                    else if (dr > 127) dr -= 256;
+                    // if (dr < -128) dr += 256;
+                    // else if (dr > 127) dr -= 256;
 
-                    if (dg < -128) dg += 256;
-                    else if (dg > 127) dg -= 256;
+                    // if (dg < -128) dg += 256;
+                    // else if (dg > 127) dg -= 256;
 
-                    if (db < -128) db += 256;
-                    else if (db > 127) db -= 256;
+                    // if (db < -128) db += 256;
+                    // else if (db > 127) db -= 256;
+
+                    int dr = closest_difference(r_cur, r_prev);
+                    int dg = closest_difference(g_cur, g_prev);
+                    int db = closest_difference(b_cur, b_prev);
+                    
 
                     if (dr >= -2 && dr <= 1 && dg >= -2 && dg <= 1 && db >= -2 && db <= 1) {
                         
