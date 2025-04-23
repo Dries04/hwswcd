@@ -405,7 +405,7 @@ Disassembly of section .text:
  5a0:	00248593          	addi	a1,s1,2
  5a4:	10b76e63          	bltu	a4,a1,6c0 <main+0x300>
  5a8:	00290513          	addi	a0,s2,2
- 5ac:	1ca76263          	bltu	a4,a0,770 <main+0x3b0>
+ 5ac:	1ca76463          	bltu	a4,a0,774 <main+0x3b4>
  5b0:	00479793          	slli	a5,a5,0x4
  5b4:	00a7e7b3          	or	a5,a5,a0
  5b8:	00259593          	slli	a1,a1,0x2
@@ -464,8 +464,8 @@ Disassembly of section .text:
  68c:	01412703          	lw	a4,20(sp)
  690:	0ffcf793          	andi	a5,s9,255
  694:	e4e798e3          	bne	a5,a4,4e4 <main+0x124>
- 698:	0ff57793          	andi	a5,a0,255
- 69c:	e49794e3          	bne	a5,s1,4e4 <main+0x124>
+ 698:	0ff57713          	andi	a4,a0,255
+ 69c:	e4e494e3          	bne	s1,a4,4e4 <main+0x124>
  6a0:	00198993          	addi	s3,s3,1
  6a4:	03e00793          	addi	a5,zero,62
  6a8:	f4f990e3          	bne	s3,a5,5e8 <main+0x228>
@@ -502,9 +502,9 @@ Disassembly of section .text:
  724:	07700793          	addi	a5,zero,119
  728:	40940433          	sub	s0,s0,s1
  72c:	00fda023          	sw	a5,0(s11)
- 730:	00840413          	addi	s0,s0,8
- 734:	00f00793          	addi	a5,zero,15
- 738:	0087f663          	bgeu	a5,s0,744 <main+0x384>
+ 730:	00f00713          	addi	a4,zero,15
+ 734:	00840793          	addi	a5,s0,8
+ 738:	00f77663          	bgeu	a4,a5,744 <main+0x384>
  73c:	09900793          	addi	a5,zero,153
  740:	f91ff06f          	jal	zero,6d0 <main+0x310>
  744:	40990933          	sub	s2,s2,s1
@@ -512,17 +512,17 @@ Disassembly of section .text:
  74c:	00f00793          	addi	a5,zero,15
  750:	ff27e6e3          	bltu	a5,s2,73c <main+0x37c>
  754:	02048493          	addi	s1,s1,32
- 758:	0804e493          	ori	s1,s1,128
- 75c:	00441413          	slli	s0,s0,0x4
- 760:	009da023          	sw	s1,0(s11)
- 764:	01246433          	or	s0,s0,s2
- 768:	008da023          	sw	s0,0(s11)
- 76c:	e65ff06f          	jal	zero,5d0 <main+0x210>
- 770:	40940433          	sub	s0,s0,s1
+ 758:	00840413          	addi	s0,s0,8
+ 75c:	0804e493          	ori	s1,s1,128
+ 760:	00441793          	slli	a5,s0,0x4
+ 764:	009da023          	sw	s1,0(s11)
+ 768:	0127e7b3          	or	a5,a5,s2
+ 76c:	00fda023          	sw	a5,0(s11)
+ 770:	e61ff06f          	jal	zero,5d0 <main+0x210>
  774:	07700793          	addi	a5,zero,119
  778:	00fda023          	sw	a5,0(s11)
- 77c:	40990933          	sub	s2,s2,s1
- 780:	00840413          	addi	s0,s0,8
+ 77c:	40940433          	sub	s0,s0,s1
+ 780:	40990933          	sub	s2,s2,s1
  784:	fc5ff06f          	jal	zero,748 <main+0x388>
 
 Disassembly of section .rodata.str1.4:
