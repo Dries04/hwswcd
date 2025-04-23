@@ -91,14 +91,19 @@ int main(void) {
 
                     if ((dr >= -2 && dr <= 1) && (dg >= -2 && dg <= 1) && (db >= -2 && db <= 1)) {
                         
-                        LED = 0x88; // Placeholder for QOI_OP_DIFF
+                        LED = 0xCAFE0001;
 
                         LED = QOI_OP_DIFF | ((dr + 2) << 4) | ((dg + 2) << 2) | (db + 2);
+
+                        LED = 0xCAFE0001;
                     } else if (dg >= -32 && dg <= 31) {
 
                         LED = 0x77; // Placeholder for QOI_OP_LUMA
 
                         int dr_dg = dr - dg;
+
+                        LED = B16B00B5; // Placeholder for QOI_OP_LUMA
+
                         int db_dg = db - dg;
 
                         if ((dr_dg >= -8 && dr_dg <= 7) && (db_dg >= -8 && db_dg <= 7)) {
