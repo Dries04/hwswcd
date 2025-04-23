@@ -111,36 +111,23 @@ int main(void) {
                     int dr = closest_difference(r_cur, r_prev);
                     int dg = closest_difference(g_cur, g_prev);
                     int db = closest_difference(b_cur, b_prev);
-                    
+
 
                     if (dr >= -2 && dr <= 1 && dg >= -2 && dg <= 1 && db >= -2 && db <= 1) {
-                        
-                        LED = 0xCAFE0001;
-
                         //LED = QOI_OP_DIFF | ((dr + 2) << 4) | ((dg + 2) << 2) | (db + 2);
                         LED = 0b01000000 | ((dr + 2) << 4) | ((dg + 2) << 2) | (db + 2);
 
-                        LED = 0xCAFE0002;
-
                     } else if (dg >= -32 && dg <= 31) {
 
-                        LED = 0x77; // Placeholder for QOI_OP_LUMA
 
                         int dr_dg = dr - dg;
-
-                        LED = 0xB16B00B5; // Placeholder for QOI_OP_LUMA
-
                         int db_dg = db - dg;
 
                         if ((dr_dg >= -8 && dr_dg <= 7) && (db_dg >= -8 && db_dg <= 7)) {
 
-                            LED = 0x66; // Placeholder for QOI_OP_LUMA
                             LED = QOI_OP_LUMA | (dg + 32);
                             LED = ((dr_dg + 8) << 4) | (db_dg + 8);
                         } else {
-
-                            LED = 0x99; // Placeholder for QOI_OP_LUMA
-
 
                             LED = (QOI_OP_RGB);
                             LED = (r_cur);
@@ -148,7 +135,6 @@ int main(void) {
                             LED = (b_cur);
                         }
                     } else {
-                        LED = 0x77; // Placeholder for QOI_OP_RGB
 
                         LED = (QOI_OP_RGB);
                         LED = (r_cur);
