@@ -32,10 +32,8 @@ int main(void) {
         running_array[i] = 0;
     }
 
-    //int C_WIDTH = SENSOR_get_width();
-    //int C_HEIGHT = SENSOR_get_height();
-    int C_WIDTH = 75; // Example width
-    int C_HEIGHT = 50; // Example height
+    int C_WIDTH = SENSOR_get_width();
+    int C_HEIGHT = SENSOR_get_height();
 
     // Write header directly to LED
     LED = 'q'; LED = 'o'; LED = 'i'; LED = 'f';
