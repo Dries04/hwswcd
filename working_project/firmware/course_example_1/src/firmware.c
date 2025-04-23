@@ -12,13 +12,27 @@
 #define OUT_REG0_ADDRESS (OUTPORT + 0*4)
 #define LED (*(volatile unsigned int *) OUT_REG0_ADDRESS)
 
-extern unsigned int sw_mult(unsigned int x, unsigned int y);
+//extern unsigned int sw_mult(unsigned int x, unsigned int y);
+
+unsigned int Multiply(unsigned int a, unsigned int b) {
+    unsigned int result = 0;
+
+    while (b > 0) {
+        if (b & 1) { 
+            result += a;
+        }
+        a <<= 1; 
+        b >>= 1; 
+    }
+
+    return result;
+}
 
 void irq_handler(unsigned int cause) {
 }
 
 unsigned char pixel_hash(unsigned char r, unsigned char g, unsigned char b, unsigned char a) {
-    return (sw_mult(r, 3) + sw_mult(g, 5) + sw_mult(b, 7) + sw_mult(a, 11)) & 0x3F;
+    return (Multiply(r, 3) + Multiply(g, 5) + Multiply(b, 7) + Multiply(a, 11)) & 0x3F;
 }
 
 int main(void) {
