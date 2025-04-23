@@ -113,15 +113,15 @@ int main(void) {
                     signed char db = closest_difference(b_cur, b_prev);
 
 
-                    if (dr >= -2 && dr <= 1 && dg >= -2 && dg <= 1 && db >= -2 && db <= 1) {
+                    if ((dr >= -2 && dr <= 1) && (dg >= -2 && dg <= 1) && (db >= -2 && db <= 1)) {
                         //LED = QOI_OP_DIFF | ((dr + 2) << 4) | ((dg + 2) << 2) | (db + 2);
                         LED = 0b01000000 | ((dr + 2) << 4) | ((dg + 2) << 2) | (db + 2);
 
                     } else if (dg >= -32 && dg <= 31) {
 
 
-                        int dr_dg = dr - dg;
-                        int db_dg = db - dg;
+                        signed char dr_dg = dr - dg;
+                        signed char db_dg = db - dg;
 
                         if ((dr_dg >= -8 && dr_dg <= 7) && (db_dg >= -8 && db_dg <= 7)) {
 
