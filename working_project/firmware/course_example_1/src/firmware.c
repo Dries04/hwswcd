@@ -37,8 +37,10 @@ int main(void) {
 
     // Write header directly to LED
     LED = 'q'; LED = 'o'; LED = 'i'; LED = 'f';
-    LED = 0x00; LED = 0x00; LED = 0x00; LED = C_WIDTH;
-    LED = 0x00; LED = 0x00; LED = 0x00; LED = C_HEIGHT;
+    LED = 0x00; LED = 0x00; LED = 0x00; 
+    LED = SENSOR_get_width();
+    LED = 0x00; LED = 0x00; LED = 0x00; 
+    LED = SENSOR_get_height();
     LED = 0x03; LED = 0x00;
 
     for (i = 0; i < C_HEIGHT; i++) {
@@ -46,7 +48,6 @@ int main(void) {
         for (int j = 0; j < C_WIDTH; j++) {
 
             unsigned int pixeldata = SENSOR_fetch();
-            LED = pixeldata; // Send pixel data to LED
             unsigned char r_cur = (pixeldata >> 24) & 0xFF;
             unsigned char g_cur = (pixeldata >> 16) & 0xFF;
             unsigned char b_cur = (pixeldata >> 8) & 0xFF;
