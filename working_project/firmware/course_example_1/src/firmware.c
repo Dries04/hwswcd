@@ -93,9 +93,11 @@ int main(void) {
                         
                         LED = 0xCAFE0001;
 
-                        LED = QOI_OP_DIFF | ((dr + 2) << 4) | ((dg + 2) << 2) | (db + 2);
+                        //LED = QOI_OP_DIFF | ((dr + 2) << 4) | ((dg + 2) << 2) | (db + 2);
+                        LED = 0b01000000 | ((dr + 2) << 4) | ((dg + 2) << 2) | (db + 2);
 
                         LED = 0xCAFE0002;
+
                     } else if (dg >= -32 && dg <= 31) {
 
                         LED = 0x77; // Placeholder for QOI_OP_LUMA
