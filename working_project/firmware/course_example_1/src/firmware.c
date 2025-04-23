@@ -90,9 +90,9 @@ int main(void) {
                 } else {
                     running_array[index] = current_pixel;
 
-                    signed char dr = r_cur - r_prev;
-                    signed char dg = g_cur - g_prev;
-                    signed char db = b_cur - b_prev;
+                    int dr = r_cur - r_prev;
+                    int dg = g_cur - g_prev;
+                    int db = b_cur - b_prev;
 
                     if (dr < -128) dr += 256;
                     else if (dr > 127) dr -= 256;
