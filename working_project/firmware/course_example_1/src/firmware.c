@@ -95,14 +95,14 @@ int main(void) {
 
                         LED = QOI_OP_DIFF | ((dr + 2) << 4) | ((dg + 2) << 2) | (db + 2);
 
-                        LED = 0xCAFE0001;
+                        LED = 0xCAFE0002;
                     } else if (dg >= -32 && dg <= 31) {
 
                         LED = 0x77; // Placeholder for QOI_OP_LUMA
 
                         int dr_dg = dr - dg;
 
-                        LED = B16B00B5; // Placeholder for QOI_OP_LUMA
+                        LED = 0xB16B00B5; // Placeholder for QOI_OP_LUMA
 
                         int db_dg = db - dg;
 
@@ -122,7 +122,7 @@ int main(void) {
                             LED = (b_cur);
                         }
                     } else {
-                        LED = 77; // Placeholder for QOI_OP_RGB
+                        LED = 0x77; // Placeholder for QOI_OP_RGB
 
                         LED = (QOI_OP_RGB);
                         LED = (r_cur);
