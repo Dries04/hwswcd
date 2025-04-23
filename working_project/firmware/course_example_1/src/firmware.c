@@ -45,6 +45,11 @@ int main(void) {
 
         for (int j = 0; j < C_WIDTH; j++) {
 
+            LED = 0x21; // Test for refresh
+            LED = SENSOR_get_width(); // Test for refresh
+            LED = SENSOR_get_height(); // Test for refresh
+            LED = 0x22; // Test for refresh
+
             unsigned int pixeldata = SENSOR_fetch();
             LED = pixeldata; // Send pixel data to LED
             unsigned char r_cur = (pixeldata >> 24) & 0xFF;
