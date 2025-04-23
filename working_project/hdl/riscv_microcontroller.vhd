@@ -79,7 +79,7 @@ begin
     dmem_we_out <= dmem_we;
     dmem_a_out <= dmem_a;
     dmem_di_out <= dmem_di;
-    riscv_clock <= clock;
+    riscv_clock <= ce(0);
     gpio_leds_o <= leds(31 downto 0);
 
 
