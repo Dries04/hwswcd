@@ -108,9 +108,9 @@ int main(void) {
                     // if (db < -128) db += 256;
                     // else if (db > 127) db -= 256;
 
-                    int dr = closest_difference(r_cur, r_prev);
-                    int dg = closest_difference(g_cur, g_prev);
-                    int db = closest_difference(b_cur, b_prev);
+                    signed char dr = closest_difference(r_cur, r_prev);
+                    signed char dg = closest_difference(g_cur, g_prev);
+                    signed char db = closest_difference(b_cur, b_prev);
 
 
                     if (dr >= -2 && dr <= 1 && dg >= -2 && dg <= 1 && db >= -2 && db <= 1) {
