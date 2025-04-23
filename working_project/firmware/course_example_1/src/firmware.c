@@ -103,7 +103,7 @@ int main(void) {
                     if (db < -128) db += 256;
                     else if (db > 127) db -= 256;
 
-                    if ((dr >= -2 && dr <= 1) && (dg >= -2 && dg <= 1) && (db >= -2 && db <= 1)) {
+                    if (dr >= -2 && dr <= 1 && dg >= -2 && dg <= 1 && db >= -2 && db <= 1) {
                         
                         LED = 0xCAFE0001;
 
