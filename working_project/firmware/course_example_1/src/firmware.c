@@ -87,8 +87,14 @@ int main(void) {
                     else if (db > 127) db -= 256;
 
                     if ((dr >= -2 && dr <= 1) && (dg >= -2 && dg <= 1) && (db >= -2 && db <= 1)) {
+                        
+                        LED = 0x88; // Placeholder for QOI_OP_DIFF
+
                         LED = (unsigned int) (QOI_OP_DIFF | ((dr + 2) << 4) | ((dg + 2) << 2) | (db + 2));
                     } else if (dg >= -32 && dg <= 31) {
+
+                        LED = 0x77; // Placeholder for QOI_OP_LUMA
+
                         int dr_dg = dr - dg;
                         int db_dg = db - dg;
 
@@ -96,12 +102,18 @@ int main(void) {
                             LED = (unsigned int) (QOI_OP_LUMA | (dg + 32));
                             LED = (unsigned int) ((dr_dg + 8) << 4) | (db_dg + 8);
                         } else {
+
+                            LED = 0x99; // Placeholder for QOI_OP_LUMA
+
+
                             LED = (QOI_OP_RGB);
                             LED = (r_cur);
                             LED = (g_cur);
                             LED = (b_cur);
                         }
                     } else {
+                        LED = 77; // Placeholder for QOI_OP_RGB
+
                         LED = (QOI_OP_RGB);
                         LED = (r_cur);
                         LED = (g_cur);
