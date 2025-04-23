@@ -56,20 +56,20 @@ int main(void) {
             if (r_cur == r_prev && g_cur == g_prev && b_cur == b_prev && a_cur == a_prev) {
                 run++;
                 if (run == 62) {
-                    LED = (unsigned int) (QOI_OP_RUN | (run - 1));
+                    LED = (QOI_OP_RUN | (run - 1));
                     run = 0;
                 }
             } else {
                 if (run > 0) {
-                    LED = (unsigned int) (QOI_OP_RUN | (run - 1));
+                    LED = (QOI_OP_RUN | (run - 1));
                     run = 0;
                 }
 
                 unsigned char index = pixel_hash(r_cur, g_cur, b_cur, a_cur);
-                unsigned int current_pixel = ((unsigned int)r_cur << 24) | ((unsigned int)g_cur << 16) | ((unsigned int)b_cur << 8) | a_cur;
+                unsigned int current_pixel = (r_cur << 24) | (g_cur << 16) | (b_cur << 8) | a_cur;
 
                 if (running_array[index] == current_pixel) {
-                    LED = (unsigned int) (QOI_OP_INDEX | index);
+                    LED = QOI_OP_INDEX | index;
                 } else {
                     running_array[index] = current_pixel;
 
@@ -90,7 +90,7 @@ int main(void) {
                         
                         LED = 0x88; // Placeholder for QOI_OP_DIFF
 
-                        LED = (unsigned int) (QOI_OP_DIFF | ((dr + 2) << 4) | ((dg + 2) << 2) | (db + 2));
+                        LED = QOI_OP_DIFF | ((dr + 2) << 4) | ((dg + 2) << 2) | (db + 2);
                     } else if (dg >= -32 && dg <= 31) {
 
                         LED = 0x77; // Placeholder for QOI_OP_LUMA
@@ -99,8 +99,8 @@ int main(void) {
                         int db_dg = db - dg;
 
                         if ((dr_dg >= -8 && dr_dg <= 7) && (db_dg >= -8 && db_dg <= 7)) {
-                            LED = (unsigned int) (QOI_OP_LUMA | (dg + 32));
-                            LED = (unsigned int) ((dr_dg + 8) << 4) | (db_dg + 8);
+                            LED = QOI_OP_LUMA | (dg + 32);
+                            LED = ((dr_dg + 8) << 4) | (db_dg + 8);
                         } else {
 
                             LED = 0x99; // Placeholder for QOI_OP_LUMA
@@ -131,7 +131,7 @@ int main(void) {
 
     // Flush any remaining run
     if (run > 0) {
-        LED = (unsigned int) (QOI_OP_RUN | (run - 1));
+        LED = QOI_OP_RUN | (run - 1);
     }
 
     // End marker: 7x 0x00, 1x 0x01
