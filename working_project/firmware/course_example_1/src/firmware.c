@@ -99,6 +99,8 @@ int main(void) {
                         int db_dg = db - dg;
 
                         if ((dr_dg >= -8 && dr_dg <= 7) && (db_dg >= -8 && db_dg <= 7)) {
+
+                            LED = 0x66; // Placeholder for QOI_OP_LUMA
                             LED = QOI_OP_LUMA | (dg + 32);
                             LED = ((dr_dg + 8) << 4) | (db_dg + 8);
                         } else {
