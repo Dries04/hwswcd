@@ -35,8 +35,8 @@ int main(void) {
     // int C_WIDTH = SENSOR_get_width();
     // int C_HEIGHT = SENSOR_get_height();
 
-    int C_WIDTH = 75; // Placeholder for actual width
-    int C_HEIGHT = 50; // Placeholder for actual height
+    int C_WIDTH = 4B; // Placeholder for actual width
+    int C_HEIGHT = 32; // Placeholder for actual height
 
     // Write header directly to LED
     LED = 'q'; LED = 'o'; LED = 'i'; LED = 'f';
