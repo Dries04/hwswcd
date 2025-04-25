@@ -42,6 +42,8 @@ unsigned char pixel_hash(unsigned char r, unsigned char g, unsigned char b, unsi
 
 int main(void) {
 
+    TCNT_start();
+
     unsigned char r_prev = 0, g_prev = 0, b_prev = 0, a_prev = 255;
     int run = 0;
     unsigned int running_array[64];
@@ -113,7 +115,7 @@ int main(void) {
                     signed char db = closest_difference(b_cur, b_prev);
 
 
-                    if ((dr >= -2 && dr <= 1) && (dg >= -2 && dg <= 1) && (db >= -2 && db <= 1)) {
+                    if ((dr >= -2 && dr <= 1) && (dg >= -2 && dg <= 1) && (db >= -2 && db <= 1) && (a_cur == a_prev)) {
                         //LED = QOI_OP_DIFF | ((dr + 2) << 4) | ((dg + 2) << 2) | (db + 2);
                         LED = 0b01000000 | ((dr + 2) << 4) | ((dg + 2) << 2) | (db + 2);
 
@@ -123,7 +125,7 @@ int main(void) {
                         signed char dr_dg = dr - dg;
                         signed char db_dg = db - dg;
 
-                        if ((dr_dg >= -8 && dr_dg <= 7) && (db_dg >= -8 && db_dg <= 7)) {
+                        if ((dr_dg >= -8 && dr_dg <= 7) && (db_dg >= -8 && db_dg <= 7) && (a_cur == a_prev)) {
 
                             LED = QOI_OP_LUMA | (dg + 32);
                             LED = ((dr_dg + 8) << 4) | (db_dg + 8);
@@ -159,6 +161,8 @@ int main(void) {
     // End marker: 7x 0x00, 1x 0x01
     for (i = 0; i < 7; i++) LED = 0;
     LED = 1;
+
+    TCNT_stop();
 
     return 0;
 }
