@@ -29,6 +29,12 @@ unsigned int Multiply(unsigned int a, unsigned int b) {
 }
 
 void irq_handler(unsigned int cause) {
+    if (cause & 4) {
+
+    }
+
+    TCNT_CR = 0x17;
+    TCNT_CR = 0x7;
 }
 
 unsigned char closest_difference(unsigned char current, unsigned char prev) {
@@ -41,7 +47,8 @@ unsigned char pixel_hash(unsigned char r, unsigned char g, unsigned char b, unsi
 }
 
 int main(void) {
-
+    
+    TCNT_CMP = 0xFFFD40;
     TCNT_start();
 
     unsigned char r_prev = 0, g_prev = 0, b_prev = 0, a_prev = 255;
