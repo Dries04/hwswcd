@@ -66,6 +66,9 @@ architecture Behavioural of riscv_microcontroller is
     signal external_irq_dd : STD_LOGIC;
     signal debouncer : integer range 0 to 800000-1;
     signal external_irq_sync_dbnc, external_irq_set, external_irq_reset : STD_LOGIC;
+    
+    
+    signal dmem_do_hashing: std_logic_vector(31 downto 0);
 
 begin
 
@@ -172,6 +175,15 @@ begin
         iface_we => dmem_we,
         iface_do => dmem_do_wrapped_sensor
     );
+    
+--    hashing_inst00: component hashing port map(
+--        clock => clock,
+--        reset => reset,
+--        iface_di => dmem_di,
+--        iface_we => dmem_we,
+--        iface_do => dmem_do_wrapped_timer
+        
+--    );
 
     PMUX_bus: process(dmem_a, dmem_do_tcnt, dmem_do_dmem, leds, dmem_do_wrapped_sensor)
     begin
@@ -179,9 +191,12 @@ begin
             when C_LED_BASE_ADDRESS_MASK => dmem_do <= leds;
             when C_TIMER_BASE_ADDRESS_MASK => dmem_do <= dmem_do_tcnt;
             when C_SENSOR_BASE_ADDRESS_MASK => dmem_do <= dmem_do_wrapped_sensor;
+--            when C_HASHING_BASE_ADDRESS_MASK => dmem_do <= dmem_do_hashing;
             when others => dmem_do <= dmem_do_dmem;
         end case;
     end process;
+    
+
 
 
     -------------------------------------------------------------------------------
