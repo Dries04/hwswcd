@@ -14,24 +14,24 @@
 
 //extern unsigned int sw_mult(unsigned int x, unsigned int y);
 
-unsigned int Multiply(unsigned int a, unsigned int b) {
-    unsigned int result = 0;
+// unsigned int Multiply(unsigned int a, unsigned int b) {
+//     unsigned int result = 0;
 
-    while (b > 0) {
-        if (b & 1) { 
-            result += a;
-        }
-        a <<= 1; 
-        b >>= 1; 
-    }
+//     while (b > 0) {
+//         if (b & 1) { 
+//             result += a;
+//         }
+//         a <<= 1; 
+//         b >>= 1; 
+//     }
 
-    return result;
-}
+//     return result;
+// }
 
 void irq_handler(unsigned int cause) {
-    if (cause & 4) {
+    // if (cause & 4) {
 
-    }
+    // }
 
     TCNT_CR = 0x17;
     TCNT_CR = 0x7;
@@ -51,7 +51,7 @@ int main(void) {
     TCNT_CMP = 0xFFFD40;
     TCNT_start();
 
-    unsigned char r_prev = 0, g_prev = 0, b_prev = 0, a_prev = 255;
+    unsigned char r_prev = 0, g_prev = 0, b_prev = 0
     int run = 0;
     unsigned int running_array[64];
     int i;
@@ -82,9 +82,8 @@ int main(void) {
             unsigned char r_cur = (pixeldata >> 24) & 0xFF;
             unsigned char g_cur = (pixeldata >> 16) & 0xFF;
             unsigned char b_cur = (pixeldata >> 8) & 0xFF;
-            unsigned char a_cur = pixeldata & 0xFF;
 
-            if (r_cur == r_prev && g_cur == g_prev && b_cur == b_prev && a_cur == a_prev) {
+            if (r_cur == r_prev && g_cur == g_prev && b_cur == b_prev) {
                 run++;
                 if (run == 62) {
                     LED = (QOI_OP_RUN | (run - 1));
@@ -109,11 +108,8 @@ int main(void) {
                 // b * 7 = (b << 3) - b
                 sum += (b_cur << 3) - b_cur;
 
-                // a * 11 = (a << 3) + (a << 1) + a
-                sum += (a_cur << 3) + (a_cur << 1) + a_cur;
-
                 unsigned char index = sum & 0x3F;
-                unsigned int current_pixel = (r_cur << 24) | (g_cur << 16) | (b_cur << 8) | a_cur;
+                unsigned int current_pixel = (r_cur << 24) | (g_cur << 16) | (b_cur << 8);
 
                 if (running_array[index] == current_pixel) {
                     LED = QOI_OP_INDEX | index;
@@ -133,22 +129,24 @@ int main(void) {
                     // if (db < -128) db += 256;
                     // else if (db > 127) db -= 256;
 
-                    signed char dr = closest_difference(r_cur, r_prev);
-                    signed char dg = closest_difference(g_cur, g_prev);
-                    signed char db = closest_difference(b_cur, b_prev);
+                    // signed char dr = closest_difference(r_cur, r_prev);
+                    // signed char dg = closest_difference(g_cur, g_prev);
+                    // signed char db = closest_difference(b_cur, b_prev);
 
+                    signed chaar dr = (current >= prev) ? current - prev : 256 - (prev - current);
+                    signed char dg = (current >= prev) ? current - prev : 256 - (prev - current);
+                    signed char db = (current >= prev) ? current - prev : 256 - (prev - current);
 
-                    if ((dr >= -2 && dr <= 1) && (dg >= -2 && dg <= 1) && (db >= -2 && db <= 1) && (a_cur == a_prev)) {
+                    if ((dr >= -2 && dr <= 1) && (dg >= -2 && dg <= 1) && (db >= -2 && db <= 1)) {
                         //LED = QOI_OP_DIFF | ((dr + 2) << 4) | ((dg + 2) << 2) | (db + 2);
                         LED = 0b01000000 | ((dr + 2) << 4) | ((dg + 2) << 2) | (db + 2);
 
                     } else if (dg >= -32 && dg <= 31) {
 
-
                         signed char dr_dg = dr - dg;
                         signed char db_dg = db - dg;
 
-                        if ((dr_dg >= -8 && dr_dg <= 7) && (db_dg >= -8 && db_dg <= 7) && (a_cur == a_prev)) {
+                        if ((dr_dg >= -8 && dr_dg <= 7) && (db_dg >= -8 && db_dg <= 7)) {
 
                             LED = QOI_OP_LUMA | (dg + 32);
                             LED = ((dr_dg + 8) << 4) | (db_dg + 8);
@@ -171,7 +169,6 @@ int main(void) {
                 r_prev = r_cur;
                 g_prev = g_cur;
                 b_prev = b_cur;
-                a_prev = a_cur;
             }
         }
     }
