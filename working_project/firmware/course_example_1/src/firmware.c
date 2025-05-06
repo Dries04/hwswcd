@@ -51,7 +51,7 @@ int main(void) {
     TCNT_CMP = 0xFFFD40;
     TCNT_start();
 
-    unsigned char r_prev = 0, g_prev = 0, b_prev = 0
+    unsigned char r_prev = 0, g_prev = 0, b_prev = 0;
     int run = 0;
     unsigned int running_array[64];
     int i;
@@ -133,7 +133,7 @@ int main(void) {
                     // signed char dg = closest_difference(g_cur, g_prev);
                     // signed char db = closest_difference(b_cur, b_prev);
 
-                    signed chaar dr = (current >= prev) ? current - prev : 256 - (prev - current);
+                    signed char dr = (current >= prev) ? current - prev : 256 - (prev - current);
                     signed char dg = (current >= prev) ? current - prev : 256 - (prev - current);
                     signed char db = (current >= prev) ? current - prev : 256 - (prev - current);
 
