@@ -133,9 +133,9 @@ int main(void) {
                     // signed char dg = closest_difference(g_cur, g_prev);
                     // signed char db = closest_difference(b_cur, b_prev);
 
-                    signed char dr = (current >= prev) ? current - prev : 256 - (prev - current);
-                    signed char dg = (current >= prev) ? current - prev : 256 - (prev - current);
-                    signed char db = (current >= prev) ? current - prev : 256 - (prev - current);
+                    signed char dr = (r_cur >= r_prev) ? r_cur - r_prev : 256 - (r_prev - r_cur);
+                    signed char dg = (g_cur >= g_prev) ? g_cur - g_prev : 256 - (g_prev - g_cur);
+                    signed char db = (b_cur >= b_prev) ? b_cur - b_prev : 256 - (b_prev - b_cur);
 
                     if ((dr >= -2 && dr <= 1) && (dg >= -2 && dg <= 1) && (db >= -2 && db <= 1)) {
                         //LED = QOI_OP_DIFF | ((dr + 2) << 4) | ((dg + 2) << 2) | (db + 2);
