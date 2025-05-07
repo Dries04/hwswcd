@@ -120,13 +120,13 @@ int main(void) {
                     // signed char dg = (g_cur >= g_prev) ? g_cur - g_prev : 256 - (g_prev - g_cur);
                     // signed char db = (b_cur >= b_prev) ? b_cur - b_prev : 256 - (b_prev - b_cur);
 
-                    unsigned char dr = r_cur - r_prev;
-                    unsigned char dg = g_cur - g_prev;
-                    unsigned char db = b_cur - b_prev;
+                    unsigned char dr_unsigned = r_cur - r_prev;
+                    unsigned char dg_unsigend = g_cur - g_prev;
+                    unsigned char db_unsigned = b_cur - b_prev;
 
-                    signed char dr_signed = (signed char)dr;
-                    signed char dg_signed = (signed char)dg;
-                    signed char db_signed = (signed char)db;
+                    signed char dr = (signed char)dr_unsigned;
+                    signed char dg = (signed char)dg_unsigend;
+                    signed char db = (signed char)db_unsigned;
 
                     if ((dr >= -2 && dr <= 1) && (dg >= -2 && dg <= 1) && (db >= -2 && db <= 1)) {
                         //LED = QOI_OP_DIFF | ((dr + 2) << 4) | ((dg + 2) << 2) | (db + 2);
