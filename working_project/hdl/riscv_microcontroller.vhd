@@ -66,23 +66,7 @@ architecture Behavioural of riscv_microcontroller is
     signal external_irq_dd : STD_LOGIC;
     signal debouncer : integer range 0 to 800000-1;
     signal external_irq_sync_dbnc, external_irq_set, external_irq_reset : STD_LOGIC;
-    
-    
-    signal dmem_do_hashing: std_logic_vector(31 downto 0);
-    signal dmem_do_fetcher: std_logic_vector(31 downto 0);
-    
-    -- FETCHER
-    signal SENSOR_CR          : std_logic_vector(31 downto 0);
-    signal SENSOR_PIXELDATA   : std_logic_vector(31 downto 0);
-    signal SENSOR_SR          : std_logic_vector(31 downto 0);
-    
-    -- CPU interface
-    signal r_out        : std_logic_vector(7 downto 0);
-    signal g_out        : std_logic_vector(7 downto 0);
-    signal b_out        : std_logic_vector(7 downto 0);
-    signal a_out        : std_logic_vector(7 downto 0);
-    signal data_valid   : std_logic;
-    signal cpu_ready    : std_logic;
+
 
 begin
 
@@ -189,29 +173,7 @@ begin
         iface_we => dmem_we,
         iface_do => dmem_do_wrapped_sensor
     );
-    
---    hashing_inst00: component hashing port map(
---        clock => clock,
---        reset => reset,
---        iface_di => dmem_di,
---        iface_we => dmem_we,
---        iface_do => dmem_do_wrapped_timer
-        
---    );
-
-    PixelFetcher: component pixel_fetch port map(
-        clk => clock,
-        reset => reset, 
-        SENSOR_CR => SENSOR_CR,        
-        SENSOR_PIXELDATA => SENSOR_PIXELDATA,
-        SENSOR_SR  => SENSOR_SR, 
-        r_out =>  r_out,      
-        g_out => g_out,   
-        b_out => b_out,
-        a_out => a_out,      
-        data_valid => data_valid,  
-        cpu_ready => cpu_ready  
-    );
+   
 
     PMUX_bus: process(dmem_a, dmem_do_tcnt, dmem_do_dmem, leds, dmem_do_wrapped_sensor)
     begin
@@ -219,8 +181,6 @@ begin
             when C_LED_BASE_ADDRESS_MASK => dmem_do <= leds;
             when C_TIMER_BASE_ADDRESS_MASK => dmem_do <= dmem_do_tcnt;
             when C_SENSOR_BASE_ADDRESS_MASK => dmem_do <= dmem_do_wrapped_sensor;
---            when C_HASHING_BASE_ADDRESS_MASK => dmem_do <= dmem_do_hashing;
-            when C_FETCHER_BASE_ADDRESS_MASK => dmem_do <= dmem_do_fetcher;
             when others => dmem_do <= dmem_do_dmem;
         end case;
     end process;

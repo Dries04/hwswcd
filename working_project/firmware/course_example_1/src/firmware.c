@@ -37,10 +37,10 @@ void irq_handler(unsigned int cause) {
     TCNT_CR = 0x7;
 }
 
-unsigned char closest_difference(unsigned char current, unsigned char prev) {
-    signed char diff = (current >= prev) ? current - prev : 256 - (prev - current);
-    return diff;
-}
+// unsigned char closest_difference(unsigned char current, unsigned char prev) {
+//     signed char diff = (current >= prev) ? current - prev : 256 - (prev - current);
+//     return diff;
+// }
 
 // unsigned char pixel_hash(unsigned char r, unsigned char g, unsigned char b, unsigned char a) {
 //     return (Multiply(r, 3) + Multiply(g, 5) + Multiply(b, 7) + Multiply(a, 11)) & 0x3F;
@@ -56,9 +56,14 @@ int main(void) {
     unsigned int running_array[64];
     int i;
 
+    LED = 0xBA1DFACE;
+
+
     for (i = 0; i < 64; i++) {
         running_array[i] = 0;
     }
+
+    LED = 0xBA1DFACE;
 
     // int C_WIDTH = SENSOR_get_width();
     // int C_HEIGHT = SENSOR_get_height();
@@ -78,10 +83,12 @@ int main(void) {
 
         for (int j = 0; j < C_WIDTH; j++) {
 
+            LED = 0xCA55E77; // Placeholder for actual LED value
             unsigned int pixeldata = SENSOR_fetch();
             unsigned char r_cur = (pixeldata >> 24) & 0xFF;
             unsigned char g_cur = (pixeldata >> 16) & 0xFF;
             unsigned char b_cur = (pixeldata >> 8) & 0xFF;
+            LED = 0xCA55E77; // Placeholder for actual LED value
 
             if (r_cur == r_prev && g_cur == g_prev && b_cur == b_prev) {
                 run++;
@@ -96,6 +103,7 @@ int main(void) {
                 }
 
                 //unsigned char index = pixel_hash(r_cur, g_cur, b_cur, a_cur);
+                LED = 0xB00B5;
 
                 unsigned int sum = 0;
 
@@ -109,8 +117,10 @@ int main(void) {
                 sum += (b_cur << 3) - b_cur;
 
                 unsigned char index = sum & 0x3F;
+                LED = 0xB00B5;
+                LED = 0xB0B; // Placeholder for actual LED value
                 unsigned int current_pixel = (r_cur << 24) | (g_cur << 16) | (b_cur << 8);
-
+                LED = 0xB0B; // Placeholder for actual LED value
                 if (running_array[index] == current_pixel) {
                     LED = QOI_OP_INDEX | index;
                 } else {
@@ -128,21 +138,27 @@ int main(void) {
                     signed char dg = (signed char)dg_unsigend;
                     signed char db = (signed char)db_unsigned;
 
+                    LED = 0xF00DBA11;
+
                     if ((dr >= -2 && dr <= 1) && (dg >= -2 && dg <= 1) && (db >= -2 && db <= 1)) {
+
+                        LED = 0xF00DBA11;
                         //LED = QOI_OP_DIFF | ((dr + 2) << 4) | ((dg + 2) << 2) | (db + 2);
                         LED = 0b01000000 | ((dr + 2) << 4) | ((dg + 2) << 2) | (db + 2);
 
                     } else if (dg >= -32 && dg <= 31) {
+                        LED = C0DEACCE55;
 
                         signed char dr_dg = dr - dg;
                         signed char db_dg = db - dg;
 
                         if ((dr_dg >= -8 && dr_dg <= 7) && (db_dg >= -8 && db_dg <= 7)) {
-
+                            LED = 0xC0DEACCE55;
                             LED = QOI_OP_LUMA | (dg + 32);
                             LED = ((dr_dg + 8) << 4) | (db_dg + 8);
                         } else {
 
+                            LED = BABEBOOB;
                             LED = (QOI_OP_RGB);
                             LED = (r_cur);
                             LED = (g_cur);
