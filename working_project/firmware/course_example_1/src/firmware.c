@@ -147,18 +147,18 @@ int main(void) {
                         LED = 0b01000000 | ((dr + 2) << 4) | ((dg + 2) << 2) | (db + 2);
 
                     } else if (dg >= -32 && dg <= 31) {
-                        LED = C0DEACCE55;
+                        LED = 0xC0DE;
 
                         signed char dr_dg = dr - dg;
                         signed char db_dg = db - dg;
 
                         if ((dr_dg >= -8 && dr_dg <= 7) && (db_dg >= -8 && db_dg <= 7)) {
-                            LED = 0xC0DEACCE55;
+                            LED = 0xC0DE;
                             LED = QOI_OP_LUMA | (dg + 32);
                             LED = ((dr_dg + 8) << 4) | (db_dg + 8);
                         } else {
 
-                            LED = BABEBOOB;
+                            LED = 0xBABEB00B;
                             LED = (QOI_OP_RGB);
                             LED = (r_cur);
                             LED = (g_cur);
