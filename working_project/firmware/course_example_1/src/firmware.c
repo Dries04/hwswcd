@@ -116,26 +116,17 @@ int main(void) {
                 } else {
                     running_array[index] = current_pixel;
 
-                    // int dr = r_cur - r_prev;
-                    // int dg = g_cur - g_prev;
-                    // int db = b_cur - b_prev;
+                    // signed char dr = (r_cur >= r_prev) ? r_cur - r_prev : 256 - (r_prev - r_cur);
+                    // signed char dg = (g_cur >= g_prev) ? g_cur - g_prev : 256 - (g_prev - g_cur);
+                    // signed char db = (b_cur >= b_prev) ? b_cur - b_prev : 256 - (b_prev - b_cur);
 
-                    // if (dr < -128) dr += 256;
-                    // else if (dr > 127) dr -= 256;
+                    unsigned char dr = r_cur - r_prev;
+                    unsigned char dg = g_cur - g_prev;
+                    unsigned char db = b_cur - b_prev;
 
-                    // if (dg < -128) dg += 256;
-                    // else if (dg > 127) dg -= 256;
-
-                    // if (db < -128) db += 256;
-                    // else if (db > 127) db -= 256;
-
-                    // signed char dr = closest_difference(r_cur, r_prev);
-                    // signed char dg = closest_difference(g_cur, g_prev);
-                    // signed char db = closest_difference(b_cur, b_prev);
-
-                    signed char dr = (r_cur >= r_prev) ? r_cur - r_prev : 256 - (r_prev - r_cur);
-                    signed char dg = (g_cur >= g_prev) ? g_cur - g_prev : 256 - (g_prev - g_cur);
-                    signed char db = (b_cur >= b_prev) ? b_cur - b_prev : 256 - (b_prev - b_cur);
+                    signed char dr_signed = (signed char)dr;
+                    signed char dg_signed = (signed char)dg;
+                    signed char db_signed = (signed char)db;
 
                     if ((dr >= -2 && dr <= 1) && (dg >= -2 && dg <= 1) && (db >= -2 && db <= 1)) {
                         //LED = QOI_OP_DIFF | ((dr + 2) << 4) | ((dg + 2) << 2) | (db + 2);
@@ -178,9 +169,15 @@ int main(void) {
         LED = QOI_OP_RUN | (run - 1);
     }
 
-    // End marker: 7x 0x00, 1x 0x01
-    for (i = 0; i < 7; i++) LED = 0;
-    LED = 1;
+    // Write end marker
+    LED = 0x00;
+    LED = 0x00;
+    LED = 0x00;
+    LED = 0x00;
+    LED = 0x00;
+    LED = 0x00;
+    LED = 0x00;
+    LED = 0x01;
 
     TCNT_stop();
 

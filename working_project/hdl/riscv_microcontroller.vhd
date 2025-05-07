@@ -69,6 +69,20 @@ architecture Behavioural of riscv_microcontroller is
     
     
     signal dmem_do_hashing: std_logic_vector(31 downto 0);
+    signal dmem_do_fetcher: std_logic_vector(31 downto 0);
+    
+    -- FETCHER
+    signal SENSOR_CR          : std_logic_vector(31 downto 0);
+    signal SENSOR_PIXELDATA   : std_logic_vector(31 downto 0);
+    signal SENSOR_SR          : std_logic_vector(31 downto 0);
+    
+    -- CPU interface
+    signal r_out        : std_logic_vector(7 downto 0);
+    signal g_out        : std_logic_vector(7 downto 0);
+    signal b_out        : std_logic_vector(7 downto 0);
+    signal a_out        : std_logic_vector(7 downto 0);
+    signal data_valid   : std_logic;
+    signal cpu_ready    : std_logic;
 
 begin
 
@@ -185,6 +199,20 @@ begin
         
 --    );
 
+    PixelFetcher: component pixel_fetch port map(
+        clk => clock,
+        reset => reset, 
+        SENSOR_CR => SENSOR_CR,        
+        SENSOR_PIXELDATA => SENSOR_PIXELDATA,
+        SENSOR_SR  => SENSOR_SR, 
+        r_out =>  r_out,      
+        g_out => g_out,   
+        b_out => b_out,
+        a_out => a_out,      
+        data_valid => data_valid,  
+        cpu_ready => cpu_ready  
+    );
+
     PMUX_bus: process(dmem_a, dmem_do_tcnt, dmem_do_dmem, leds, dmem_do_wrapped_sensor)
     begin
         case dmem_a(dmem_a'high downto C_PERIPHERAL_MASK_LOWINDEX) is
@@ -192,6 +220,7 @@ begin
             when C_TIMER_BASE_ADDRESS_MASK => dmem_do <= dmem_do_tcnt;
             when C_SENSOR_BASE_ADDRESS_MASK => dmem_do <= dmem_do_wrapped_sensor;
 --            when C_HASHING_BASE_ADDRESS_MASK => dmem_do <= dmem_do_hashing;
+            when C_FETCHER_BASE_ADDRESS_MASK => dmem_do <= dmem_do_fetcher;
             when others => dmem_do <= dmem_do_dmem;
         end case;
     end process;
