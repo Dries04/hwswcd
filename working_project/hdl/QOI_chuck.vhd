@@ -6,16 +6,16 @@ use IEEE.NUMERIC_STD.ALL;
 library work;
     use work.PKG_hwswcd.ALL;
 
-entity QOI_chuck_inst00 is
+entity QOI_chuck is
     Port ( 
         clock: in std_logic;
         reset: in std_logic;
         pixel_data: in STD_LOGIC_VECTOR(C_WIDTH-1 downto 0);
         result_out: out std_logic_vector(C_WIDTH-1 downto 0)
     );
-end QOI_chuck_inst00;
+end QOI_chuck;
 
-architecture Behavioral of QOI_chuck_inst00 is
+architecture Behavioral of QOI_chuck is
 
     -- Signal Declarations
     signal r_cur, g_cur, b_cur : std_logic_vector(7 downto 0);  -- 8-bit RGB channels for the current pixel
@@ -37,9 +37,9 @@ architecture Behavioral of QOI_chuck_inst00 is
     signal dr_unsigned : unsigned(7 downto 0); -- Ga ervan uit dat je 8-bit unsigned waarden hebt
     signal dg_unsigned : unsigned(7 downto 0);
     signal db_unsigned : unsigned(7 downto 0);
-    signal dr          : signed(8 downto 0);   -- Signed kan een bit groter zijn ivm potentiele overflow bij conversie
-    signal dg          : signed(8 downto 0);
-    signal db          : signed(8 downto 0);
+    signal dr          : signed(7 downto 0);   -- Signed kan een bit groter zijn ivm potentiele overflow bij conversie
+    signal dg          : signed(7 downto 0);
+    signal db          : signed(7 downto 0);
     
     signal test: std_logic_vector(31 downto 0);
     signal part_1: std_logic_vector (7 downto 0);
@@ -50,7 +50,7 @@ architecture Behavioral of QOI_chuck_inst00 is
     signal dg_plus_2 : std_logic_vector(1 downto 0);
     signal db_plus_2 : std_logic_vector(1 downto 0);
     
-    signal result: std_logic_vector (7 downto 0);
+    signal result: std_logic_vector (31 downto 0);
     
 begin
 
@@ -79,7 +79,7 @@ begin
     process (dr, dg, db, r_cur, g_cur, b_cur)
     begin
         if (dr >= -2 and dr <= 1) and (dg >= -2 and dg <= 1) and (db >= -2 and db <= 1) then
-            result <= "00000001";
+            result <= "00000000000000000000000000000001";
             make_current_previous <= '1';
 --            part_1 <= "01000000";
 --            case dr is
@@ -111,17 +111,17 @@ begin
         
         if ((dr - dg) >= -8 and (dr - dg) <= 7) and ((db - dg) >= -8 and (db - dg) <= 7) then
         -- QOI OP LIMA
-            result <= "000000011";
+            result <= "00000000000000000000000000000011";
             make_current_previous <= '1';
         else
         -- QOI OP RGB
-            result <= "000000010";
+            result <= "00000000000000000000000000000010";
             make_current_previous <= '1';
         end if;
         
     else 
     -- QOI OP RGBA
-        result <= "00000100";
+        result <= "00000000000000000000000000000100";
         make_current_previous <= '1';
     end if;
     end process;

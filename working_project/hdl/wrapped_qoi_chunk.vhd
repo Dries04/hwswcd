@@ -4,7 +4,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 library work;
     use work.PKG_hwswcd.ALL;
 
-entity wrapped_qoi_chunk_inst00 is
+entity wrapped_qoi_chunk is
     Port ( 
         clock: in std_logic;
         reset: in std_logic;
@@ -13,10 +13,10 @@ entity wrapped_qoi_chunk_inst00 is
         iface_we : in STD_LOGIC;
         iface_do : out STD_LOGIC_VECTOR(C_WIDTH-1 downto 0)
     );
-end wrapped_qoi_chunk_inst00;
+end wrapped_qoi_chunk;
 
 
-architecture Behavioral of wrapped_qoi_chunk_inst00 is
+architecture Behavioral of wrapped_qoi_chunk is
 
     signal clock_i : STD_LOGIC;
     signal reset_i : STD_LOGIC;
@@ -82,7 +82,7 @@ begin
     end process;
 
 
-QOI_chuck_inst00: component QOI_chuck port map(
+QOI_chuck_1: component QOI_chuck port map(
         clock => clock_i,
         reset => reset_i,
         pixel_data => reg0,

@@ -247,7 +247,7 @@ begin
         heartbeat => open
     );
     
-    wrapped_qoi_chunk_inst00: component wrapped_qoi_chunk port map(
+    wrapped_qoi_chunk_1: component wrapped_qoi_chunk port map(
         clock => clock,
         reset => reset,
         iface_di => dmem_di,

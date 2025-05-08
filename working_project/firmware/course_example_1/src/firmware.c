@@ -57,14 +57,11 @@ int main(void) {
     unsigned int running_array[64];
     int i;
 
-    LED = 0xBA1DFACE;
-
 
     for (i = 0; i < 64; i++) {
         running_array[i] = 0;
     }
 
-    LED = 0xBA1DFACE;
 
     // int C_WIDTH = SENSOR_get_width();
     // int C_HEIGHT = SENSOR_get_height();
@@ -84,30 +81,22 @@ int main(void) {
 
         for (int j = 0; j < C_WIDTH; j++) {
 
-            LED = 0xCA55E77; // Placeholder for actual LED value
             unsigned int pixeldata = SENSOR_fetch();
             
             unsigned char r_cur = (pixeldata >> 24) & 0xFF;
             unsigned char g_cur = (pixeldata >> 16) & 0xFF;
             unsigned char b_cur = (pixeldata >> 8) & 0xFF;
-            LED = 0xCA55E77; // Placeholder for actual LED value
-            LED = 0XDEAD01;
             if (r_cur == r_prev && g_cur == g_prev && b_cur == b_prev) {
-                LED = 0xDEAD02;
                 run++;
                 if (run == 62) {
                     LED = (QOI_OP_RUN | (run - 1));
                     run = 0;
                 }
             } else {
-                LED = 0xDEAD03;
                 if (run > 0) {
                     LED = (QOI_OP_RUN | (run - 1));
                     run = 0;
                 }
-
-                //unsigned char index = pixel_hash(r_cur, g_cur, b_cur, a_cur);
-                LED = 0xB00B5;
 
                 unsigned int sum = 0;
 
@@ -121,16 +110,10 @@ int main(void) {
                 sum += (b_cur << 3) - b_cur;
 
                 unsigned char index = sum & 0x3F;
-                LED = 0xB00B6;
-                LED = 0xB0B; // Placeholder for actual LED value
                 unsigned int current_pixel = (r_cur << 24) | (g_cur << 16) | (b_cur << 8);
-                LED = 0xB0B1; // Placeholder for actual LED value
-                LED = 0xEDD4;
                 if (running_array[index] == current_pixel) {
-                    LED = 0xEDD5;
                     LED = QOI_OP_INDEX | index;
                 } else {
-                    LED = 0xEDD6;
                     running_array[index] = current_pixel;
 
                     // signed char dr = (r_cur >= r_prev) ? r_cur - r_prev : 256 - (r_prev - r_cur);
@@ -145,7 +128,7 @@ int main(void) {
                     signed char dg = (signed char)dg_unsigend;
                     signed char db = (signed char)db_unsigned;
 
-                    LED = 0xF00D;
+                    LED = 0xF00DBA00;
 
                     unsigned int chunk_result;
 
