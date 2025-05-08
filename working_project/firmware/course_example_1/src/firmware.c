@@ -1,5 +1,6 @@
 #include "tcnt.h"
 #include "sensor.h"
+#include "qoi_chunk.h"
 
 #define QOI_OP_INDEX 0x00 // 00xxxxxx
 #define QOI_OP_DIFF  0x40 // 01xxxxxx
@@ -146,6 +147,8 @@ int main(void) {
 
                     LED = 0xF00D;
 
+                    unsigned int chuck_result;
+
                     chuck_result = chunk_fetch();
                     
                     if (chunk_result == 0x0){
@@ -159,7 +162,7 @@ int main(void) {
                     }else if (chunk_result == 0x4){
                         LED = 0xF00DBA10;
                     }else{
-                        LED = 0xABC
+                        LED = 0xABC;
                     }
 
                     // if ((dr >= -2 && dr <= 1) && (dg >= -2 && dg <= 1) && (db >= -2 && db <= 1)) {

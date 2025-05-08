@@ -13,6 +13,6 @@
 #define QOI_CHUNK_SR                 (*(volatile unsigned int *) QOI_CHUNK_REG2_ADDRESS)
 #define QOI_CHUNK_VAL                (*(volatile unsigned int *) QOI_CHUNK_REG3_ADDRESS)
 
-
+unsigned int chunk_fetch(void);
 
 #endif
