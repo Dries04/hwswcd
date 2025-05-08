@@ -10,6 +10,9 @@ Discarded input sections
  .comment       0x00000000       0x1c build/tcnt.o
  .riscv.attributes
                 0x00000000       0x25 build/tcnt.o
+ .comment       0x00000000       0x1c build/qoi_chunk.o
+ .riscv.attributes
+                0x00000000       0x25 build/qoi_chunk.o
  .comment       0x00000000       0x1c build/firmware.o
  .riscv.attributes
                 0x00000000       0x25 build/firmware.o
@@ -26,7 +29,7 @@ RAM              0x00002000         0x00002000         xrw
 Linker script and memory map
 
 
-.text           0x00000000      0x764
+.text           0x00000000      0x6cc
                 0x00000000                        . = 0x0
  *(.init)
  .init          0x00000000      0x230 build/start.o
@@ -44,11 +47,13 @@ Linker script and memory map
                 0x000002e0                TCNT_start_div8
                 0x00000300                TCNT_start_div16
                 0x00000320                TCNT_stop
- .text          0x00000334       0x18 build/firmware.o
-                0x00000334                irq_handler
- .text.startup  0x0000034c      0x418 build/firmware.o
-                0x0000034c                main
- .text          0x00000764        0x0 build/start.o
+ .text          0x00000334        0xc build/qoi_chunk.o
+                0x00000334                chunk_fetch
+ .text          0x00000340       0x18 build/firmware.o
+                0x00000340                irq_handler
+ .text.startup  0x00000358      0x374 build/firmware.o
+                0x00000358                main
+ .text          0x000006cc        0x0 build/start.o
 
 .data           0x00002000        0x0
                 0x00000000                        . = 0x0
@@ -56,26 +61,29 @@ Linker script and memory map
  .data          0x00002000        0x0 build/print.o
  .data          0x00002000        0x0 build/sensor.o
  .data          0x00002000        0x0 build/tcnt.o
+ .data          0x00002000        0x0 build/qoi_chunk.o
  .data          0x00002000        0x0 build/firmware.o
  .data          0x00002000        0x0 build/start.o
 
-.bss            0x00002000        0x0
- .bss           0x00002000        0x0 build/print.o
- .bss           0x00002000        0x0 build/sensor.o
- .bss           0x00002000        0x0 build/tcnt.o
- .bss           0x00002000        0x0 build/firmware.o
- .bss           0x00002000        0x0 build/start.o
-
-.rodata         0x00002000     0x1000
+.rodata         0x00002000     0x1014
                 0x00001000                        . = 0x1000
  *fill*         0x00002000     0x1000 
  *(.rodata)
-                0x00003000                        . = ALIGN (0x4)
+ .rodata        0x00003000       0x14 build/firmware.o
+                0x00003014                        . = ALIGN (0x4)
  FILL mask 0xff
 
-.rodata.str1.4  0x00003000       0x11
+.rodata.str1.4  0x00003014       0x11
  .rodata.str1.4
-                0x00003000       0x11 build/print.o
+                0x00003014       0x11 build/print.o
+
+.bss            0x00003025        0x0
+ .bss           0x00003025        0x0 build/print.o
+ .bss           0x00003025        0x0 build/sensor.o
+ .bss           0x00003025        0x0 build/tcnt.o
+ .bss           0x00003025        0x0 build/qoi_chunk.o
+ .bss           0x00003025        0x0 build/firmware.o
+ .bss           0x00003025        0x0 build/start.o
 
 /DISCARD/
  *(.note*)
@@ -87,6 +95,7 @@ Linker script and memory map
 LOAD build/print.o
 LOAD build/sensor.o
 LOAD build/tcnt.o
+LOAD build/qoi_chunk.o
 LOAD build/firmware.o
 LOAD build/start.o
 LOAD /opt/riscv/lib/gcc/riscv32-unknown-elf/13.2.0/libgcc.a
