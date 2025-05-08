@@ -38,6 +38,7 @@ package PKG_hwswcd is
     constant C_LED_BASE_ADDRESS_MASK : STD_LOGIC_VECTOR(C_WIDTH-1 downto C_PERIPHERAL_MASK_LOWINDEX) := x"8000";
     constant C_TIMER_BASE_ADDRESS_MASK : STD_LOGIC_VECTOR(C_WIDTH-1 downto C_PERIPHERAL_MASK_LOWINDEX) := x"8100";
     constant C_SENSOR_BASE_ADDRESS_MASK: std_logic_vector(C_WIDTH-1 downto C_PERIPHERAL_MASK_LOWINDEX) := x"8200";
+     constant C_CHUNK_BASE_ADDRESS_MASK: std_logic_vector(C_WIDTH-1 downto C_PERIPHERAL_MASK_LOWINDEX) := x"8300";
 
     constant C_MRO_xF11_MVENDORID : STD_LOGIC_VECTOR(C_WIDTH-1 downto 0) := x"01234568";
     constant C_MRO_xF14_MHARTID : STD_LOGIC_VECTOR(C_WIDTH-1 downto 0) := x"CAFEBABE";
@@ -304,6 +305,26 @@ package PKG_hwswcd is
             first : out std_logic
         );
     end component sensor;
+    
+    component wrapped_qoi_chunk is 
+        port (
+            clock: in std_logic;
+            reset: in std_logic;
+            iface_di : in STD_LOGIC_VECTOR(C_WIDTH-1 downto 0);
+            iface_a : in STD_LOGIC_VECTOR(C_WIDTH-1 downto 0);
+            iface_we : in STD_LOGIC;
+            iface_do : out STD_LOGIC_VECTOR(C_WIDTH-1 downto 0)
+        );
+    end component;
+    
+    component QOI_chuck is
+        port(
+            clock: in std_logic;
+            reset: in std_logic;
+            pixel_data: in STD_LOGIC_VECTOR(C_WIDTH-1 downto 0);
+            result_out: out std_logic_vector(C_WIDTH-1 downto 0)
+        );
+    end component; 
     
 end package;
 

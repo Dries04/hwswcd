@@ -31,7 +31,6 @@ end entity riscv_microcontroller;
 
 architecture Behavioural of riscv_microcontroller is
 
-
     -- (DE-)LOCALISING IN/OUTPUTS
     signal sys_clock_i : STD_LOGIC;
     signal sys_reset_i : STD_LOGIC;
@@ -66,6 +65,9 @@ architecture Behavioural of riscv_microcontroller is
     signal external_irq_dd : STD_LOGIC;
     signal debouncer : integer range 0 to 800000-1;
     signal external_irq_sync_dbnc, external_irq_set, external_irq_reset : STD_LOGIC;
+    
+    --QOI chunk
+    signal dmem_do_chunk : std_logic_vector (31 downto 0);
 
 
 begin
@@ -173,7 +175,7 @@ begin
         iface_we => dmem_we,
         iface_do => dmem_do_wrapped_sensor
     );
-   
+    
 
     PMUX_bus: process(dmem_a, dmem_do_tcnt, dmem_do_dmem, leds, dmem_do_wrapped_sensor)
     begin
@@ -181,6 +183,7 @@ begin
             when C_LED_BASE_ADDRESS_MASK => dmem_do <= leds;
             when C_TIMER_BASE_ADDRESS_MASK => dmem_do <= dmem_do_tcnt;
             when C_SENSOR_BASE_ADDRESS_MASK => dmem_do <= dmem_do_wrapped_sensor;
+            when C_CHUNK_BASE_ADDRESS_MASK => dmem_do <= dmem_do_chunk;
             when others => dmem_do <= dmem_do_dmem;
         end case;
     end process;
@@ -243,5 +246,15 @@ begin
         clock => clock,
         heartbeat => open
     );
+    
+    wrapped_qoi_chunk_inst00: component wrapped_qoi_chunk port map(
+        clock => clock,
+        reset => reset,
+        iface_di => dmem_di,
+        iface_a => dmem_a,
+        iface_we => dmem_we,
+        iface_do => dmem_do_chunk
+    );
+    
 
 end Behavioural;
