@@ -147,9 +147,9 @@ int main(void) {
 
                     LED = 0xF00D;
 
-                    unsigned int chuck_result;
+                    unsigned int chunk_result;
 
-                    chuck_result = chunk_fetch();
+                    chunk_result = chunk_fetch();
                     
                     if (chunk_result == 0x0){
                         LED = 0xF00DBA14;
