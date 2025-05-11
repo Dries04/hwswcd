@@ -1,4 +1,5 @@
 #include "qoi_chunk.h"
+#include "sensor.h"
 
 unsigned int chunk_fetch(void) {
     unsigned int chunk_result;
