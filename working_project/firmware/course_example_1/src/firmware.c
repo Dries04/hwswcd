@@ -157,9 +157,9 @@ int main(void) {
                          LED = (g_cur);
                      LED = (b_cur);
 
-                    // }else{
-                    //     LED = 0xABC;
-                    //
+                     }else{
+                         LED = 0xABC;
+                        }
 
                     //  if ((dr >= -2 && dr <= 1) && (dg >= -2 && dg <= 1) && (db >= -2 && db <= 1)) {
 
@@ -188,7 +188,7 @@ int main(void) {
                     //      LED = (g_cur);
                     //      LED = (b_cur);
                     //  }
-                    //}
+                }
 		
                 r_prev = r_cur;
                 g_prev = g_cur;
