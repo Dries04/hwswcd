@@ -128,7 +128,13 @@ int main(void) {
                     signed char dg = (signed char)dg_unsigend;
                     signed char db = (signed char)db_unsigned;
 
+
+
+
                     // LED = 0xF00DBA00;
+
+                    signed char dr_dg = dr - dg;
+                    signed char db_dg = db - dg;
 
                     unsigned int chunk_result;
 
