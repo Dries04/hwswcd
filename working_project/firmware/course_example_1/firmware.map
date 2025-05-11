@@ -40,15 +40,15 @@ Linker script and memory map
                 0x00000230                print_chr
                 0x0000023c                print_str
                 0x0000025c                print_hex
- .text          0x000002a4       0x28 build/sensor.o
+ .text          0x000002a4        0xc build/sensor.o
                 0x000002a4                SENSOR_fetch
- .text          0x000002cc       0x68 build/tcnt.o
-                0x000002cc                TCNT_start
-                0x000002e0                TCNT_start_div8
-                0x00000300                TCNT_start_div16
-                0x00000320                TCNT_stop
- .text          0x00000334        0xc build/qoi_chunk.o
-                0x00000334                chunk_fetch
+ .text          0x000002b0       0x68 build/tcnt.o
+                0x000002b0                TCNT_start
+                0x000002c4                TCNT_start_div8
+                0x000002e4                TCNT_start_div16
+                0x00000304                TCNT_stop
+ .text          0x00000318       0x28 build/qoi_chunk.o
+                0x00000318                chunk_fetch
  .text          0x00000340       0x18 build/firmware.o
                 0x00000340                irq_handler
  .text.startup  0x00000358      0x324 build/firmware.o
