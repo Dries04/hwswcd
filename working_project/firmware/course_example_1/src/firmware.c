@@ -149,7 +149,7 @@ int main(void) {
                  }else if (chunk_result == 0x00000003){
                          LED = (QOI_OP_RGB);
                          LED = (r_cur);
-                         LED = (g_cur);s
+                         LED = (g_cur);
                          LED = (b_cur);
                      }else if (chunk_result == 0x00000004){
                          LED = (QOI_OP_RGB);
@@ -188,7 +188,7 @@ int main(void) {
                     //      LED = (g_cur);
                     //      LED = (b_cur);
                     //  }
-                }
+                    //}
 		
                 r_prev = r_cur;
                 g_prev = g_cur;
