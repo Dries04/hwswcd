@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
-ifname = "../../firmware/simulation_output.dat"
-ofname = "../../firmware/simulation_output.qoi"
+ifname = "C:\\Users\\Dries\\Documents\\Uhasselt\\ma_EA-ICT\HW_SW\\gitrepo\\working_project\\firmware\\simulation_output.dat"
+ofname = "C:\\Users\\Dries\\Documents\\Uhasselt\\ma_EA-ICT\\HW_SW\\gitrepo\\working_project\\firmware\\simulation_output.qoi"
 
 ifh = open(ifname, "r")
 ofh = open (ofname, "wb")

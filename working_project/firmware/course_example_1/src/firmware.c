@@ -130,52 +130,57 @@ int main(void) {
 
                     // LED = 0xF00DBA00;
 
-                    // unsigned int chunk_result;
+                    unsigned int chunk_result;
 
-                    // chunk_result = chunk_fetch();
+                    chunk_result = chunk_fetch();
                     
-                    // if (chunk_result == 0x0){
-                    //     LED = 0xF00DBA14;
-                    //     LED = 0b01000000 | ((dr + 2) << 4) | ((dg + 2) << 2) | (db + 2);
-                    // }else if (chunk_result == 0x1){
-                    //     LED = 0xF00DBA13;
-                    // }else if (chunk_result == 0x2){
-                    //     LED = 0xF00DBA12;
-                    // }else if (chunk_result == 0x3){
-                    //     LED = 0xF00DBA11;
-                    // }else if (chunk_result == 0x4){
-                    //     LED = 0xF00DBA10;
-                    // }else{
-                    //     LED = 0xABC;
-                    // }
-
-                    if ((dr >= -2 && dr <= 1) && (dg >= -2 && dg <= 1) && (db >= -2 && db <= 1)) {
-
-                        //LED = QOI_OP_DIFF | ((dr + 2) << 4) | ((dg + 2) << 2) | (db + 2);
+                    if (chunk_result == 0x00000001){
                         LED = 0b01000000 | ((dr + 2) << 4) | ((dg + 2) << 2) | (db + 2);
-
-                    } else if (dg >= -32 && dg <= 31) {
-
-                        signed char dr_dg = dr - dg;
-                        signed char db_dg = db - dg;
-
-                        if ((dr_dg >= -8 && dr_dg <= 7) && (db_dg >= -8 && db_dg <= 7)) {
-                            LED = QOI_OP_LUMA | (dg + 32);
-                            LED = ((dr_dg + 8) << 4) | (db_dg + 8);
-                        } else {
-
-                            LED = (QOI_OP_RGB);
-                            LED = (r_cur);
-                            LED = (g_cur);
-                            LED = (b_cur);
-                        }
-                    } else {
-
+                    }else if (chunk_result == 0x00000002){
+                        LED = QOI_OP_LUMA | (dg + 32);
+                        LED = ((dr_dg + 8) << 4) | (db_dg + 8);
+                    }else if (chunk_result == 0x00000003){
                         LED = (QOI_OP_RGB);
                         LED = (r_cur);
                         LED = (g_cur);
                         LED = (b_cur);
+                    }else if (chunk_result == 0x00000004){
+                        LED = (QOI_OP_RGB);
+                        LED = (r_cur);
+                        LED = (g_cur);
+                        LED = (b_cur);
+
+                    }else{
+                        LED = 0xABC;
                     }
+
+                    // if ((dr >= -2 && dr <= 1) && (dg >= -2 && dg <= 1) && (db >= -2 && db <= 1)) {
+
+                    //     //LED = QOI_OP_DIFF | ((dr + 2) << 4) | ((dg + 2) << 2) | (db + 2);
+                    //     LED = 0b01000000 | ((dr + 2) << 4) | ((dg + 2) << 2) | (db + 2);
+
+                    // } else if (dg >= -32 && dg <= 31) {
+
+                    //     signed char dr_dg = dr - dg;
+                    //     signed char db_dg = db - dg;
+
+                    //     if ((dr_dg >= -8 && dr_dg <= 7) && (db_dg >= -8 && db_dg <= 7)) {
+                    //         LED = QOI_OP_LUMA | (dg + 32);
+                    //         LED = ((dr_dg + 8) << 4) | (db_dg + 8);
+                    //     } else {
+
+                    //         LED = (QOI_OP_RGB);
+                    //         LED = (r_cur);
+                    //         LED = (g_cur);
+                    //         LED = (b_cur);
+                    //     }
+                    // } else {
+
+                    //     LED = (QOI_OP_RGB);
+                    //     LED = (r_cur);
+                    //     LED = (g_cur);
+                    //     LED = (b_cur);
+                    // }
                 }
 		
                 r_prev = r_cur;
