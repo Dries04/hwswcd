@@ -142,9 +142,7 @@ int main(void) {
                     chunk_result = chunk_fetch();
                     
                     if (chunk_result == 0x00000001){
-                        //LED = 0b01000000 | ((dr + 2) << 4) | ((dg + 2) << 2) | (db + 2);
-                        // extra commit line
-                        LED = chunk_result;
+                        LED = 0b01000000 | ((dr + 2) << 4) | ((dg + 2) << 2) | (db + 2);
                     }else if (chunk_result == 0x00000002){
                         LED = QOI_OP_LUMA | (dg + 32);
                         LED = ((dr_dg + 8) << 4) | (db_dg + 8);
