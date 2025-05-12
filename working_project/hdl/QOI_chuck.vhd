@@ -113,43 +113,5 @@ begin
           
         end if;
     end process;
-
---process (dr, dg, db)
---begin
---    -- First condition for DR, DG, DB between -2 and 1
---    if (dr >= -2 and dr <= 1) and (dg >= -2 and dg <= 1) and (db >= -2 and db <= 1) then
---        -- LED = QOI_OP_DIFF | ((dr + 2) << 4) | ((dg + 2) << 2) | (db + 2);
---        result <= "00000000000000000000000000000001";
---        result_1 <= "01000000" & std_logic_vector(to_unsigned((to_integer(signed(dr)) + 2), 8) sll 4) &
---                  std_logic_vector(to_unsigned((to_integer(signed(dg)) + 2), 8) sll 2) &
---                  std_logic_vector(to_unsigned((to_integer(signed(db)) + 2), 8));
-
---    -- Else if condition for DG between -32 and 31
---    elsif (dg >= -32 and dg <= 31) then   
---        -- Check if dr_dg and db_dg are in the range [-8, 7]
---        if (dr_dg >= -8 and dr_dg <= 7) and (db_dg >= -8 and db_dg <= 7) then
---            -- LED = QOI_OP_LUMA | (dg + 32);
---            result <= "00000000000000000000000000000001";
---            result_1 <= "00000010" & std_logic_vector(to_unsigned((to_integer(signed(dg)) + 32), 8));
-            
---            -- LED = ((dr_dg + 8) << 4) | (db_dg + 8);
---            result_2 <= std_logic_vector(to_unsigned((to_integer(dr_dg) + 8), 8) sll 4) &
---                      std_logic_vector(to_unsigned((to_integer(db_dg) + 8), 8));
-            
---        else
---            -- LED = QOI_OP_RGB
---            result <= "00000000000000000000000000000001";
---            result_1 <= "00000011" & r_cur & g_cur & b_cur;
---        end if;
-        
---    else
---        -- Default case for QOI_OP_RGB
---        result <= "00000000000000000000000000000001";
---        result_1 <= "00000011" & r_cur & g_cur & b_cur;
---    end if;
---end process;
-
-
-   
-
+ 
 end Behavioral;
