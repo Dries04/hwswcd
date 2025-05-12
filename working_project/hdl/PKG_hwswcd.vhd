@@ -323,8 +323,8 @@ package PKG_hwswcd is
             reset: in std_logic;
             pixel_data: in STD_LOGIC_VECTOR(C_WIDTH-1 downto 0);
             result_out: out std_logic_vector(C_WIDTH-1 downto 0);
-            result_1_out: out std_logic_vector(C_WIDTH-1 downto 0);
-            result_2_out: out std_logic_vector(C_WIDTH-1 downto 0)
+            result_1: out std_logic_vector(C_WIDTH-1 downto 0);
+            result_2: out std_logic_vector(C_WIDTH-1 downto 0)
         );
     end component; 
     

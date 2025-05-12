@@ -12,7 +12,9 @@ entity QOI_chuck is
         reset: in std_logic;
         pixel_data: in STD_LOGIC_VECTOR(C_WIDTH-1 downto 0);
         pixel_data_prev : in  std_logic_vector(C_WIDTH-1 downto 0);
-        result_out: out std_logic_vector(C_WIDTH-1 downto 0)
+        result_out: out std_logic_vector(C_WIDTH-1 downto 0);
+        result_1: out std_logic_vector(C_WIDTH-1 downto 0);
+        result_2: out std_logic_vector(C_WIDTH-1 downto 0)
     );
 end QOI_chuck;
 
@@ -47,7 +49,7 @@ architecture Behavioral of QOI_chuck is
     constant QOI_OP_LUMA  : std_logic_vector(7 downto 0) := x"80";
     
     signal dr2, dg2, db2 : std_logic_vector(1 downto 0);
-    signal result_1 : std_logic_vector(7 downto 0);
+    signal result_1, result_2 : std_logic_vector(7 downto 0);
     
     signal dg_plus_32 : unsigned(7 downto 0);
     signal luma_result : std_logic_vector(7 downto 0);
@@ -59,7 +61,7 @@ architecture Behavioral of QOI_chuck is
     
     -----
     -----
-    signal reg0, reg1, reg2, reg3, diff_pixel, diff_pixel_luma: STD_LOGIC_VECTOR(C_WIDTH-1 downto 0);
+    signal reg0, reg1, reg2, reg3, diff_pixel, diff_pixel_luma, diff_pixel_luma_1, diff_pixel_luma_2: STD_LOGIC_VECTOR(C_WIDTH-1 downto 0);
     
     signal cur_pixel, buff_prev_pixel: unsigned(C_WIDTH-1 downto 0);
     signal cr, cg, cb, ca, pr, pg, pb, pa: unsigned(7 downto 0);
@@ -142,11 +144,16 @@ begin
     temp_drg <= drg + 8;
     temp_dbg <= dbg + 8;
     
-    diff_pixel_luma(31 downto 16) <= (others => '0');
-    diff_pixel_luma(15 downto 14) <= b"10";
-    diff_pixel_luma(13 downto 8) <= std_logic_vector(temp_dgg(5 downto 0));
-    diff_pixel_luma(7 downto 4) <= std_logic_vector(temp_drg(3 downto 0));
-    diff_pixel_luma(3 downto 0) <= std_logic_vector(temp_dbg(3 downto 0));
+--    diff_pixel_luma(31 downto 16) <= (others => '0');
+--    diff_pixel_luma(15 downto 14) <= b"10";
+--    diff_pixel_luma(13 downto 8) <= std_logic_vector(temp_dgg(5 downto 0));
+--    diff_pixel_luma(7 downto 4) <= std_logic_vector(temp_drg(3 downto 0));
+--    diff_pixel_luma(3 downto 0) <= std_logic_vector(temp_dbg(3 downto 0));
+
+      diff_pixel_luma_1(8 downto 7) <= b"01";
+      diff_pixel_luma_1(7 downto 0) <= std_logic_vector(temp_dr(1 downto 0));
+      diff_pixel_luma_2(7 downto 4) <= std_logic_vector(temp_dg(1 downto 0));
+      diff_pixel_luma_2(3 downto 0) <= std_logic_vector(temp_db(1 downto 0));
     
 --    dr <= signed(cr) - signed(pr);
 --    dg <= signed(cg) - signed(pg);
@@ -182,6 +189,9 @@ begin
             result <= diff_pixel;
         elsif (dg >= -32 and dg <= 31 and (dr - dg) >= -8 and (dr - dg) <= 7 and (db - dg) >= -8 and (db - dg) <= 7 and ca = pa) then
             result <= diff_pixel_luma;
+            result <= x"fff";
+            result_1 <= diff_pixel_luma_1;
+            result_2 <= diff_pixel_luma_2;
         else
             result <= x"00000000";
         end if;
@@ -200,7 +210,7 @@ begin
 --        dg2 <= (others => '0');
 --        db2 <= (others => '0');
 --    else
---            if (dr >= -2 and dr <= 1) and (dg >= -2 and dg <= 1) and (db >= -2 and db <= 1) then
+--            if (dr >= -2 and dr <= 1 and dg >= -2 and dg <= 1 and db >= -2 and db <= 1 then
 --                result <= "00000000000000000000000000001001";
 --                    -- Add 2 and convert to 2-bit vectors
 ----                dr2 <= std_logic_vector(to_unsigned(to_integer(dr) + 2, 2));

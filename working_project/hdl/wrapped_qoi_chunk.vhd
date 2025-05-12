@@ -33,7 +33,9 @@ architecture Behavioral of wrapped_qoi_chunk is
             reset      : in  std_logic;
             pixel_data : in  std_logic_vector(C_WIDTH-1 downto 0);
             pixel_data_prev : in  std_logic_vector(C_WIDTH-1 downto 0);
-            result_out : out std_logic_vector(C_WIDTH-1 downto 0)
+            result_out : out std_logic_vector(C_WIDTH-1 downto 0);
+            result_1: out std_logic_vector(C_WIDTH-1 downto 0);
+            result_2: out std_logic_vector(C_WIDTH-1 downto 0)
         );
     end component;
 
@@ -111,7 +113,9 @@ begin
             reset      => reset,
             pixel_data => reg0,
             pixel_data_prev => reg0_prev,
-            result_out => qoi_result
+            result_out => qoi_result,
+            result_1 => reg2,
+            result_2 => reg3
         );
 
 end Behavioral;

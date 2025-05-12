@@ -135,8 +135,14 @@ int main(void) {
                     // LED = 0xF00DBA00;
                     //werkende versie, enkel de eerste paar pixels zijn niet correct, ergens een probleem met undefined behavior
                     unsigned int chunk_result;
-                    LED = chunk_result;
                     chunk_result = chunk_fetch();
+
+                    if (chunk_result == 0xfff){
+                        LED = QOI_CHUNK_RESULT_RESULT;
+                        LED = QOI_CHUNK_RESULT_RESULT_RESULT;
+                    }else{
+                        LED = chunk_result;
+                    }
 
                 //  if (chunk_result == 0x00000009){
                 //      LED = QOI_OP_DIFF | ((dr + 2) << 4) | ((dg + 2) << 2) | (db + 2);  
