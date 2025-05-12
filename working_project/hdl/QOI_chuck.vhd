@@ -12,7 +12,9 @@ entity QOI_chuck is
         reset: in std_logic;
         pixel_data: in STD_LOGIC_VECTOR(C_WIDTH-1 downto 0);
         pixel_data_prev : in  std_logic_vector(C_WIDTH-1 downto 0);
-        result_out: out std_logic_vector(C_WIDTH-1 downto 0)
+        result_out: out std_logic_vector(C_WIDTH-1 downto 0);
+        result_1_out: out std_logic_vector(C_WIDTH-1 downto 0);
+        result_2_out: out std_logic_vector(C_WIDTH-1 downto 0)
     );
 end QOI_chuck;
 
@@ -51,11 +53,12 @@ architecture Behavioral of QOI_chuck is
     signal dg_plus_2 : std_logic_vector(1 downto 0);
     signal db_plus_2 : std_logic_vector(1 downto 0);
     
-    signal result: std_logic_vector (31 downto 0);
+    signal result, result_1, result_2: std_logic_vector (31 downto 0);
     signal pixeldata_i, pixeldata_prev_i : std_logic_vector (31 downto 0);
     
     signal dr_dg, db_dg       : signed(7 downto 0);
     constant QOI_OP_LUMA  : std_logic_vector(7 downto 0) := x"80";
+    
     
 begin
 
@@ -67,6 +70,8 @@ begin
     pixeldata_i <= pixel_data;
     pixeldata_prev_i <= pixel_data_prev;
     result_out <= result;
+    result_1_out <= result_1;
+    result_2_out <= result_2;
     
     r_cur <= pixeldata_i(31 downto 24);
     g_cur <= pixeldata_i(23 downto 16);
@@ -92,54 +97,59 @@ begin
     process (dr, dg, db)
     begin      
             if (dr >= -2 and dr <= 1) and (dg >= -2 and dg <= 1) and (db >= -2 and db <= 1) then
---                result <= "00000000000000000000000000000001";
-                part_1 <= "01000000";
-                case dr is
-                    when "11111110" => dr_plus_2 <= "00"; -- -2 + 2 = 0
-                    when "11111111" => dr_plus_2 <= "01"; -- -1 + 2 = 1
-                    when "00000000" => dr_plus_2 <= "10"; --  0 + 2 = 2
-                    when "00000001" => dr_plus_2 <= "11"; --  1 + 2 = 3
-                    when others     => dr_plus_2 <= "00"; -- default/failsafe
-                end case;
-                part_2 <= dr_plus_2 & "0000";
-                case dg is
-                    when "11111110" => dr_plus_2 <= "00"; -- -2 + 2 = 0
-                    when "11111111" => dr_plus_2 <= "01"; -- -1 + 2 = 1
-                    when "00000000" => dr_plus_2 <= "10"; --  0 + 2 = 2
-                    when "00000001" => dr_plus_2 <= "11"; --  1 + 2 = 3
-                    when others     => dr_plus_2 <= "00"; -- default/failsafe
-                end case;
-                part_3 <= dg_plus_2 & "00";
-                case db is
-                    when "11111110" => dr_plus_2 <= "00"; -- -2 + 2 = 0
-                    when "11111111" => dr_plus_2 <= "01"; -- -1 + 2 = 1
-                    when "00000000" => dr_plus_2 <= "10"; --  0 + 2 = 2
-                    when "00000001" => dr_plus_2 <= "11"; --  1 + 2 = 3
-                    when others     => dr_plus_2 <= "00"; -- default/failsafe
-                end case;
-                part_4 <= db_plus_2;  
-                result <= part_1 or part_2 or part_3 or part_4; 
-                      
+                result <= "00000000000000000000000000000001";
         elsif (dg >= -32 and dg <= 31) then
             
             if ((dr - dg) >= -8 and (dr - dg) <= 7) and ((db - dg) >= -8 and (db - dg) <= 7) then
             -- QOI OP LIMA
                 result <= "00000000000000000000000000000010";
-                
---                result <= QOI_OP_LUMA or std_logic_vector(dg + to_signed(32, 8));
-              
             else
             -- QOI OP RGB
-                result <= "00000000000000000000000000000011";
-               
+                result <= "00000000000000000000000000000011";   
             end if;
-            
         else 
         -- QOI OP RGBA
             result <= "00000000000000000000000000000100";
           
         end if;
     end process;
+
+--process (dr, dg, db)
+--begin
+--    -- First condition for DR, DG, DB between -2 and 1
+--    if (dr >= -2 and dr <= 1) and (dg >= -2 and dg <= 1) and (db >= -2 and db <= 1) then
+--        -- LED = QOI_OP_DIFF | ((dr + 2) << 4) | ((dg + 2) << 2) | (db + 2);
+--        result <= "00000000000000000000000000000001";
+--        result_1 <= "01000000" & std_logic_vector(to_unsigned((to_integer(signed(dr)) + 2), 8) sll 4) &
+--                  std_logic_vector(to_unsigned((to_integer(signed(dg)) + 2), 8) sll 2) &
+--                  std_logic_vector(to_unsigned((to_integer(signed(db)) + 2), 8));
+
+--    -- Else if condition for DG between -32 and 31
+--    elsif (dg >= -32 and dg <= 31) then   
+--        -- Check if dr_dg and db_dg are in the range [-8, 7]
+--        if (dr_dg >= -8 and dr_dg <= 7) and (db_dg >= -8 and db_dg <= 7) then
+--            -- LED = QOI_OP_LUMA | (dg + 32);
+--            result <= "00000000000000000000000000000001";
+--            result_1 <= "00000010" & std_logic_vector(to_unsigned((to_integer(signed(dg)) + 32), 8));
+            
+--            -- LED = ((dr_dg + 8) << 4) | (db_dg + 8);
+--            result_2 <= std_logic_vector(to_unsigned((to_integer(dr_dg) + 8), 8) sll 4) &
+--                      std_logic_vector(to_unsigned((to_integer(db_dg) + 8), 8));
+            
+--        else
+--            -- LED = QOI_OP_RGB
+--            result <= "00000000000000000000000000000001";
+--            result_1 <= "00000011" & r_cur & g_cur & b_cur;
+--        end if;
+        
+--    else
+--        -- Default case for QOI_OP_RGB
+--        result <= "00000000000000000000000000000001";
+--        result_1 <= "00000011" & r_cur & g_cur & b_cur;
+--    end if;
+--end process;
+
+
    
 
 end Behavioral;

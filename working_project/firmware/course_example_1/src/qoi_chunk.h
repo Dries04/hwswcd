@@ -10,8 +10,8 @@
 
 #define QOI_CHUNK_CR                 (*(volatile unsigned int *) QOI_CHUNK_REG0_ADDRESS)
 #define QOI_CHUNK_RESULT               (*(volatile unsigned int *) QOI_CHUNK_REG1_ADDRESS)
-#define QOI_CHUNK_SR                 (*(volatile unsigned int *) QOI_CHUNK_REG2_ADDRESS)
-#define QOI_CHUNK_VAL                (*(volatile unsigned int *) QOI_CHUNK_REG3_ADDRESS)
+#define QOI_CHUNK_RESULT_RESULT                 (*(volatile unsigned int *) QOI_CHUNK_REG2_ADDRESS)
+#define QOI_CHUNK_RESULT_RESULT_RESULT                (*(volatile unsigned int *) QOI_CHUNK_REG3_ADDRESS)
 
 unsigned int chunk_fetch(void);
 
