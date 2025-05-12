@@ -92,18 +92,18 @@ begin
         db2 <= (others => '0');
     else
             if (dr >= -2 and dr <= 1) and (dg >= -2 and dg <= 1) and (db >= -2 and db <= 1) then
-                --&result <= "00000000000000000000000000000001";
-                    -- Add 2 and convert to 2-bit vectors
-                dr2 <= std_logic_vector(to_unsigned(to_integer(dr) + 2, 2));
-                dg2 <= std_logic_vector(to_unsigned(to_integer(dg) + 2, 2));
-                db2 <= std_logic_vector(to_unsigned(to_integer(db) + 2, 2));
+                result <= "00000000000000000000000000000001";
+--                    -- Add 2 and convert to 2-bit vectors
+--                dr2 <= std_logic_vector(to_unsigned(to_integer(dr) + 2, 2));
+--                dg2 <= std_logic_vector(to_unsigned(to_integer(dg) + 2, 2));
+--                db2 <= std_logic_vector(to_unsigned(to_integer(db) + 2, 2));
                 
             
-                -- Combine bits: 01xxxxxx format
-                result_1 <= "01" & dr2 & dg2 & db2;  -- 8 bits total
+--                -- Combine bits: 01xxxxxx format
+--                result_1 <= "01" & dr2 & dg2 & db2;  -- 8 bits total
                 
-                -- Pack into final result, assuming LSB-aligned in 32-bit word
-                result <= (31 downto 8 => '0') & result_1;
+--                -- Pack into final result, assuming LSB-aligned in 32-bit word
+--                result <= (31 downto 8 => '0') & result_1;
                       
         elsif (dg >= -32 and dg <= 31) then
             
