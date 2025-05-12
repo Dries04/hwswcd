@@ -74,9 +74,13 @@ begin
     db_unsigned <= unsigned (b_cur) - unsigned (b_prev);
 
     -- Conversie naar signed (type casting)
-    dr <= signed(dr_unsigned);
-    dg <= signed(dg_unsigned);
-    db <= signed(db_unsigned);
+--    dr <= signed(dr_unsigned);
+--    dg <= signed(dg_unsigned);
+--    db <= signed(db_unsigned);
+
+    dr <= signed('0' & r_cur) - signed('0' & r_prev);
+    dg <= signed('0' & g_cur) - signed('0' & g_prev);
+    db <= signed('0' & b_cur) - signed('0' & b_prev);
     
     dr_dg <= dr - dg;
     db_dg <= db - dg;
