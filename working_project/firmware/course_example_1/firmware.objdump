@@ -308,8 +308,8 @@ Disassembly of section .text:
  41c:	00000b13          	addi	s6,zero,0
  420:	00000d93          	addi	s11,zero,0
  424:	00000d13          	addi	s10,zero,0
- 428:	800004b7          	lui	s1,0x80000
- 42c:	0ff00993          	addi	s3,zero,255
+ 428:	0ff00993          	addi	s3,zero,255
+ 42c:	800004b7          	lui	s1,0x80000
  430:	04b00c93          	addi	s9,zero,75
  434:	e71ff0ef          	jal	ra,2a4 <SENSOR_fetch>
  438:	01055b93          	srli	s7,a0,0x10
@@ -397,21 +397,22 @@ Disassembly of section .text:
  580:	f49ff06f          	jal	zero,4c8 <main+0x170>
  584:	f0a72023          	sw	a0,-256(a4)
  588:	dadff0ef          	jal	ra,334 <chunk_fetch>
- 58c:	02051063          	bne	a0,zero,5ac <main+0x254>
+ 58c:	00051e63          	bne	a0,zero,5a8 <main+0x250>
  590:	0fe00793          	addi	a5,zero,254
  594:	00f4a023          	sw	a5,0(s1)
  598:	0184a023          	sw	s8,0(s1)
  59c:	0174a023          	sw	s7,0(s1)
  5a0:	0164a023          	sw	s6,0(s1)
- 5a4:	00a4a023          	sw	a0,0(s1)
- 5a8:	f15ff06f          	jal	zero,4bc <main+0x164>
- 5ac:	fea9fce3          	bgeu	s3,a0,5a4 <main+0x24c>
- 5b0:	00855793          	srli	a5,a0,0x8
- 5b4:	0ff7f793          	andi	a5,a5,255
- 5b8:	00f4a023          	sw	a5,0(s1)
- 5bc:	0ff57513          	andi	a0,a0,255
- 5c0:	00a4a023          	sw	a0,0(s1)
- 5c4:	ef9ff06f          	jal	zero,4bc <main+0x164>
+ 5a4:	f19ff06f          	jal	zero,4bc <main+0x164>
+ 5a8:	00a9fe63          	bgeu	s3,a0,5c4 <main+0x26c>
+ 5ac:	00855793          	srli	a5,a0,0x8
+ 5b0:	0ff7f793          	andi	a5,a5,255
+ 5b4:	00f4a023          	sw	a5,0(s1)
+ 5b8:	0ff57513          	andi	a0,a0,255
+ 5bc:	00a4a023          	sw	a0,0(s1)
+ 5c0:	efdff06f          	jal	zero,4bc <main+0x164>
+ 5c4:	00a4a023          	sw	a0,0(s1)
+ 5c8:	ef5ff06f          	jal	zero,4bc <main+0x164>
 
 Disassembly of section .rodata.str1.4:
 
