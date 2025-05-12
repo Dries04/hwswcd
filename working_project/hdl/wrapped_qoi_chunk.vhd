@@ -1,6 +1,6 @@
 library IEEE;
-    use IEEE.STD_LOGIC_1164.ALL;
-    use IEEE.NUMERIC_STD.ALL;  -- For unsigned comparisons
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.ALL;  -- For unsigned comparisons
 
 library work;
 use work.PKG_hwswcd.ALL;
@@ -23,6 +23,8 @@ architecture Behavioral of wrapped_qoi_chunk is
     signal qoi_result             : std_logic_vector(C_WIDTH-1 downto 0);
     signal targeted_register      : std_logic_vector(17 downto 0);
     signal iface_do_o             : std_logic_vector(C_WIDTH-1 downto 0);
+    signal iface_a_unsigned       : unsigned(C_WIDTH-1 downto 0);
+    signal iface_we_delay: std_logic;
 
     -- QOI Chunk Component
     component QOI_chuck is
@@ -31,13 +33,14 @@ architecture Behavioral of wrapped_qoi_chunk is
             reset      : in  std_logic;
             pixel_data : in  std_logic_vector(C_WIDTH-1 downto 0);
             pixel_data_prev : in  std_logic_vector(C_WIDTH-1 downto 0);
-            result_out : out std_logic_vector(C_WIDTH-1 downto 0);
-            result_1_out:out std_logic_vector(C_WIDTH-1 downto 0);
-            result_2_out:out std_logic_vector(C_WIDTH-1 downto 0)
+            result_out : out std_logic_vector(C_WIDTH-1 downto 0)
         );
     end component;
 
 begin
+
+    -- Address conversion
+    iface_a_unsigned <= unsigned(iface_a);
 
     -- reg1 always reflects the result from QOI
     reg1 <= qoi_result;
@@ -49,7 +52,7 @@ begin
                     reg0 <= (others => '0');
                     reg0_prev <= (others => '0');
                 else
-                    reg0 <= reg0_prev;
+                    reg0_prev <= reg0;
                     if iface_a = x"82000004" then
                         reg0 <= iface_di;
                         reg0_prev <= reg0;
@@ -86,10 +89,7 @@ begin
             reset      => reset,
             pixel_data => reg0,
             pixel_data_prev => reg0_prev,
-            result_out => qoi_result,
-            result_1_out => reg2,
-            result_2_out => reg3
+            result_out => qoi_result
         );
 
 end Behavioral;
-

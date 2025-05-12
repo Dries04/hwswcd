@@ -142,21 +142,25 @@ int main(void) {
                     chunk_result = chunk_fetch();
                     
                     if (chunk_result == 0x00000001){
-                        LED = 0b01000000 | ((dr + 2) << 4) | ((dg + 2) << 2) | (db + 2);
+                        //LED = 0b01000000 | ((dr + 2) << 4) | ((dg + 2) << 2) | (db + 2);
+                        LED = chunk_result;
+                        LED = 0x69;
                     }else if (chunk_result == 0x00000002){
                         LED = QOI_OP_LUMA | (dg + 32);
                         LED = ((dr_dg + 8) << 4) | (db_dg + 8);
+                        LED = 0x70;
                     }else if (chunk_result == 0x00000003){
                         LED = (QOI_OP_RGB);
                         LED = (r_cur);
                         LED = (g_cur);
                         LED = (b_cur);
+                        LED = 0x71;
                     }else if (chunk_result == 0x00000004){
                         LED = (QOI_OP_RGB);
                         LED = (r_cur);
                         LED = (g_cur);
                         LED = (b_cur);
-
+                        LED = 0x72;
                     }else{
                         LED = 0xABC;
                     }
