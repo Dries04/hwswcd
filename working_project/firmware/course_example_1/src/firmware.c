@@ -138,8 +138,8 @@ int main(void) {
 
                     chunk_result = chunk_fetch();
                     if (chunk_result == 0x00000001){
-                        LED = QOI_OP_DIFF | ((dr + 2) << 4) | ((dg + 2) << 2) | (db + 2);
-                        LED = 0xF00DBA00;
+                        LED = 0x01;
+                        //LED = QOI_OP_DIFF | ((dr + 2) << 4) | ((dg + 2) << 2) | (db + 2);
                     }else if (chunk_result == 0x00000002){
                         LED = QOI_OP_LUMA | (dg + 32);
                             signed char dr_dg = dr - dg;
@@ -156,8 +156,8 @@ int main(void) {
                         LED = (g_cur);
                         LED = (b_cur);
                     }else{
-                        //LED = chunk_result;
-                        LED = 0xEAE;
+                        LED = chunk_result;
+                        //LED = 0xEAE;
                     }
 
                     //  if ((dr >= -2 && dr <= 1) && (dg >= -2 && dg <= 1) && (db >= -2 && db <= 1)) {
