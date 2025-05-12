@@ -121,13 +121,13 @@ int main(void) {
                     // signed char dg = (g_cur >= g_prev) ? g_cur - g_prev : 256 - (g_prev - g_cur);
                     // signed char db = (b_cur >= b_prev) ? b_cur - b_prev : 256 - (b_prev - b_cur);
 
-                    unsigned char dr_unsigned = r_cur - r_prev;
-                    unsigned char dg_unsigend = g_cur - g_prev;
-                    unsigned char db_unsigned = b_cur - b_prev;
+                    // unsigned char dr_unsigned = r_cur - r_prev;
+                    // unsigned char dg_unsigend = g_cur - g_prev;
+                    // unsigned char db_unsigned = b_cur - b_prev;
 
-                    signed char dr = (signed char)dr_unsigned;
-                    signed char dg = (signed char)dg_unsigend;
-                    signed char db = (signed char)db_unsigned;
+                    // signed char dr = (signed char)dr_unsigned;
+                    // signed char dg = (signed char)dg_unsigend;
+                    // signed char db = (signed char)db_unsigned;
 
 
 
@@ -141,7 +141,7 @@ int main(void) {
                         LED = (r_cur);
                         LED = (g_cur);
                         LED = (b_cur);
-                    }if (chunk_result > 0xFF){
+                    }else if (chunk_result > 0xFF){
                         //split chunk in 2 parts
                         unsigned char chunk_result_1 = (chunk_result >> 8) & 0xFF;
                         unsigned char chunk_result_2 = (chunk_result & 0xFF);
