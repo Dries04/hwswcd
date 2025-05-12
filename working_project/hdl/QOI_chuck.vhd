@@ -21,8 +21,6 @@ architecture Behavioral of QOI_chuck is
     -- Signal Declarations
     signal r_cur, g_cur, b_cur : std_logic_vector(7 downto 0);  -- 8-bit RGB channels for the current pixel
     signal r_prev, g_prev, b_prev : std_logic_vector(7 downto 0);  -- 8-bit RGB channels for the previous pixel
-    signal run : integer range 0 to 62 := 0;                       -- Counter for QOI_OP_RUN
-    signal running_array : std_logic_vector(63 downto 0);           -- Array to hold previous pixels (up to 64 unique values)
     
     -- (DE-)LOCALISING IN/OUTPUTS
     signal clock_i : STD_LOGIC;
@@ -33,23 +31,14 @@ architecture Behavioral of QOI_chuck is
     signal iface_do_o : STD_LOGIC_VECTOR(C_WIDTH-1 downto 0);
     
     -- code logic
-    signal make_current_previous: std_logic;
-    signal first_pixel: std_logic := '1';
     signal dr_unsigned : unsigned(7 downto 0); -- Ga ervan uit dat je 8-bit unsigned waarden hebt
     signal dg_unsigned : unsigned(7 downto 0);
     signal db_unsigned : unsigned(7 downto 0);
     signal dr          : signed(7 downto 0);   -- Signed kan een bit groter zijn ivm potentiele overflow bij conversie
     signal dg          : signed(7 downto 0);
     signal db          : signed(7 downto 0);
-    
-    signal test: std_logic_vector(31 downto 0);
-    signal part_1: std_logic_vector (7 downto 0);
-    signal part_2: std_logic_vector (7 downto 0);
-    signal part_3: std_logic_vector(7 downto 0);
-    signal part_4: std_logic_vector(7 downto 0);
-    signal dr_plus_2 : std_logic_vector(1 downto 0);
-    signal dg_plus_2 : std_logic_vector(1 downto 0);
-    signal db_plus_2 : std_logic_vector(1 downto 0);
+   
+
     
     signal result: std_logic_vector (31 downto 0);
     signal pixeldata_i, pixeldata_prev_i : std_logic_vector (31 downto 0);
@@ -59,6 +48,7 @@ architecture Behavioral of QOI_chuck is
     
     signal dr2, dg2, db2 : std_logic_vector(1 downto 0);
     signal result_1 : std_logic_vector(7 downto 0);
+
     
 begin
 
@@ -94,12 +84,20 @@ begin
     
     process (dr, dg, db)
     begin      
+    if reset_i = '1' then
+        result_1 <= (others => '0');
+        result <= (others => '0');
+        dr2 <= (others => '0');
+        dg2 <= (others => '0');
+        db2 <= (others => '0');
+    else
             if (dr >= -2 and dr <= 1) and (dg >= -2 and dg <= 1) and (db >= -2 and db <= 1) then
                 --&result <= "00000000000000000000000000000001";
                     -- Add 2 and convert to 2-bit vectors
                 dr2 <= std_logic_vector(to_unsigned(to_integer(dr) + 2, 2));
                 dg2 <= std_logic_vector(to_unsigned(to_integer(dg) + 2, 2));
                 db2 <= std_logic_vector(to_unsigned(to_integer(db) + 2, 2));
+                
             
                 -- Combine bits: 01xxxxxx format
                 result_1 <= "01" & dr2 & dg2 & db2;  -- 8 bits total
@@ -126,6 +124,7 @@ begin
             result <= "00000000000000000000000000000100";
           
         end if;
+    end if;
     end process;
    
 
