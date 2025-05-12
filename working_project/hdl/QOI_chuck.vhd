@@ -49,7 +49,7 @@ architecture Behavioral of QOI_chuck is
     constant QOI_OP_LUMA  : std_logic_vector(7 downto 0) := x"80";
     
     signal dr2, dg2, db2 : std_logic_vector(1 downto 0);
-    signal result_1, result_2 : std_logic_vector(7 downto 0);
+--    signal result_1, result_2 : std_logic_vector(7 downto 0);
     
     signal dg_plus_32 : unsigned(7 downto 0);
     signal luma_result : std_logic_vector(7 downto 0);
@@ -144,16 +144,17 @@ begin
     temp_drg <= drg + 8;
     temp_dbg <= dbg + 8;
     
---    diff_pixel_luma(31 downto 16) <= (others => '0');
---    diff_pixel_luma(15 downto 14) <= b"10";
---    diff_pixel_luma(13 downto 8) <= std_logic_vector(temp_dgg(5 downto 0));
---    diff_pixel_luma(7 downto 4) <= std_logic_vector(temp_drg(3 downto 0));
---    diff_pixel_luma(3 downto 0) <= std_logic_vector(temp_dbg(3 downto 0));
-
-      diff_pixel_luma_1(8 downto 7) <= b"01";
-      diff_pixel_luma_1(7 downto 0) <= std_logic_vector(temp_dr(1 downto 0));
-      diff_pixel_luma_2(7 downto 4) <= std_logic_vector(temp_dg(1 downto 0));
-      diff_pixel_luma_2(3 downto 0) <= std_logic_vector(temp_db(1 downto 0));
+    diff_pixel_luma(31 downto 16) <= (others => '0');
+    diff_pixel_luma(15 downto 14) <= b"10";
+    diff_pixel_luma(13 downto 8) <= std_logic_vector(temp_dgg(5 downto 0));
+    diff_pixel_luma(7 downto 4) <= std_logic_vector(temp_drg(3 downto 0));
+    diff_pixel_luma(3 downto 0) <= std_logic_vector(temp_dbg(3 downto 0));
+        
+--      diff_pixel_luma_1(7 downto 6) <= (others => '0');
+--      diff_pixel_luma_1(6 downto 5) <= b"01";
+--      diff_pixel_luma_1(5 downto 0) <= std_logic_vector(temp_dgg(5 downto 0));
+--      diff_pixel_luma_2(7 downto 4) <= std_logic_vector(temp_drg(3 downto 0));
+--      diff_pixel_luma_2(3 downto 0) <= std_logic_vector(temp_dbg(3 downto 0));
     
 --    dr <= signed(cr) - signed(pr);
 --    dg <= signed(cg) - signed(pg);
@@ -182,16 +183,16 @@ begin
         
     COMPUTE: process(dr, dg, db, ca, drg, dbg, diff_pixel, diff_pixel_luma)
     begin
-        if diff_pixel = x"5a" then
-            result <= diff_pixel;
-        end if;
+--        if diff_pixel = x"5a" then
+--            result <= diff_pixel;
+--        end if;
         if (dr >= -2 and dr <= 1 and dg >= -2 and dg <= 1 and db >= -2 and db <= 1) then
             result <= diff_pixel;
         elsif (dg >= -32 and dg <= 31 and (dr - dg) >= -8 and (dr - dg) <= 7 and (db - dg) >= -8 and (db - dg) <= 7 and ca = pa) then
             result <= diff_pixel_luma;
-            result <= x"fff";
-            result_1 <= diff_pixel_luma_1;
-            result_2 <= diff_pixel_luma_2;
+--            result <= x"00000fff";
+--            result_1 <= diff_pixel_luma_1;
+--            result_2 <= diff_pixel_luma_2;
         else
             result <= x"00000000";
         end if;
