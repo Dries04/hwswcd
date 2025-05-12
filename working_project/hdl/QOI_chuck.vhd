@@ -112,9 +112,7 @@ begin
     sensor_re <= reg0(0);
     cur_pixel <= unsigned(pixeldata_i);
     buff_prev_pixel <= unsigned(pixel_data_prev);
-    -- reg2 <= (0 => sensor_first, others => '0');
-    -- reg2 <= x"00" & x"08" & x"08" & "0000000" & sensor_first;
-    reg2 <= x"00" & x"4B" & x"32" & "0000000" & sensor_first;
+  
     
     cr <= cur_pixel(31 downto 24);
     cg <= cur_pixel(23 downto 16);
@@ -183,16 +181,10 @@ begin
         
     COMPUTE: process(dr, dg, db, ca, drg, dbg, diff_pixel, diff_pixel_luma)
     begin
---        if diff_pixel = x"5a" then
---            result <= diff_pixel;
---        end if;
         if (dr >= -2 and dr <= 1 and dg >= -2 and dg <= 1 and db >= -2 and db <= 1) then
             result <= diff_pixel;
-        elsif (dg >= -32 and dg <= 31 and (dr - dg) >= -8 and (dr - dg) <= 7 and (db - dg) >= -8 and (db - dg) <= 7 and ca = pa) then
+        elsif (dg >= -32 and dg <= 31 and (dr - dg) >= -8 and (dr - dg) <= 7 and (db - dg) >= -8 and (db - dg) <= 7) then
             result <= diff_pixel_luma;
---            result <= x"00000fff";
---            result_1 <= diff_pixel_luma_1;
---            result_2 <= diff_pixel_luma_2;
         else
             result <= x"00000000";
         end if;

@@ -141,6 +141,12 @@ int main(void) {
                         LED = (r_cur);
                         LED = (g_cur);
                         LED = (b_cur);
+                    }if (chunk_result > 0xFF){
+                        //split chunk in 2 parts
+                        unsigned char chunk_result_1 = (chunk_result >> 8) & 0xFF;
+                        unsigned char chunk_result_2 = (chunk_result & 0xFF);
+                        LED = chunk_result_1;
+                        LED = chunk_result_2;
                     }else{
                         LED = chunk_result;
                     }
