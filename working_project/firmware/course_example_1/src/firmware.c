@@ -151,6 +151,9 @@ int main(void) {
                         LED = chunk_result;
                     }
                     
+                    if (chunk_result == 0x41){
+                        LED = 0xFACC;
+                    }
 
                 //  if (chunk_result == 0x00000009){
                 //      LED = QOI_OP_DIFF | ((dr + 2) << 4) | ((dg + 2) << 2) | (db + 2);  

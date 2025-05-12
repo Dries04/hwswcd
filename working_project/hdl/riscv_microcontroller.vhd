@@ -177,7 +177,7 @@ begin
     );
     
 
-    PMUX_bus: process(dmem_a, dmem_do_tcnt, dmem_do_dmem, leds, dmem_do_wrapped_sensor)
+    PMUX_bus: process(dmem_a, dmem_do_tcnt, dmem_do_dmem, leds, dmem_do_wrapped_sensor, dmem_do_chunk)
     begin
         case dmem_a(dmem_a'high downto C_PERIPHERAL_MASK_LOWINDEX) is
             when C_LED_BASE_ADDRESS_MASK => dmem_do <= leds;
