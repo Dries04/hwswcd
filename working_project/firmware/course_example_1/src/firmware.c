@@ -135,27 +135,28 @@ int main(void) {
                     // LED = 0xF00DBA00;
                     //werkende versie, enkel de eerste paar pixels zijn niet correct, ergens een probleem met undefined behavior
                     unsigned int chunk_result;
+                    LED = chunk_result;
 
-                    chunk_result = chunk_fetch();
-                    if (chunk_result == 0x00000002){
-                        LED = QOI_OP_LUMA | (dg + 32);
-                            signed char dr_dg = dr - dg;
-                            signed char db_dg = db - dg;
-                        LED = ((dr_dg + 8) << 4) | (db_dg + 8);
-                    }else if (chunk_result == 0x00000003){
-                        LED = (QOI_OP_RGB);
-                        LED = (r_cur);
-                        LED = (g_cur);
-                        LED = (b_cur);
-                    }else if (chunk_result == 0x00000004){
-                        LED = (QOI_OP_RGB);
-                        LED = (r_cur);
-                        LED = (g_cur);
-                        LED = (b_cur);
-                    }else{
-                        LED = chunk_result;
-                        //LED = 0xEAE;
-                    }
+                    // chunk_result = chunk_fetch();
+                    // if (chunk_result == 0x00000002){
+                    //     LED = QOI_OP_LUMA | (dg + 32);
+                    //         signed char dr_dg = dr - dg;
+                    //         signed char db_dg = db - dg;
+                    //     LED = ((dr_dg + 8) << 4) | (db_dg + 8);
+                    // }else if (chunk_result == 0x00000003){
+                    //     LED = (QOI_OP_RGB);
+                    //     LED = (r_cur);
+                    //     LED = (g_cur);
+                    //     LED = (b_cur);
+                    // }else if (chunk_result == 0x00000004){
+                    //     LED = (QOI_OP_RGB);
+                    //     LED = (r_cur);
+                    //     LED = (g_cur);
+                    //     LED = (b_cur);
+                    // }else{
+                    //     LED = chunk_result;
+                    //     //LED = 0xEAE;
+                    // }
 
                     //  if ((dr >= -2 && dr <= 1) && (dg >= -2 && dg <= 1) && (db >= -2 && db <= 1)) {
 

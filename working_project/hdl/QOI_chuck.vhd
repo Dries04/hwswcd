@@ -48,8 +48,13 @@ architecture Behavioral of QOI_chuck is
     
     signal dr2, dg2, db2 : std_logic_vector(1 downto 0);
     signal result_1 : std_logic_vector(7 downto 0);
-
     
+    signal dg_plus_32 : unsigned(7 downto 0);
+    signal luma_result : std_logic_vector(7 downto 0);
+
+    signal drdg_add8, dbdg_add8 : unsigned(3 downto 0);
+    signal led_result : std_logic_vector(7 downto 0);
+
 begin
 
     -------------------------------------------------------------------------------
@@ -74,13 +79,9 @@ begin
     db_unsigned <= unsigned (b_cur) - unsigned (b_prev);
 
     -- Conversie naar signed (type casting)
---    dr <= signed(dr_unsigned);
---    dg <= signed(dg_unsigned);
---    db <= signed(db_unsigned);
-
-    dr <= signed('0' & r_cur) - signed('0' & r_prev);
-    dg <= signed('0' & g_cur) - signed('0' & g_prev);
-    db <= signed('0' & b_cur) - signed('0' & b_prev);
+    dr <= signed(dr_unsigned);
+    dg <= signed(dg_unsigned);
+    db <= signed(db_unsigned);
     
     dr_dg <= dr - dg;
     db_dg <= db - dg;
@@ -113,10 +114,16 @@ begin
             
             if ((dr - dg) >= -8 and (dr - dg) <= 7) and ((db - dg) >= -8 and (db - dg) <= 7) then
             -- QOI OP LIMA
-                result <= "00000000000000000000000000000010";
+                --result <= "00000000000000000000000000000010";
                 
 --                result <= QOI_OP_LUMA or std_logic_vector(dg + to_signed(32, 8));
-              
+                
+                -- Alleen binnen het if-statement voor QOI_OP_LUMA
+                dg_plus_32 <= unsigned(dg) + to_unsigned(32, 8);
+                luma_result <= QOI_OP_LUMA or std_logic_vector(dg_plus_32);
+                result <= (31 downto 8 => '0') & luma_result;
+
+
             else
             -- QOI OP RGB
                 result <= "00000000000000000000000000000011";
