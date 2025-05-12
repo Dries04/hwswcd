@@ -250,7 +250,7 @@ begin
     wrapped_qoi_chunk_1: component wrapped_qoi_chunk port map(
         clock => clock,
         reset => reset,
-        iface_di => dmem_di,
+        iface_di => dmem_do_wrapped_sensor,
         iface_a => dmem_a,
         iface_we => dmem_we,
         iface_do => dmem_do_chunk

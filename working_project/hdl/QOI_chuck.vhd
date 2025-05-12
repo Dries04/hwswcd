@@ -11,6 +11,7 @@ entity QOI_chuck is
         clock: in std_logic;
         reset: in std_logic;
         pixel_data: in STD_LOGIC_VECTOR(C_WIDTH-1 downto 0);
+        pixel_data_prev : in  std_logic_vector(C_WIDTH-1 downto 0);
         result_out: out std_logic_vector(C_WIDTH-1 downto 0)
     );
 end QOI_chuck;
@@ -51,6 +52,10 @@ architecture Behavioral of QOI_chuck is
     signal db_plus_2 : std_logic_vector(1 downto 0);
     
     signal result: std_logic_vector (31 downto 0);
+    signal pixeldata_i, pixeldata_prev_i : std_logic_vector (31 downto 0);
+    
+    signal dr_dg, db_dg       : signed(7 downto 0);
+    constant QOI_OP_LUMA  : std_logic_vector(7 downto 0) := x"80";
     
 begin
 
@@ -59,12 +64,17 @@ begin
     -------------------------------------------------------------------------------
     clock_i <= clock;
     reset_i <= reset;
-    pixeldata <= pixeldata;
+    pixeldata_i <= pixel_data;
+    pixeldata_prev_i <= pixel_data_prev;
     result_out <= result;
     
-    r_cur <= pixeldata(31 downto 24);
-    g_cur <= pixeldata(23 downto 16);
-    b_cur <= pixeldata(15 downto 8);
+    r_cur <= pixeldata_i(31 downto 24);
+    g_cur <= pixeldata_i(23 downto 16);
+    b_cur <= pixeldata_i(15 downto 8);
+    
+    r_prev <= pixeldata_prev_i(31 downto 24);
+    g_prev <= pixeldata_prev_i(23 downto 16);
+    b_prev <= pixeldata_prev_i(15 downto 8);
     
     dr_unsigned <= unsigned(r_cur) - unsigned (r_prev);
     dg_unsigned <= unsigned (g_cur) - unsigned (g_prev);
@@ -75,70 +85,61 @@ begin
     dg <= signed(dg_unsigned);
     db <= signed(db_unsigned);
     
-    process (dr, dg, db, r_cur, g_cur, b_cur)
-    begin
-        if (dr >= -2 and dr <= 1) and (dg >= -2 and dg <= 1) and (db >= -2 and db <= 1) then
-            result <= "00000000000000000000000000000001";
-            make_current_previous <= '1';
---            part_1 <= "01000000";
---            case dr is
---                when "11111110" => dr_plus_2 <= "00"; -- -2 + 2 = 0
---                when "11111111" => dr_plus_2 <= "01"; -- -1 + 2 = 1
---                when "00000000" => dr_plus_2 <= "10"; --  0 + 2 = 2
---                when "00000001" => dr_plus_2 <= "11"; --  1 + 2 = 3
---                when others     => dr_plus_2 <= "00"; -- default/failsafe
---            end case;
---            part_2 <= dr_plus_2 & "0000";
---            case dg is
---                when "11111110" => dr_plus_2 <= "00"; -- -2 + 2 = 0
---                when "11111111" => dr_plus_2 <= "01"; -- -1 + 2 = 1
---                when "00000000" => dr_plus_2 <= "10"; --  0 + 2 = 2
---                when "00000001" => dr_plus_2 <= "11"; --  1 + 2 = 3
---                when others     => dr_plus_2 <= "00"; -- default/failsafe
---            end case;
---            part_3 <= dg_plus_2 & "00";
---            case db is
---                when "11111110" => dr_plus_2 <= "00"; -- -2 + 2 = 0
---                when "11111111" => dr_plus_2 <= "01"; -- -1 + 2 = 1
---                when "00000000" => dr_plus_2 <= "10"; --  0 + 2 = 2
---                when "00000001" => dr_plus_2 <= "11"; --  1 + 2 = 3
---                when others     => dr_plus_2 <= "00"; -- default/failsafe
---            end case;
---            part_4 <= db_plus_2;  
---            result <= part_1 or part_2 or part_3 or part_4;       
-    elsif (dg >= -32 and dg <= 31) then
-        
-        if ((dr - dg) >= -8 and (dr - dg) <= 7) and ((db - dg) >= -8 and (db - dg) <= 7) then
-        -- QOI OP LIMA
-            result <= "00000000000000000000000000000011";
-            make_current_previous <= '1';
-        else
-        -- QOI OP RGB
-            result <= "00000000000000000000000000000010";
-            make_current_previous <= '1';
-        end if;
-        
-    else 
-    -- QOI OP RGBA
-        result <= "00000000000000000000000000000100";
-        make_current_previous <= '1';
-    end if;
-    end process;
+    dr_dg <= dr - dg;
+    db_dg <= db - dg;
     
-    process (make_current_previous)
-    begin
-      if make_current_previous = '1' and first_pixel = '0' then
-        r_prev <= r_cur;
-        g_prev <= g_cur;
-        b_prev <= b_cur;
-        make_current_previous <= '0';
-      elsif make_current_previous = '1' and first_pixel = '1' then
-        r_prev <= (others => '0');
-        g_prev <= (others => '0');
-        b_prev <= (others => '0');
-        make_current_previous <= '0';
-        first_pixel <= '0';
-      end if;
+    
+    process (dr, dg, db)
+    begin      
+            if (dr >= -2 and dr <= 1) and (dg >= -2 and dg <= 1) and (db >= -2 and db <= 1) then
+--                result <= "00000000000000000000000000000001";
+                part_1 <= "01000000";
+                case dr is
+                    when "11111110" => dr_plus_2 <= "00"; -- -2 + 2 = 0
+                    when "11111111" => dr_plus_2 <= "01"; -- -1 + 2 = 1
+                    when "00000000" => dr_plus_2 <= "10"; --  0 + 2 = 2
+                    when "00000001" => dr_plus_2 <= "11"; --  1 + 2 = 3
+                    when others     => dr_plus_2 <= "00"; -- default/failsafe
+                end case;
+                part_2 <= dr_plus_2 & "0000";
+                case dg is
+                    when "11111110" => dr_plus_2 <= "00"; -- -2 + 2 = 0
+                    when "11111111" => dr_plus_2 <= "01"; -- -1 + 2 = 1
+                    when "00000000" => dr_plus_2 <= "10"; --  0 + 2 = 2
+                    when "00000001" => dr_plus_2 <= "11"; --  1 + 2 = 3
+                    when others     => dr_plus_2 <= "00"; -- default/failsafe
+                end case;
+                part_3 <= dg_plus_2 & "00";
+                case db is
+                    when "11111110" => dr_plus_2 <= "00"; -- -2 + 2 = 0
+                    when "11111111" => dr_plus_2 <= "01"; -- -1 + 2 = 1
+                    when "00000000" => dr_plus_2 <= "10"; --  0 + 2 = 2
+                    when "00000001" => dr_plus_2 <= "11"; --  1 + 2 = 3
+                    when others     => dr_plus_2 <= "00"; -- default/failsafe
+                end case;
+                part_4 <= db_plus_2;  
+                result <= part_1 or part_2 or part_3 or part_4; 
+                      
+        elsif (dg >= -32 and dg <= 31) then
+            
+            if ((dr - dg) >= -8 and (dr - dg) <= 7) and ((db - dg) >= -8 and (db - dg) <= 7) then
+            -- QOI OP LIMA
+                result <= "00000000000000000000000000000010";
+                
+--                result <= QOI_OP_LUMA or std_logic_vector(dg + to_signed(32, 8));
+              
+            else
+            -- QOI OP RGB
+                result <= "00000000000000000000000000000011";
+               
+            end if;
+            
+        else 
+        -- QOI OP RGBA
+            result <= "00000000000000000000000000000100";
+          
+        end if;
     end process;
+   
 
 end Behavioral;
