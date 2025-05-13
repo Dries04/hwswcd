@@ -1,6 +1,6 @@
 #include "tcnt.h"
 #include "sensor.h"
-#include "chunk.h"
+#include "qoi_chunk.h"
 
 #define QOI_OP_INDEX 0x00 // 00xxxxxx
 #define QOI_OP_DIFF  0x40 // 01xxxxxx
