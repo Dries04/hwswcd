@@ -29,7 +29,7 @@ RAM              0x00002000         0x00002000         xrw
 Linker script and memory map
 
 
-.text           0x00000000      0x5cc
+.text           0x00000000      0x674
                 0x00000000                        . = 0x0
  *(.init)
  .init          0x00000000      0x230 build/start.o
@@ -49,11 +49,14 @@ Linker script and memory map
                 0x00000320                TCNT_stop
  .text          0x00000334        0xc build/qoi_chunk.o
                 0x00000334                chunk_fetch
- .text          0x00000340       0x18 build/firmware.o
-                0x00000340                irq_handler
- .text.startup  0x00000358      0x274 build/firmware.o
-                0x00000358                main
- .text          0x000005cc        0x0 build/start.o
+ .text          0x00000340       0x94 build/firmware.o
+                0x00000340                Multiply
+                0x0000036c                irq_handler
+                0x00000384                closest_difference
+                0x00000390                pixel_hash
+ .text.startup  0x000003d4      0x2a0 build/firmware.o
+                0x000003d4                main
+ .text          0x00000674        0x0 build/start.o
 
 .data           0x00002000        0x0
                 0x00000000                        . = 0x0
