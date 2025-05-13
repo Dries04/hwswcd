@@ -38,27 +38,27 @@ void irq_handler(unsigned int cause) {
     TCNT_CR = 0x7;
 }
 
-// unsigned char pixel_hash(unsigned char r, unsigned char g, unsigned char b, unsigned char a) {
-//     return (Multiply(r, 3) + Multiply(g, 5) + Multiply(b, 7) + Multiply(a, 11)) & 0x3F;
-// }
-
 unsigned char pixel_hash(unsigned char r, unsigned char g, unsigned char b, unsigned char a) {
-    unsigned int sum = 0;
-
-    // r * 3 = (r << 1) + r
-    sum += (r << 1) + r;
-
-    // g * 5 = (g << 2) + g
-    sum += (g << 2) + g;
-
-    // b * 7 = (b << 3) - b
-    sum += (b << 3) - b;
-
-    // a * 11 = (a << 3) + (a << 1) - a
-    sum += (a << 3) + (a << 1) - a;                          
-
-    return sum & 0x3F;
+    return (Multiply(r, 3) + Multiply(g, 5) + Multiply(b, 7) + Multiply(a, 11)) & 0x3F;
 }
+
+// unsigned char pixel_hash(unsigned char r, unsigned char g, unsigned char b, unsigned char a) {
+//     unsigned int sum = 0;
+
+//     // r * 3 = (r << 1) + r
+//     sum += (r << 1) + r;
+
+//     // g * 5 = (g << 2) + g
+//     sum += (g << 2) + g;
+
+//     // b * 7 = (b << 3) - b
+//     sum += (b << 3) - b;
+
+//     // a * 11 = (a << 3) + (a << 1) - a
+//     sum += (a << 3) + (a << 1) - a;                          
+
+//     return sum & 0x3F;
+// }
 
 int main(void) {
     
