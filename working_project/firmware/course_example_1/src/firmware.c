@@ -1,4 +1,4 @@
-=#include "tcnt.h"
+#include "tcnt.h"
 #include "sensor.h"
 #include "qoi_chunk.h"
 
