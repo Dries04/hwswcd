@@ -38,8 +38,8 @@ void irq_handler(unsigned int cause) {
     TCNT_CR = 0x7;
 }
 
-unsigned char pixel_hash(unsigned char r, unsigned char g, unsigned char b) {
-    return (Multiply(r, 3) + Multiply(g, 5) + Multiply(b, 7)) & 0x3F;
+unsigned char pixel_hash(unsigned char r, unsigned char g, unsigned char b, unsigned char a) {
+    return (Multiply(r, 3) + Multiply(g, 5) + Multiply(b, 7) + Multiply(a, 11)) & 0x3F;
 }
 
 int main(void) {
@@ -91,9 +91,26 @@ int main(void) {
                     LED = (QOI_OP_RUN | (run - 1));
                     run = 0;
                 }
+                
+                unsigned int sum = 0;
 
-                unsigned char index = pixel_hash(r_cur, g_cur, b_cur);
-                unsigned int current_pixel = (r_cur << 24) | (g_cur << 16) | (b_cur << 8) ;
+                // r * 3 = (r << 1) + r
+                sum += (r_cur << 1) + r_cur;
+
+                // g * 5 = (g << 2) + g
+                sum += (g_cur << 2) + g_cur;
+
+                // b * 7 = (b << 3) - b
+                sum += (b_cur << 3) - b_cur;
+
+                // a * 11 = (a << 3) + (a << 1) - a
+                sum += (a_cur << 3) + (a_cur << 1) - a_cur;
+
+
+
+                //unsigned char index = pixel_hash(r_cur, g_cur, b_cur, a_cur);
+                unsigned char index = sum & 0x3F;
+                unsigned int current_pixel = (r_cur << 24) | (g_cur << 16) | (b_cur << 8) | a_cur;
 
                 if (running_array[index] == current_pixel) {
                     LED = QOI_OP_INDEX | index;
