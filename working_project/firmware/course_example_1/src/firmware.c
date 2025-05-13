@@ -38,13 +38,8 @@ void irq_handler(unsigned int cause) {
     TCNT_CR = 0x7;
 }
 
-unsigned char closest_difference(unsigned char current, unsigned char prev) {
-    signed char diff = (current >= prev) ? current - prev : 256 - (prev - current);
-    return diff;
-}
-
-unsigned char pixel_hash(unsigned char r, unsigned char g, unsigned char b, unsigned char a) {
-    return (Multiply(r, 3) + Multiply(g, 5) + Multiply(b, 7) + Multiply(a, 11)) & 0x3F;
+unsigned char pixel_hash(unsigned char r, unsigned char g, unsigned char b) {
+    return (Multiply(r, 3) + Multiply(g, 5) + Multiply(b, 7)) & 0x3F;
 }
 
 int main(void) {
@@ -97,8 +92,8 @@ int main(void) {
                     run = 0;
                 }
 
-                unsigned char index = pixel_hash(r_cur, g_cur, b_cur, a_cur);
-                unsigned int current_pixel = (r_cur << 24) | (g_cur << 16) | (b_cur << 8) | a_cur;
+                unsigned char index = pixel_hash(r_cur, g_cur, b_cur);
+                unsigned int current_pixel = (r_cur << 24) | (g_cur << 16) | (b_cur << 8) ;
 
                 if (running_array[index] == current_pixel) {
                     LED = QOI_OP_INDEX | index;
